@@ -8,6 +8,20 @@ export default function AgeCalculator() {
   const [day, setDay] = useState("");
   const [age, setAge] = useState<number | null>(null);
 
+  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value.length > 4) return;
+    setYear(value);
+  };
+
+  const handleMonthDayChange = (e: React.ChangeEvent<HTMLInputElement>, setter: (value: string) => void) => {
+    const value = e.target.value;
+    if (value.length <= 2) {
+      setter(value);
+    }
+  };
+  
+  
   const calculateAge = () => {
     if (!year || !month || !day) return;
     
@@ -37,13 +51,13 @@ export default function AgeCalculator() {
                   id="year"
                   type="number"
                   value={year}
-                  onChange={(e) => setYear(e.target.value)}
+                  onChange={handleYearChange}
                   placeholder="YYYY"
                   min="1900"
                   max="2100"
-                  className="border border-gray-300 rounded-l-md px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-4 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg">
+                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   년
                 </span>
               </div>
@@ -55,13 +69,13 @@ export default function AgeCalculator() {
                   id="month"
                   type="number"
                   value={month}
-                  onChange={(e) => setMonth(e.target.value)}
+                  onChange={(e) => handleMonthDayChange(e, setMonth)}
                   placeholder="MM"
                   min="1"
                   max="12"
-                  className="border border-gray-300 rounded-l-md px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-4 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg">
+                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   월
                 </span>
               </div>
@@ -73,13 +87,13 @@ export default function AgeCalculator() {
                   id="day"
                   type="number"
                   value={day}
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handleMonthDayChange(e, setDay)}
                   placeholder="DD"
                   min="1"
                   max="31"
-                  className="border border-gray-300 rounded-l-md px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-4 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg">
+                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   일
                 </span>
               </div>
