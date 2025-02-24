@@ -63,9 +63,18 @@ export default function DrawerNavigation() {
 
           <nav className="mt-8">
             <ul className="space-y-2">
-              <li>
+            <li>
                 <Link
                   href="/"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/age-calculator"
                   className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
@@ -74,11 +83,11 @@ export default function DrawerNavigation() {
               </li>
               <li>
                 <Link
-                  href="/another-page"
+                  href="/pages/zodiac-calculator"
                   className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
                   onClick={() => setIsOpen(false)}
                 >
-                  Another Page
+                  띠 계산기
                 </Link>
               </li>
               {/* 추가 메뉴 항목들 */}
