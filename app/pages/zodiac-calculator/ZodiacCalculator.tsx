@@ -14,7 +14,6 @@ export default function ZodiacCalculator() {
 
   const getZodiacSign = (year: number) => {
     const zodiacSigns = [
-      "원숭이",
       "닭",
       "개",
       "돼지",
