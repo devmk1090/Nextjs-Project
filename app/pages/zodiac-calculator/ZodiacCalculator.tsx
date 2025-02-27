@@ -14,9 +14,6 @@ export default function ZodiacCalculator() {
 
   const getZodiacSign = (year: number) => {
     const zodiacSigns = [
-      "닭",
-      "개",
-      "돼지",
       "쥐",
       "소",
       "호랑이",
@@ -25,8 +22,12 @@ export default function ZodiacCalculator() {
       "뱀",
       "말",
       "양",
+      "원숭이",
+      "닭",
+      "개",
+      "돼지",
     ];
-    return zodiacSigns[year % 12];
+    return zodiacSigns[(year - 4) % 12];
   };
 
   const calculateZodiac = () => {
@@ -47,7 +48,7 @@ export default function ZodiacCalculator() {
           띠 계산기
         </h1>
         <div className="space-y-6">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid justify-center">
             <div className="flex flex-col">
               <div className="flex">
                 <input
