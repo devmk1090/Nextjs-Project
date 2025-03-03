@@ -17,7 +17,22 @@ export default function Home() {
                 만 나이 계산기
               </Link>
             </li>
-            {/* 추가 메뉴 항목들 */}
+            <li>
+              <Link
+                href="/pages/zodiac-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                띠 계산기
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/pages/constellation-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                별자리 계산기
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
