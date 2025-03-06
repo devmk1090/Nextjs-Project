@@ -33,6 +33,14 @@ export default function Home() {
                 별자리 계산기
               </Link>
             </li>
+            <li>
+              <Link
+                href="/pages/lunar-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                음력 생일 계산기
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
