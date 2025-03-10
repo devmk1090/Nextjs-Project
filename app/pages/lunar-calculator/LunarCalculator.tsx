@@ -76,7 +76,7 @@ export default function LunarCalculator() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
       <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          음력 생일 계산기
+          음력 날짜 계산기
         </h1>
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-4">
@@ -133,7 +133,7 @@ export default function LunarCalculator() {
             onClick={calculateLunarDate}
             className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
           >
-            계산하기
+            음력으로 변환하기
           </button>
 
           {error && (

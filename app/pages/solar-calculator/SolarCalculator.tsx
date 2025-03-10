@@ -72,7 +72,7 @@ export default function SolarCalculator() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
       <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
         <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
-          양력 변환 계산기
+          양력 날짜 계산기
         </h1>
         <div className="space-y-6">
           <div className="grid grid-cols-3 gap-4">
