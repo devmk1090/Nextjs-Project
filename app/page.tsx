@@ -2,11 +2,11 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "한국 날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
+  title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
   description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, 한국 전통 명절 음력 날짜 확인까지 모든 날짜 계산 서비스를 제공합니다.",
   keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "음력 계산기", "양력 계산기", "날짜 계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "무료 계산기"],
   openGraph: {
-    title: "한국 날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
+    title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
     description: "만 나이, 띠, 별자리, 음력/양력 변환 등 모든 날짜 계산 서비스 무료 제공",
     type: "website",
   },
@@ -17,7 +17,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          한국 날짜 계산기 모음
+          날짜 계산기 모음
         </h1>
 
         <p className="text-gray-700 text-center mb-8 leading-relaxed">
@@ -56,7 +56,7 @@ export default function Home() {
                 href="/pages/lunar-calculator"
                 className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
               >
-                음력 생일 계산기
+                음력 변환 계산기
               </Link>
             </li>
             <li>
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="mt-8 p-6 bg-blue-50 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">서비스 소개</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            한국 날짜 계산기는 한국인의 일상생활에 필요한 다양한 날짜 관련 계산 도구를 제공합니다.
+            날짜 계산기는 한국인의 일상생활에 필요한 다양한 날짜 관련 계산 도구를 제공합니다.
             2023년부터 시행된 만 나이 통일법에 따른 정확한 만 나이 계산부터, 전통적으로 중요시되는 띠와 별자리 정보,
             그리고 한국 전통 명절에 필수적인 음력/양력 변환까지 모든 기능을 한 곳에서 편리하게 이용할 수 있습니다.
           </p>
