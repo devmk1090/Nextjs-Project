@@ -1,0 +1,25 @@
+# *
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://all-in-one-k-calculator.vercel.app/sitemap.xml
+
+# Google Bot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing Bot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 0
+
+# Yandex Bot
+User-agent: Yandex
+Allow: /
+Crawl-delay: 0
+
+# Block these paths (if needed in the future)
+# Disallow: /api/
+# Disallow: /admin/
