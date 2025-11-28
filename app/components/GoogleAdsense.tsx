@@ -16,7 +16,7 @@ export default function GoogleAdsense() {
       script.id = "google-adsense";
       script.async = true;
       script.crossOrigin = "anonymous";
-      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.ADSENSE_CLIENT_KEY}`;
+      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_CLIENT_KEY}`;
       
       // 스크립트를 head에 추가
       document.head.appendChild(script);
