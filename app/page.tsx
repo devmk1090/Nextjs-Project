@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
-  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, 한국 전통 명절 음력 날짜 확인까지 모든 날짜 계산 서비스를 제공합니다.",
-  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "음력 계산기", "양력 계산기", "날짜 계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "무료 계산기"],
+  title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환",
+  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, D-day 계산, 요일 확인, 기념일 자동 계산, 한국 전통 명절 음력 날짜 확인까지 모든 날짜 계산 서비스를 제공합니다.",
+  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "디데이 계산기", "요일 계산기", "기념일 계산기", "음력 계산기", "양력 계산기", "날짜 계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "D-day", "100일", "200일", "무료 계산기"],
   openGraph: {
-    title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 음력/양력 변환",
-    description: "만 나이, 띠, 별자리, 음력/양력 변환 등 모든 날짜 계산 서비스 무료 제공",
+    title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환",
+    description: "만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환 등 모든 날짜 계산 서비스 무료 제공",
     type: "website",
   },
 };
@@ -21,8 +21,8 @@ export default function Home() {
         </h1>
 
         <p className="text-gray-700 text-center mb-8 leading-relaxed">
-          만 나이, 띠, 별자리부터 음력/양력 변환까지 다양한 날짜 계산기를 무료로 이용하세요.
-          생년월일만 입력하면 정확한 결과를 바로 확인할 수 있습니다.
+          만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환까지 다양한 날짜 계산기를 무료로 이용하세요.
+          생년월일이나 날짜만 입력하면 정확한 결과를 바로 확인할 수 있습니다.
         </p>
 
         <nav>
@@ -65,6 +65,30 @@ export default function Home() {
                 className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
               >
                 양력 변환 계산기
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/pages/dday-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                디데이 계산기
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/pages/day-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                요일 계산기
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/pages/anniversary-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                기념일 계산기
               </Link>
             </li>
           </ul>
@@ -110,6 +134,24 @@ export default function Home() {
               <h3 className="font-bold text-gray-800 mb-2">🌙 음력/양력 변환</h3>
               <p className="text-sm text-gray-700">
                 양력을 음력으로, 음력을 양력으로 간편하게 변환합니다. 전통 명절 날짜 확인과 음력 생일 계산에 유용합니다.
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold text-gray-800 mb-2">⏰ 디데이 계산기</h3>
+              <p className="text-sm text-gray-700">
+                목표 날짜까지 남은 일수를 계산합니다. 수능, 결혼식, 제대일 등 중요한 날까지 D-day를 확인하세요.
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold text-gray-800 mb-2">📆 요일 계산기</h3>
+              <p className="text-sm text-gray-700">
+                특정 날짜의 요일을 확인합니다. 내가 태어난 날, 기념일의 요일을 쉽게 찾아보세요.
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold text-gray-800 mb-2">🎉 기념일 계산기</h3>
+              <p className="text-sm text-gray-700">
+                시작일로부터 100일, 200일, 1년 등 주요 기념일을 자동으로 계산합니다. 연애, 결혼, 출생 기념일에 유용합니다.
               </p>
             </div>
           </div>

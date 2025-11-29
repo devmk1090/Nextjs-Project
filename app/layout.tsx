@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://yourdomain.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://all-in-one-k-calculator.vercel.app/'),
   openGraph: {
     type: 'website',
     locale: 'ko_KR',

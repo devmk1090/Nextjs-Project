@@ -117,6 +117,33 @@ export default function DrawerNavigation() {
                   양력 날짜 계산기
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/pages/dday-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  디데이 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/day-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  요일 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/anniversary-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  기념일 계산기
+                </Link>
+              </li>
               {/* 추가 메뉴 항목들 */}
             </ul>
           </nav>
