@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환",
-  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, D-day 계산, 요일 확인, 기념일 자동 계산, 한국 전통 명절 음력 날짜 확인까지 모든 날짜 계산 서비스를 제공합니다.",
-  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "디데이 계산기", "요일 계산기", "기념일 계산기", "음력 계산기", "양력 계산기", "날짜 계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "D-day", "100일", "200일", "무료 계산기"],
+  title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, 음력/양력 변환",
+  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 근무일수 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, D-day 계산, 요일 확인, 기념일 자동 계산, 재직기간 및 연차 계산, 한국 전통 명절 음력 날짜 확인까지 모든 계산 서비스를 제공합니다.",
+  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "디데이 계산기", "요일 계산기", "기념일 계산기", "근무일수 계산기", "연차 계산기", "재직기간 계산기", "퇴직금 계산기", "음력 계산기", "양력 계산기", "계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "D-day", "100일", "200일", "무료 계산기"],
   openGraph: {
-    title: "날짜 계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환",
-    description: "만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환 등 모든 날짜 계산 서비스 무료 제공",
+    title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, 음력/양력 변환",
+    description: "만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, 음력/양력 변환 등 모든 계산 서비스 무료 제공",
     type: "website",
   },
 };
@@ -17,11 +17,11 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          날짜 계산기 모음
+          계산기 모음
         </h1>
 
         <p className="text-gray-700 text-center mb-8 leading-relaxed">
-          만 나이, 띠, 별자리, 디데이, 요일, 기념일, 음력/양력 변환까지 다양한 날짜 계산기를 무료로 이용하세요.
+          만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, 음력/양력 변환까지 다양한 계산기를 무료로 이용하세요.
           생년월일이나 날짜만 입력하면 정확한 결과를 바로 확인할 수 있습니다.
         </p>
 
@@ -91,6 +91,14 @@ export default function Home() {
                 기념일 계산기
               </Link>
             </li>
+            <li>
+              <Link
+                href="/pages/work-period-calculator"
+                className="block px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-md text-center text-lg transition-colors"
+              >
+                근무일수 계산기
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -98,7 +106,7 @@ export default function Home() {
         <div className="mt-8 p-6 bg-blue-50 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">서비스 소개</h2>
           <p className="text-gray-700 leading-relaxed mb-4">
-            날짜 계산기는 한국인의 일상생활에 필요한 다양한 날짜 관련 계산 도구를 제공합니다.
+            계산기 모음은 한국인의 일상생활에 필요한 다양한 계산 도구를 제공합니다.
             2023년부터 시행된 만 나이 통일법에 따른 정확한 만 나이 계산부터, 전통적으로 중요시되는 띠와 별자리 정보,
             그리고 한국 전통 명절에 필수적인 음력/양력 변환까지 모든 기능을 한 곳에서 편리하게 이용할 수 있습니다.
           </p>
@@ -152,6 +160,12 @@ export default function Home() {
               <h3 className="font-bold text-gray-800 mb-2">🎉 기념일 계산기</h3>
               <p className="text-sm text-gray-700">
                 시작일로부터 100일, 200일, 1년 등 주요 기념일을 자동으로 계산합니다. 연애, 결혼, 출생 기념일에 유용합니다.
+              </p>
+            </div>
+            <div className="p-4 bg-white rounded-lg">
+              <h3 className="font-bold text-gray-800 mb-2">💼 근무일수 계산기</h3>
+              <p className="text-sm text-gray-700">
+                입사일 기준으로 근무 기간, 연차 개수, 예상 퇴직금을 계산합니다. 직장인을 위한 필수 도구입니다.
               </p>
             </div>
           </div>

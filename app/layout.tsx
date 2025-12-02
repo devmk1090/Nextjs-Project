@@ -9,14 +9,14 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "날짜 계산기 - 만 나이, 띠, 별자리, 음력/양력 변환",
-    template: "%s | 날짜 계산기"
+    default: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, 음력/양력 변환",
+    template: "%s | 계산기 모음"
   },
-  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 음력/양력 변환기를 무료로 제공합니다. 정확한 계산 결과와 상세한 정보를 확인하세요.",
-  keywords: ["만 나이", "띠", "별자리", "음력", "양력", "계산기", "한국 나이", "십이지", "날짜 변환"],
-  authors: [{ name: "날짜 계산기" }],
-  creator: "날짜 계산기",
-  publisher: "날짜 계산기",
+  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 근무일수 계산기, 음력/양력 변환기를 무료로 제공합니다. 정확한 계산 결과와 상세한 정보를 확인하세요.",
+  keywords: ["만 나이", "띠", "별자리", "디데이", "요일", "기념일", "근무일수", "연차", "음력", "양력", "계산기", "한국 나이", "십이지", "D-day", "100일", "200일"],
+  authors: [{ name: "계산기 모음" }],
+  creator: "계산기 모음",
+  publisher: "계산기 모음",
   formatDetection: {
     email: false,
     address: false,
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
-    siteName: '날짜 계산기',
+    siteName: '계산기 모음',
   },
   robots: {
     index: true,
