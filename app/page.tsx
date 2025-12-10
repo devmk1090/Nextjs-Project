@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 음력/양력 변환",
-  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 근무일수 계산기, BMI 계산기, 예금/적금 이자 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, D-day 계산, 요일 확인, 기념일 자동 계산, 재직기간 및 연차 계산, 체질량지수 및 표준체중, 예금 적금 이자 및 세후 금액, 한국 전통 명절 음력 날짜 확인까지 모든 계산 서비스를 제공합니다.",
-  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "디데이 계산기", "요일 계산기", "기념일 계산기", "근무일수 계산기", "연차 계산기", "재직기간 계산기", "퇴직금 계산기", "BMI 계산기", "체질량지수", "표준체중", "비만도", "예금 이자 계산기", "적금 이자 계산기", "이자소득세", "복리 계산", "음력 계산기", "양력 계산기", "계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "D-day", "100일", "200일", "무료 계산기"],
+  title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 단위 변환, 음력/양력 변환",
+  description: "만 나이 계산기, 띠 계산기, 별자리 계산기, 디데이 계산기, 요일 계산기, 기념일 계산기, 근무일수 계산기, BMI 계산기, 예금/적금 이자 계산기, 단위 변환 계산기, 음력/양력 변환기를 한 곳에서 무료로 이용하세요. 2023년 만 나이 통일법 적용, 십이지 띠 궁합, 12 별자리 정보, D-day 계산, 요일 확인, 기념일 자동 계산, 재직기간 및 연차 계산, 체질량지수 및 표준체중, 예금 적금 이자 및 세후 금액, 길이 무게 부피 온도 단위 변환, 한국 전통 명절 음력 날짜 확인까지 모든 계산 서비스를 제공합니다.",
+  keywords: ["만 나이 계산기", "띠 계산기", "별자리 계산기", "디데이 계산기", "요일 계산기", "기념일 계산기", "근무일수 계산기", "연차 계산기", "재직기간 계산기", "퇴직금 계산기", "BMI 계산기", "체질량지수", "표준체중", "비만도", "예금 이자 계산기", "적금 이자 계산기", "이자소득세", "복리 계산", "단위 변환", "길이 변환", "무게 변환", "부피 변환", "온도 변환", "섭씨 화씨", "음력 계산기", "양력 계산기", "계산기", "한국 나이", "십이지", "음력 변환", "양력 변환", "D-day", "100일", "200일", "무료 계산기"],
   openGraph: {
-    title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 음력/양력 변환",
-    description: "만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 음력/양력 변환 등 모든 계산 서비스 무료 제공",
+    title: "계산기 모음 - 만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 단위 변환, 음력/양력 변환",
+    description: "만 나이, 띠, 별자리, 디데이, 요일, 기념일, 근무일수, BMI, 예금/적금 이자, 단위 변환, 음력/양력 변환 등 모든 계산 서비스 무료 제공",
     type: "website",
   },
 };
@@ -130,6 +130,16 @@ export default function Home() {
               예금과 적금의 이자를 계산합니다. 세전/세후 금액과 이자소득세까지 자동으로 계산합니다.
             </p>
           </Link>
+
+          <Link
+            href="/pages/unit-converter"
+            className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+          >
+            <h3 className="font-bold text-gray-800 mb-2">🔄 단위 변환 계산기</h3>
+            <p className="text-sm text-gray-700">
+              길이, 무게, 부피, 온도 단위를 변환합니다. 미터, 킬로그램, 리터, 섭씨 등 다양한 단위를 쉽게 변환하세요.
+            </p>
+          </Link>
         </div>
 
         {/* 이용 방법 */}
@@ -142,14 +152,10 @@ export default function Home() {
             </li>
             <li className="flex items-start">
               <span className="font-bold text-blue-600 mr-3">2.</span>
-              <span className="text-gray-700">생년월일 또는 날짜를 입력합니다. (년/월/일 형식)</span>
-            </li>
-            <li className="flex items-start">
-              <span className="font-bold text-blue-600 mr-3">3.</span>
               <span className="text-gray-700">계산하기 버튼을 클릭하면 즉시 결과를 확인할 수 있습니다.</span>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-blue-600 mr-3">4.</span>
+              <span className="font-bold text-blue-600 mr-3">3.</span>
               <span className="text-gray-700">페이지 하단의 상세 정보를 통해 더 많은 내용을 알아보세요.</span>
             </li>
           </ol>
@@ -159,10 +165,6 @@ export default function Home() {
         <div className="mt-8 p-6 bg-yellow-50 rounded-lg">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">자주 묻는 질문</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-yellow-400 pl-4">
-              <h3 className="font-bold text-gray-800 mb-2">Q. 계산 결과가 정확한가요?</h3>
-              <p className="text-gray-700">A. 네, 모든 계산기는 공인된 알고리즘을 사용하여 정확한 결과를 제공합니다. 만 나이는 2023년 시행된 법령에 따르며, 음력/양력 변환은 1900년부터 2100년까지 정확하게 지원합니다.</p>
-            </div>
             <div className="border-l-4 border-yellow-400 pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 회원가입이 필요한가요?</h3>
               <p className="text-gray-700">A. 아니요, 모든 계산기는 회원가입 없이 무료로 이용할 수 있습니다.</p>
