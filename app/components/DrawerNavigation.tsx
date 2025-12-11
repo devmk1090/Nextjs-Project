@@ -180,6 +180,15 @@ export default function DrawerNavigation() {
                   단위 변환 계산기
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/pages/pyeong-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  평형/평수 계산기
+                </Link>
+              </li>
               {/* 추가 메뉴 항목들 */}
             </ul>
           </nav>

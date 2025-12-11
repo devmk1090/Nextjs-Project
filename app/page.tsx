@@ -140,6 +140,16 @@ export default function Home() {
               길이, 무게, 부피, 온도 단위를 변환합니다. 미터, 킬로그램, 리터, 섭씨 등 다양한 단위를 쉽게 변환하세요.
             </p>
           </Link>
+
+          <Link
+            href="/pages/pyeong-calculator"
+            className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+          >
+            <h3 className="font-bold text-gray-800 mb-2">🏠 평형/평수 계산기</h3>
+            <p className="text-sm text-gray-700">
+              평형(평)과 제곱미터(m²)를 변환합니다. 아파트 면적 계산, 부동산 평수 확인에 유용합니다.
+            </p>
+          </Link>
         </div>
 
         {/* 이용 방법 */}
