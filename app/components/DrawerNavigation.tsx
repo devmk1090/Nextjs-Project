@@ -117,6 +117,87 @@ export default function DrawerNavigation() {
                   양력 날짜 계산기
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/pages/dday-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  디데이 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/day-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  요일 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/anniversary-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  기념일 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/work-period-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  근무일수 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/bmi-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  BMI 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/interest-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  예금/적금 이자 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/unit-converter"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  단위 변환 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/pyeong-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  평형/평수 계산기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/loan-calculator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  대출 이자 계산기
+                </Link>
+              </li>
               {/* 추가 메뉴 항목들 */}
             </ul>
           </nav>
