@@ -62,8 +62,9 @@ export default function DrawerNavigation() {
           </button>
 
           <nav className="mt-8">
-            <ul className="space-y-2">
-            <li>
+            {/* Home */}
+            <ul className="space-y-2 mb-6">
+              <li>
                 <Link
                   href="/"
                   className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
@@ -72,6 +73,11 @@ export default function DrawerNavigation() {
                   Home
                 </Link>
               </li>
+            </ul>
+
+            {/* 계산기 섹션 */}
+            <h3 className="px-4 py-2 text-sm font-bold text-gray-600 uppercase">계산기</h3>
+            <ul className="space-y-2">
               <li>
                 <Link
                   href="/pages/age-calculator"
@@ -198,7 +204,20 @@ export default function DrawerNavigation() {
                   대출 이자 계산기
                 </Link>
               </li>
-              {/* 추가 메뉴 항목들 */}
+            </ul>
+
+            {/* 개발자 도구 섹션 */}
+            <h3 className="px-4 py-2 mt-6 text-sm font-bold text-gray-600 uppercase">개발자 도구</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/pages/json-formatter"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  JSON 포매터/검증기
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
