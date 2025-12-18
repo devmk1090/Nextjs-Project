@@ -218,6 +218,15 @@ export default function DrawerNavigation() {
                   JSON 포매터/검증기
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/pages/base64-converter"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Base64 인코더/디코더
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

@@ -179,6 +179,16 @@ export default function Home() {
                 JSON 문법을 검사하고 예쁘게 포맷팅합니다. 들여쓰기 조정, 축소, 복사 기능을 제공합니다.
               </p>
             </Link>
+
+            <Link
+              href="/pages/base64-converter"
+              className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-bold text-gray-800 mb-2">🔐 Base64 인코더/디코더</h3>
+              <p className="text-sm text-gray-700">
+                텍스트를 Base64로 인코딩하거나 Base64를 텍스트로 디코딩합니다. 한글 지원, 복사 기능 제공.
+              </p>
+            </Link>
           </div>
         </section>
 
