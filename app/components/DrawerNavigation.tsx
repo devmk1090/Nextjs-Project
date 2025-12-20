@@ -227,6 +227,42 @@ export default function DrawerNavigation() {
                   Base64 인코더/디코더
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/pages/url-encoder"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  URL 인코더/디코더
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/regex-tester"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  정규식 테스터
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/hash-generator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  해시 생성기
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/pages/qr-generator"
+                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
+                  onClick={() => setIsOpen(false)}
+                >
+                  QR 코드 생성기
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>

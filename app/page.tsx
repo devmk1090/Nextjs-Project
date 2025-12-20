@@ -189,6 +189,46 @@ export default function Home() {
                 텍스트를 Base64로 인코딩하거나 Base64를 텍스트로 디코딩합니다. 한글 지원, 복사 기능 제공.
               </p>
             </Link>
+
+            <Link
+              href="/pages/url-encoder"
+              className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-bold text-gray-800 mb-2">🔗 URL 인코더/디코더</h3>
+              <p className="text-sm text-gray-700">
+                URL에 한글이나 특수문자를 안전하게 포함시킵니다. 퍼센트 인코딩, 쿼리 문자열 인코딩 지원.
+              </p>
+            </Link>
+
+            <Link
+              href="/pages/regex-tester"
+              className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-bold text-gray-800 mb-2">🔍 정규식 테스터</h3>
+              <p className="text-sm text-gray-700">
+                정규표현식을 실시간으로 테스트하고 검증합니다. 매칭 결과, 하이라이트, 캡처 그룹 확인 가능.
+              </p>
+            </Link>
+
+            <Link
+              href="/pages/hash-generator"
+              className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-bold text-gray-800 mb-2">🔐 해시 생성기</h3>
+              <p className="text-sm text-gray-700">
+                SHA-1, SHA-256, SHA-384, SHA-512 해시를 생성합니다. 데이터 무결성 검증, 비밀번호 해싱에 활용.
+              </p>
+            </Link>
+
+            <Link
+              href="/pages/qr-generator"
+              className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+            >
+              <h3 className="font-bold text-gray-800 mb-2">📱 QR 코드 생성기</h3>
+              <p className="text-sm text-gray-700">
+                텍스트나 URL을 QR 코드로 변환합니다. 색상, 크기 조정 가능. URL, Wi-Fi, 전화번호 등 템플릿 제공.
+              </p>
+            </Link>
           </div>
         </section>
 
