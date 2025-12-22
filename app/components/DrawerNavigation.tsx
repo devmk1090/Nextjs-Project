@@ -6,12 +6,20 @@ import Link from "next/link";
 export default function DrawerNavigation() {
   const [isOpen, setIsOpen] = useState(false);
 
+  const categories = [
+    { id: "calculator", name: "계산기", emoji: "📊", path: "/" },
+    { id: "developer", name: "개발자 도구", emoji: "🛠️", path: "/" },
+    { id: "text", name: "텍스트 도구", emoji: "📝", path: "/" },
+    { id: "color", name: "색상 도구", emoji: "🎨", path: "/" },
+    { id: "random", name: "랜덤 생성기", emoji: "🎲", path: "/" }
+  ];
+
   return (
     <>
       {/* 햄버거 메뉴 버튼 */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed top-4 left-4 z-20 p-2 rounded-md hover:bg-gray-100"
+        className="fixed top-4 left-4 z-20 p-2 rounded-md hover:bg-gray-100 bg-white shadow-md"
       >
         <svg
           className="w-6 h-6"
@@ -38,8 +46,9 @@ export default function DrawerNavigation() {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-40 ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         <div className="p-4">
           <button
@@ -61,208 +70,31 @@ export default function DrawerNavigation() {
             </svg>
           </button>
 
-          <nav className="mt-8">
-            {/* Home */}
-            <ul className="space-y-2 mb-6">
-              <li>
-                <Link
-                  href="/"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Home
-                </Link>
-              </li>
-            </ul>
+          <nav className="mt-12">
+            {/* 제목 */}
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-gray-800 px-4">
+                올인원 유틸리티 도구
+              </h2>
+              <p className="text-sm text-gray-600 px-4 mt-1">34개의 도구</p>
+            </div>
 
-            {/* 계산기 섹션 */}
-            <h3 className="px-4 py-2 text-sm font-bold text-gray-600 uppercase">계산기</h3>
+            {/* 카테고리 목록 */}
             <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/pages/age-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  만 나이 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/zodiac-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  띠 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/constellation-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  별자리 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/lunar-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  음력 날짜 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/solar-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  양력 날짜 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/dday-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  디데이 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/day-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  요일 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/anniversary-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  기념일 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/work-period-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  근무일수 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/bmi-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  BMI 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/interest-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  예금/적금 이자 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/unit-converter"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  단위 변환 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/pyeong-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  평형/평수 계산기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/loan-calculator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  대출 이자 계산기
-                </Link>
-              </li>
-            </ul>
-
-            {/* 개발자 도구 섹션 */}
-            <h3 className="px-4 py-2 mt-6 text-sm font-bold text-gray-600 uppercase">개발자 도구</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/pages/json-formatter"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  JSON 포매터/검증기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/base64-converter"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Base64 인코더/디코더
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/url-encoder"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  URL 인코더/디코더
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/regex-tester"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  정규식 테스터
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/hash-generator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  해시 생성기
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pages/qr-generator"
-                  className="block px-4 py-2 text-gray-800 hover:bg-blue-100 rounded-md"
-                  onClick={() => setIsOpen(false)}
-                >
-                  QR 코드 생성기
-                </Link>
-              </li>
+              {categories.map((category) => (
+                <li key={category.id}>
+                  <Link
+                    href={`${category.path}#${category.id}`}
+                    className="flex items-center px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-lg transition-all group"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <span className="text-2xl mr-3">{category.emoji}</span>
+                    <span className="font-semibold group-hover:text-blue-600">
+                      {category.name}
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
