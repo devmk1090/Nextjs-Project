@@ -76,7 +76,7 @@ export default function DrawerNavigation() {
               <h2 className="text-xl font-bold text-gray-800 px-4">
                 올인원 유틸리티 도구
               </h2>
-              <p className="text-sm text-gray-600 px-4 mt-1">34개의 도구</p>
+              <p className="text-sm text-gray-600 px-4 mt-1">35개의 도구</p>
             </div>
 
             {/* 카테고리 목록 */}
