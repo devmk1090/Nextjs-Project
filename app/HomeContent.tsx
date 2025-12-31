@@ -17,10 +17,23 @@ export default function HomeContent() {
 
   // URL 해시로 탭 전환
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && tabs.some(tab => tab.id === hash)) {
-      setActiveTab(hash);
-    }
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && tabs.some(tab => tab.id === hash)) {
+        setActiveTab(hash);
+      }
+    };
+
+    // 초기 로드 시 해시 확인
+    handleHashChange();
+
+    // 해시 변경 이벤트 리스너 등록
+    window.addEventListener("hashchange", handleHashChange);
+
+    // 클린업
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
 
   return (
@@ -380,6 +393,16 @@ export default function HomeContent() {
         {activeTab === "random" && (
           <section>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <Link
+                href="/pages/timer-stopwatch"
+                className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
+              >
+                <h3 className="font-bold text-gray-800 mb-2">⏱️ 타이머 & 스톱워치</h3>
+                <p className="text-sm text-gray-700">
+                  타이머, 스톱워치, 포모도로 기법을 한 곳에서. 알람 기능, 랩타임 기록, 집중 시간 관리에 유용합니다.
+                </p>
+              </Link>
+
               <Link
                 href="/pages/random-number"
                 className="p-4 bg-white border-2 border-gray-200 rounded-lg hover:border-blue-400 hover:shadow-md transition-all cursor-pointer"
