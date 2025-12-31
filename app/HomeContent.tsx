@@ -17,10 +17,23 @@ export default function HomeContent() {
 
   // URL 해시로 탭 전환
   useEffect(() => {
-    const hash = window.location.hash.replace("#", "");
-    if (hash && tabs.some(tab => tab.id === hash)) {
-      setActiveTab(hash);
-    }
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && tabs.some(tab => tab.id === hash)) {
+        setActiveTab(hash);
+      }
+    };
+
+    // 초기 로드 시 해시 확인
+    handleHashChange();
+
+    // 해시 변경 이벤트 리스너 등록
+    window.addEventListener("hashchange", handleHashChange);
+
+    // 클린업
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
 
   return (

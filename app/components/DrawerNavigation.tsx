@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function DrawerNavigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const categories = [
     { id: "calculator", name: "계산기", emoji: "📊", path: "/" },
@@ -13,6 +15,17 @@ export default function DrawerNavigation() {
     { id: "color", name: "색상 도구", emoji: "🎨", path: "/" },
     { id: "random", name: "랜덤 생성기", emoji: "🎲", path: "/" }
   ];
+
+  const handleCategoryClick = (categoryId: string) => {
+    setIsOpen(false);
+    // 현재 페이지가 홈이 아니면 홈으로 이동
+    if (window.location.pathname !== "/") {
+      router.push(`/#${categoryId}`);
+    } else {
+      // 이미 홈 페이지에 있으면 해시만 변경
+      window.location.hash = categoryId;
+    }
+  };
 
   return (
     <>
@@ -83,16 +96,15 @@ export default function DrawerNavigation() {
             <ul className="space-y-2">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <Link
-                    href={`${category.path}#${category.id}`}
-                    className="flex items-center px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-lg transition-all group"
-                    onClick={() => setIsOpen(false)}
+                  <button
+                    onClick={() => handleCategoryClick(category.id)}
+                    className="w-full flex items-center px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-lg transition-all group cursor-pointer"
                   >
                     <span className="text-2xl mr-3">{category.emoji}</span>
                     <span className="font-semibold group-hover:text-blue-600">
                       {category.name}
                     </span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
