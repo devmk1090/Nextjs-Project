@@ -279,14 +279,14 @@ export default function RegexTester() {
               <span className="font-bold text-green-600 mr-2 mt-1">1.</span>
               <div>
                 <strong className="text-gray-900">입력 폼 검증:</strong> 회원가입 폼에서 이메일 형식, 전화번호 형식, 비밀번호 강도를 실시간으로 검증합니다.
-                예: /^\w+@\w+\.\w+$/는 기본 이메일 형식을 확인하고, /^(?=.*[A-Z])(?=.*\d).{8,}$/는 "최소 8자, 대문자와 숫자 포함" 조건을 검사합니다.
+                예: {`/^\\w+@\\w+\\.\\w+$/`}는 기본 이메일 형식을 확인하고, {`/^(?=.*[A-Z])(?=.*\\d).{8,}$/`}는 "최소 8자, 대문자와 숫자 포함" 조건을 검사합니다.
               </div>
             </li>
             <li className="flex items-start">
               <span className="font-bold text-green-600 mr-2 mt-1">2.</span>
               <div>
                 <strong className="text-gray-900">데이터 추출:</strong> 웹 페이지 HTML에서 특정 정보를 자동으로 추출합니다.
-                예를 들어 "가격: 15,000원" 형태의 텍스트에서 /(\d{1,3}(,\d{3})*)/로 숫자만 뽑아내거나,
+                예를 들어 "가격: 15,000원" 형태의 텍스트에서 {`/(\\d{1,3}(,\\d{3})*)/`}로 숫자만 뽑아내거나,
                 블로그 글에서 모든 URL을 찾아 링크 목록을 만들 수 있습니다.
               </div>
             </li>
@@ -355,7 +355,7 @@ export default function RegexTester() {
               <div>
                 <strong className="text-gray-900">앵커(^, $)의 역할:</strong> ^는 문자열의 시작, $는 끝을 의미합니다.
                 /hello/는 "hello world"나 "say hello"를 모두 매칭하지만, /^hello$/는 정확히 "hello"만 매칭합니다.
-                입력 폼에서 "이메일만 입력했는지" 검증할 때 /^\w+@\w+\.\w+$/ 처럼 ^와 $를 함께 사용하면 다른 텍스트가 섞이지 않도록 보장할 수 있습니다.
+                입력 폼에서 "이메일만 입력했는지" 검증할 때 {`/^\\w+@\\w+\\.\\w+$/`} 처럼 ^와 $를 함께 사용하면 다른 텍스트가 섞이지 않도록 보장할 수 있습니다.
               </div>
             </li>
             <li className="flex items-start">
@@ -408,7 +408,7 @@ export default function RegexTester() {
             <div className="border-l-4 border-purple-400 pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 이메일 검증 정규식이 정말 정확한가요?</h3>
               <p className="text-gray-700">
-                A. 완벽한 이메일 정규식은 매우 복잡합니다(수백 자 이상). /^\w+@\w+\.\w+$/는 "기본적인" 형식만 검증합니다.
+                A. 완벽한 이메일 정규식은 매우 복잡합니다(수백 자 이상). {`/^\\w+@\\w+\\.\\w+$/`}는 "기본적인" 형식만 검증합니다.
                 실무에서는 정규식으로 1차 검증 후, 실제로 인증 메일을 보내는 2단계 검증을 권장합니다.
                 정규식만으로는 "존재하는 도메인인지"까지 확인할 수 없기 때문입니다.
               </p>
