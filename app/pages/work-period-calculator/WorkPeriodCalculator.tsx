@@ -87,24 +87,21 @@ export default function WorkPeriodCalculator() {
       months += 12;
     }
 
-    // 연차 계산 (1년 미만: 월차 1개씩, 1년 이상: 15개 + 2년마다 1개 추가)
-    let annualLeave = 0;
-    if (totalDays < 365) {
-      annualLeave = Math.floor(totalDays / 30);
-    } else {
-      annualLeave = 15;
-      const additionalYears = Math.floor((totalDays - 365) / 365);
-      if (additionalYears >= 1) {
-        annualLeave += Math.floor(additionalYears / 2);
-      }
-      annualLeave = Math.min(annualLeave, 25); // 최대 25개
-    }
+    // 연차 계산 (근로기준법 제60조)
+    // 1년 미만: 1개월 개근 시 1개씩, 최대 11개
+    // 1년 이상: 15개, 3년 이상부터 최초 1년을 초과하는 근속 2년마다 1개 가산, 최대 25개
+    const annualLeave =
+      years < 1
+        ? Math.min(months, 11)
+        : Math.min(15 + Math.floor((years - 1) / 2), 25);
 
     // 퇴직금 예상 계산 (연봉 입력 시 해당 연봉 기준, 미입력 시 0)
     const salary = annualSalary ? parseInt(annualSalary) : 0;
     const averageMonthlySalary = salary / 12;
     const workYears = totalDays / 365;
-    const estimatedSeverance = salary > 0 ? Math.floor(averageMonthlySalary * workYears) : 0;
+    // 퇴직금은 계속근로기간 1년 이상일 때만 지급 (근로자퇴직급여 보장법 제8조)
+    const estimatedSeverance =
+      salary > 0 && years >= 1 ? Math.floor(averageMonthlySalary * workYears) : 0;
 
     setWorkPeriod({
       totalDays,
@@ -220,9 +217,9 @@ export default function WorkPeriodCalculator() {
                     <div className="text-4xl">🏖️</div>
                   </div>
                   <p className="text-xs text-gray-500 mt-3">
-                    {workPeriod.totalDays < 365
-                      ? "1년 미만: 월 1개씩 발생"
-                      : "1년 이상: 15개 기본 + 2년마다 1개 추가 (최대 25개)"}
+                    {workPeriod.years < 1
+                      ? "1년 미만: 1개월 개근 시 1개씩 발생 (최대 11개)"
+                      : "1년 이상: 15개 기본 + 3년차부터 2년마다 1개 추가 (최대 25개)"}
                   </p>
                 </div>
 
@@ -232,7 +229,11 @@ export default function WorkPeriodCalculator() {
                       <h3 className="text-sm font-medium text-gray-600">
                         예상 퇴직금 (세전)
                       </h3>
-                      {workPeriod.estimatedSeverance > 0 ? (
+                      {workPeriod.years < 1 ? (
+                        <p className="text-sm text-gray-500 mt-1">
+                          근속 1년 미만은 퇴직금 지급 대상이 아닙니다
+                        </p>
+                      ) : workPeriod.estimatedSeverance > 0 ? (
                         <p className="text-2xl font-bold text-purple-600 mt-1">
                           약 {workPeriod.estimatedSeverance.toLocaleString()}원
                         </p>
@@ -275,7 +276,7 @@ export default function WorkPeriodCalculator() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">퇴직금 수령 가능:</span>
                     <span className="font-medium text-gray-800">
-                      {workPeriod.totalDays >= 365 ? "가능 ✓" : "불가능 (1년 이상 필요)"}
+                      {workPeriod.years >= 1 ? "가능 ✓" : "불가능 (1년 이상 필요)"}
                     </span>
                   </div>
                 </div>
@@ -286,7 +287,8 @@ export default function WorkPeriodCalculator() {
           <div className="mt-8 p-4 bg-gray-50 rounded-lg">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 연차는 근로기준법에 따라 계산됩니다</li>
+              <li>• 연차는 근로기준법 제60조에 따라 계산되며, 출근율 80% 이상을 가정합니다</li>
+              <li>• 표시되는 연차는 현재 근속연수에 해당하는 연간 발생 개수입니다</li>
               <li>• 퇴직금은 1년 이상 근무 시 지급됩니다</li>
               <li>• 퇴직금은 연봉 ÷ 12 × 근속년수 방식으로 계산됩니다</li>
               <li>• 실제 퇴직금은 상여금, 수당 등에 따라 달라질 수 있습니다</li>
