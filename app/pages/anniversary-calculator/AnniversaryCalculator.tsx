@@ -7,6 +7,7 @@ export default function AnniversaryCalculator() {
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [startDate, setStartDate] = useState<Date | null>(null);
+  const [todayCount, setTodayCount] = useState(0);
   const [anniversaries, setAnniversaries] = useState<
     Array<{ name: string; date: Date; daysFrom: number }>
   >([]);
@@ -53,37 +54,33 @@ export default function AnniversaryCalculator() {
 
     setStartDate(start);
 
-    const anniversaryList = [
-      { name: "100일", days: 100 },
-      { name: "200일", days: 200 },
-      { name: "300일", days: 300 },
-      { name: "1년 (365일)", days: 365 },
-      { name: "500일", days: 500 },
-      { name: "2년 (730일)", days: 730 },
-      { name: "1000일", days: 1000 },
-      { name: "3년 (1095일)", days: 1095 },
-      { name: "5년 (1825일)", days: 1825 },
-      { name: "2000일", days: 2000 },
-      { name: "10년 (3650일)", days: 3650 },
-    ];
-
     const today = new Date();
     today.setHours(0, 0, 0, 0);
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const diffDays = (date: Date) =>
+      Math.round((date.getTime() - today.getTime()) / msPerDay);
 
-    const calculatedAnniversaries = anniversaryList.map((anniversary) => {
-      const anniversaryDate = new Date(
-        start.getTime() + anniversary.days * 24 * 60 * 60 * 1000
-      );
-      const daysFromToday = Math.ceil(
-        (anniversaryDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-      );
+    // 일수 기념일: 한국식으로 시작일을 1일째로 셈 (100일 = 시작일 + 99일)
+    const dayAnniversaries = [100, 200, 300, 500, 1000, 2000, 3000].map(
+      (days) => {
+        const date = new Date(startYear, startMonth - 1, startDay + days - 1);
+        return { name: `${days}일`, date, daysFrom: diffDays(date) };
+      }
+    );
 
-      return {
-        name: anniversary.name,
-        date: anniversaryDate,
-        daysFrom: daysFromToday,
-      };
+    // 주년: 달력 기준 같은 날짜 (2월 29일 시작이면 평년에는 2월 28일)
+    const yearAnniversaries = [1, 2, 3, 5, 10].map((years) => {
+      const date = new Date(startYear + years, startMonth - 1, startDay);
+      if (date.getMonth() !== startMonth - 1) date.setDate(0);
+      return { name: `${years}주년`, date, daysFrom: diffDays(date) };
     });
+
+    const calculatedAnniversaries = [...dayAnniversaries, ...yearAnniversaries].sort(
+      (a, b) => a.date.getTime() - b.date.getTime()
+    );
+
+    // 오늘이 시작일로부터 며칠째인지 (시작일 = 1일째)
+    setTodayCount(-diffDays(start) + 1);
 
     setAnniversaries(calculatedAnniversaries);
   };
@@ -176,6 +173,11 @@ export default function AnniversaryCalculator() {
                   시작일: {startDate.getFullYear()}년{" "}
                   {startDate.getMonth() + 1}월 {startDate.getDate()}일
                 </p>
+                {todayCount > 0 && (
+                  <p className="text-center text-gray-700 mt-1">
+                    오늘은 <span className="font-bold text-blue-600">{todayCount.toLocaleString()}일째</span>입니다
+                  </p>
+                )}
               </div>
 
               <div className="space-y-3">
@@ -212,7 +214,25 @@ export default function AnniversaryCalculator() {
             </div>
           )}
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+            <h3 className="font-semibold text-gray-700 mb-2">기념일 계산 기준</h3>
+            <ul className="text-sm text-gray-600 space-y-1">
+              <li>
+                • <strong>100일, 200일 등 일수 기념일</strong>은 시작일을 1일째로 세는 한국식
+                계산법을 따릅니다. 예를 들어 1월 1일에 시작했다면 100일은 4월 10일입니다
+                (윤년이 아닌 해 기준).
+              </li>
+              <li>
+                • <strong>1주년, 2주년 등 주년</strong>은 일수가 아니라 달력상 같은 날짜로
+                계산합니다. 윤년이 끼어도 날짜가 밀리지 않습니다.
+              </li>
+              <li>
+                • 2월 29일에 시작했다면 평년의 주년은 2월 28일로 표시합니다.
+              </li>
+            </ul>
+          </div>
+
+          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
             <h3 className="font-semibold text-gray-700 mb-2">사용 예시</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• 연애 시작일로부터 100일, 200일 계산</li>

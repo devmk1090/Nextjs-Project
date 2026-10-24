@@ -6,6 +6,9 @@ export default function InterestCalculator() {
   const [calculatorType, setCalculatorType] = useState<"deposit" | "savings">(
     "deposit"
   );
+  const [interestMethod, setInterestMethod] = useState<"simple" | "compound">(
+    "simple"
+  );
   const [principal, setPrincipal] = useState("");
   const [monthlyDeposit, setMonthlyDeposit] = useState("");
   const [interestRate, setInterestRate] = useState("");
@@ -28,15 +31,18 @@ export default function InterestCalculator() {
 
       const p = parseFloat(principal.replace(/,/g, ""));
       const r = parseFloat(interestRate) / 100;
-      const t = parseFloat(period) / 12;
+      const n = parseFloat(period);
 
-      if (p <= 0 || r <= 0 || t <= 0) {
+      if (p <= 0 || r <= 0 || n <= 0) {
         alert("올바른 값을 입력해주세요.");
         return;
       }
 
-      // 단리 계산
-      const totalInterest = p * r * t;
+      // 단리: 원금 × 연이율 × (개월/12), 월복리: 원금 × ((1 + 연이율/12)^개월 - 1)
+      const totalInterest =
+        interestMethod === "simple"
+          ? p * r * (n / 12)
+          : p * (Math.pow(1 + r / 12, n) - 1);
       const totalAmount = p + totalInterest;
       const taxAmount = totalInterest * 0.154; // 이자소득세 15.4%
       const finalAmount = totalAmount - taxAmount;
@@ -64,10 +70,15 @@ export default function InterestCalculator() {
         return;
       }
 
-      // 적금 이자 계산 (월복리)
+      // 적금 이자: i회차 납입금은 (n - i + 1)개월 동안 예치됨
+      // 단리: 납입금 × 월이율 × 예치개월, 월복리: 납입금 × ((1 + 월이율)^예치개월 - 1)
       let totalInterest = 0;
       for (let i = 1; i <= n; i++) {
-        totalInterest += m * r * (n - i + 1);
+        const months = n - i + 1;
+        totalInterest +=
+          interestMethod === "simple"
+            ? m * r * months
+            : m * (Math.pow(1 + r, months) - 1);
       }
 
       const totalPrincipal = m * n;
@@ -129,6 +140,39 @@ export default function InterestCalculator() {
                 적금
               </button>
             </div>
+          </div>
+
+          {/* 이자 계산 방식 선택 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              이자 계산 방식
+            </label>
+            <div className="grid grid-cols-2 gap-4">
+              {(
+                [
+                  { id: "simple", name: "단리" },
+                  { id: "compound", name: "월복리" },
+                ] as const
+              ).map((method) => (
+                <button
+                  key={method.id}
+                  onClick={() => {
+                    setInterestMethod(method.id);
+                    setResult(null);
+                  }}
+                  className={`py-2 px-4 rounded-lg font-semibold transition duration-200 ${
+                    interestMethod === method.id
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {method.name}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs text-gray-500 mt-2">
+              대부분의 시중은행 예·적금은 단리입니다. 상품설명서에서 이자 지급 방식을 확인하세요.
+            </p>
           </div>
 
           {calculatorType === "deposit" ? (
@@ -285,7 +329,9 @@ export default function InterestCalculator() {
                         • 예금은 일시금을 예치하고 만기까지 기다리는 상품입니다
                       </p>
                       <p>
-                        • 이자는 단리로 계산됩니다 (원금에 대해서만 이자 발생)
+                        {interestMethod === "simple"
+                          ? "• 단리: 원금에 대해서만 이자가 붙습니다"
+                          : "• 월복리: 매월 발생한 이자가 원금에 더해져 다음 달 이자 계산에 포함됩니다"}
                       </p>
                       <p>
                         • 중도 해지 시 이자율이 낮아지거나 이자를 받지 못할 수
@@ -298,8 +344,13 @@ export default function InterestCalculator() {
                         • 적금은 매월 일정 금액을 납입하는 저축 상품입니다
                       </p>
                       <p>
-                        • 이자는 월복리로 계산되며, 납입 시기에 따라 이자가
-                        다릅니다
+                        • 먼저 낸 납입금일수록 예치 기간이 길어 이자가 많이 붙습니다.
+                        그래서 적금 이자는 같은 금리의 예금보다 적습니다
+                      </p>
+                      <p>
+                        {interestMethod === "simple"
+                          ? "• 단리: 각 회차 납입금에 예치 개월수만큼 이자가 붙습니다"
+                          : "• 월복리: 각 회차 납입금의 이자가 매월 원금에 더해집니다"}
                       </p>
                       <p>
                         • 중도 해지 시 약정 이자율보다 낮은 이자를 받게 됩니다
@@ -319,7 +370,8 @@ export default function InterestCalculator() {
                 • 실제 이자는 금융기관과 상품에 따라 다를 수 있습니다
               </li>
               <li>
-                • 예금자보호법에 따라 1인당 5천만원까지 보호됩니다
+                • 예금자보호법에 따라 금융기관별 1인당 원금과 이자를 합쳐 1억원까지
+                보호됩니다 (2025년 9월 1일부터)
               </li>
               <li>• 중도 해지 시 약정 이자율보다 낮은 이자가 적용됩니다</li>
             </ul>
