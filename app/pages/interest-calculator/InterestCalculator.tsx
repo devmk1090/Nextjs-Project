@@ -9,6 +9,10 @@ export default function InterestCalculator() {
   const [interestMethod, setInterestMethod] = useState<"simple" | "compound">(
     "simple"
   );
+  const [taxType, setTaxType] = useState<"general" | "exempt" | "custom">(
+    "general"
+  );
+  const [customTaxRate, setCustomTaxRate] = useState("");
   const [principal, setPrincipal] = useState("");
   const [monthlyDeposit, setMonthlyDeposit] = useState("");
   const [interestRate, setInterestRate] = useState("");
@@ -19,7 +23,15 @@ export default function InterestCalculator() {
     totalInterest: number;
     taxAmount: number;
     finalAmount: number;
+    taxRate: number;
   } | null>(null);
+
+  // 이자소득세율: 일반과세 15.4%(소득세 14% + 지방소득세 1.4%), 비과세 0%
+  const getTaxRate = () => {
+    if (taxType === "general") return 0.154;
+    if (taxType === "exempt") return 0;
+    return (parseFloat(customTaxRate) || 0) / 100;
+  };
 
   const calculateInterest = () => {
     if (calculatorType === "deposit") {
@@ -44,7 +56,8 @@ export default function InterestCalculator() {
           ? p * r * (n / 12)
           : p * (Math.pow(1 + r / 12, n) - 1);
       const totalAmount = p + totalInterest;
-      const taxAmount = totalInterest * 0.154; // 이자소득세 15.4%
+      const taxRate = getTaxRate();
+      const taxAmount = totalInterest * taxRate;
       const finalAmount = totalAmount - taxAmount;
 
       setResult({
@@ -53,6 +66,7 @@ export default function InterestCalculator() {
         totalInterest,
         taxAmount,
         finalAmount,
+        taxRate,
       });
     } else {
       // 적금 계산
@@ -83,7 +97,8 @@ export default function InterestCalculator() {
 
       const totalPrincipal = m * n;
       const totalAmount = totalPrincipal + totalInterest;
-      const taxAmount = totalInterest * 0.154; // 이자소득세 15.4%
+      const taxRate = getTaxRate();
+      const taxAmount = totalInterest * taxRate;
       const finalAmount = totalAmount - taxAmount;
 
       setResult({
@@ -92,6 +107,7 @@ export default function InterestCalculator() {
         totalInterest,
         taxAmount,
         finalAmount,
+        taxRate,
       });
     }
   };
@@ -173,6 +189,47 @@ export default function InterestCalculator() {
             <p className="text-xs text-gray-500 mt-2">
               대부분의 시중은행 예·적금은 단리입니다. 상품설명서에서 이자 지급 방식을 확인하세요.
             </p>
+          </div>
+
+          {/* 과세 방식 선택 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              과세 방식
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {(
+                [
+                  { id: "general", name: "일반과세 15.4%" },
+                  { id: "exempt", name: "비과세" },
+                  { id: "custom", name: "직접 입력" },
+                ] as const
+              ).map((tax) => (
+                <button
+                  key={tax.id}
+                  onClick={() => {
+                    setTaxType(tax.id);
+                    setResult(null);
+                  }}
+                  className={`py-2 px-2 rounded-lg text-sm font-semibold transition duration-200 ${
+                    taxType === tax.id
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {tax.name}
+                </button>
+              ))}
+            </div>
+            {taxType === "custom" && (
+              <input
+                type="number"
+                value={customTaxRate}
+                onChange={(e) => setCustomTaxRate(e.target.value)}
+                placeholder="세율 (%) 예: 1.4"
+                step="0.1"
+                className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            )}
           </div>
 
           {calculatorType === "deposit" ? (
@@ -274,7 +331,8 @@ export default function InterestCalculator() {
                     {Math.floor(result.finalAmount).toLocaleString()}원
                   </div>
                   <p className="text-gray-600 text-sm">
-                    세후 최종 수령액 (이자소득세 15.4% 공제)
+                    세후 최종 수령액 (이자소득세{" "}
+                    {+(result.taxRate * 100).toFixed(2)}% 공제)
                   </p>
                 </div>
 
@@ -302,7 +360,9 @@ export default function InterestCalculator() {
                     </span>
                   </div>
                   <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg border border-red-200">
-                    <span className="text-red-600">이자소득세 (15.4%)</span>
+                    <span className="text-red-600">
+                      이자소득세 ({+(result.taxRate * 100).toFixed(2)}%)
+                    </span>
                     <span className="font-bold text-red-600">
                       -{Math.floor(result.taxAmount).toLocaleString()}원
                     </span>
@@ -362,10 +422,61 @@ export default function InterestCalculator() {
             </div>
           )}
 
+          {/* 예금과 적금 이자 차이 */}
+          <section className="mt-10 space-y-3 text-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800">
+              적금 이자가 생각보다 적은 이유
+            </h2>
+            <p className="text-sm">
+              적금 금리가 연 4%라고 해서 납입한 돈 전체에 4% 이자가 붙는 것은 아닙니다. 첫 달 납입금은
+              12개월 동안 예치되지만 마지막 달 납입금은 1개월만 예치되기 때문입니다.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="px-2 py-2 text-left">연 4%, 12개월, 단리</th>
+                    <th className="px-2 py-2 text-right">원금</th>
+                    <th className="px-2 py-2 text-right">세전 이자</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-gray-200">
+                    <td className="px-2 py-2">예금: 1,200만원 한 번에 예치</td>
+                    <td className="px-2 py-2 text-right">12,000,000원</td>
+                    <td className="px-2 py-2 text-right">480,000원</td>
+                  </tr>
+                  <tr className="border-b border-gray-200">
+                    <td className="px-2 py-2">적금: 매월 100만원씩 납입</td>
+                    <td className="px-2 py-2 text-right">12,000,000원</td>
+                    <td className="px-2 py-2 text-right">260,000원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm">
+              12개월 적금의 이자는 100만원 × (4% ÷ 12) × (12 + 11 + … + 1개월) = 100만원 × 0.333% × 78 =
+              260,000원입니다. 같은 금리의 예금 이자와 비교하면 약 54% 수준입니다. 그래서 적금 금리가 예금
+              금리의 약 1.85배(144 ÷ 78)를 넘지 않는다면, 이미 목돈이 있을 때는 예금에 넣는 쪽이 이자가 더
+              많습니다.
+            </p>
+
+            <h2 className="text-2xl font-bold text-gray-800 pt-4">단리와 월복리</h2>
+            <p className="text-sm">
+              단리는 원금에만 이자가 붙고, 월복리는 매월 생긴 이자가 원금에 더해져 다음 달 이자에도 이자가
+              붙습니다. 기간이 짧을 때는 차이가 크지 않지만 기간이 길수록 벌어집니다. 시중은행 예·적금은
+              대부분 단리이므로, 상품설명서의 이자 지급 방식을 확인하고 선택하세요.
+            </p>
+          </section>
+
           <div className="mt-8 p-4 bg-gray-50 rounded-lg">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 이자소득세는 15.4% (소득세 14% + 지방소득세 1.4%)입니다</li>
+              <li>• 일반과세 이자소득세는 15.4% (소득세 14% + 지방소득세 1.4%)입니다</li>
+              <li>
+                • 비과세종합저축, 상호금융 조합원 예탁금 등은 가입 자격과 한도가 정해져 있으니 금융기관에
+                확인하세요
+              </li>
               <li>
                 • 실제 이자는 금융기관과 상품에 따라 다를 수 있습니다
               </li>
