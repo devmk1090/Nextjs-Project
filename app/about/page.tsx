@@ -84,8 +84,13 @@ export default function AboutPage() {
         <h2>문의</h2>
         <p>
           오류 제보, 기능 제안, 기타 문의는{" "}
-          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>로 보내 주시거나{" "}
-          <Link href="/contact">문의하기</Link> 페이지를 이용해 주세요.
+          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>로 보내 주세요.
+          오류 제보 시 사용한 도구, 입력한 값, 기대한 결과와 실제 결과를 함께 적어 주시면
+          빠르게 확인할 수 있습니다. 개발자라면{" "}
+          <a href={`${githubUrl}/issues`} target="_blank" rel="noopener noreferrer">
+            GitHub Issues
+          </a>
+          에 직접 남기셔도 됩니다.
         </p>
       </section>
     </InfoPage>

@@ -91,9 +91,6 @@ export default function SiteFooter() {
             <Link href="/privacy" className="hover:text-blue-600 font-semibold">
               개인정보처리방침
             </Link>
-            <Link href="/contact" className="hover:text-blue-600">
-              문의하기
-            </Link>
           </div>
           <p>
             © {launchYear}-{new Date().getFullYear()} {siteName}

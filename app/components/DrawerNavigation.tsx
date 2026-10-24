@@ -8,7 +8,6 @@ import { categories, tools } from "../tools";
 const siteLinks = [
   { href: "/about", name: "사이트 소개" },
   { href: "/privacy", name: "개인정보처리방침" },
-  { href: "/contact", name: "문의하기" },
 ];
 
 export default function DrawerNavigation() {
