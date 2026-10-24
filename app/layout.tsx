@@ -29,6 +29,9 @@ export const metadata: Metadata = {
     locale: 'ko_KR',
     siteName: '계산기 모음',
   },
+  verification: {
+    google: "pkAgU1RzZUArhIjwp16I3fscJHnWmedOOicnmIpTUFk",
+  },
   robots: {
     index: true,
     follow: true,
