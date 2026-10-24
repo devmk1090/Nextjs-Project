@@ -21,6 +21,10 @@ export default function UnitConverter() {
       ft: { name: "피트(ft)", toBase: 0.3048 },
       yard: { name: "야드(yd)", toBase: 0.9144 },
       mile: { name: "마일(mi)", toBase: 1609.344 },
+      // 한국 전통 단위 (1자 = 10/33 m)
+      chi: { name: "치(寸)", toBase: 1 / 33 },
+      ja: { name: "자(尺)", toBase: 10 / 33 },
+      ri: { name: "리(里)", toBase: (1296 * 10) / 33 },
     },
     weight: {
       kg: { name: "킬로그램(kg)", toBase: 1 },
@@ -29,6 +33,12 @@ export default function UnitConverter() {
       ton: { name: "톤(t)", toBase: 1000 },
       lb: { name: "파운드(lb)", toBase: 0.453592 },
       oz: { name: "온스(oz)", toBase: 0.0283495 },
+      // 한국 전통 단위 (1돈 = 3.75 g)
+      don: { name: "돈", toBase: 0.00375 },
+      nyang: { name: "냥", toBase: 0.0375 },
+      geun: { name: "근 (육류, 600g)", toBase: 0.6 },
+      geunVeg: { name: "근 (채소·과일, 375g)", toBase: 0.375 },
+      gwan: { name: "관", toBase: 3.75 },
     },
     volume: {
       l: { name: "리터(L)", toBase: 1 },
@@ -38,6 +48,10 @@ export default function UnitConverter() {
       qt: { name: "쿼트(qt)", toBase: 0.946353 },
       pt: { name: "파인트(pt)", toBase: 0.473176 },
       cup: { name: "컵(cup)", toBase: 0.236588 },
+      // 한국 전통 단위 (1되 ≈ 1.8039 L)
+      hop: { name: "홉(合)", toBase: 0.18039 },
+      doe: { name: "되(升)", toBase: 1.8039 },
+      mal: { name: "말(斗)", toBase: 18.039 },
     },
     temperature: {
       c: { name: "섭씨(°C)", toBase: 1 },
@@ -330,8 +344,62 @@ export default function UnitConverter() {
                 쿼트(qt), 파인트(pt), 컵(cup)
               </li>
               <li>• 온도: 섭씨(°C), 화씨(°F), 켈빈(K)</li>
+              <li>• 한국 전통 단위: 치, 자, 리 / 돈, 냥, 근, 관 / 홉, 되, 말</li>
             </ul>
           </div>
+
+          {/* 한국 전통 단위 */}
+          <section className="mt-10 space-y-4 text-gray-700">
+            <h2 className="text-2xl font-bold text-gray-800">한국 전통 단위 환산표</h2>
+            <p className="text-sm">
+              척관법에서 유래한 전통 단위는 2007년 7월부터 상거래에서 법정 단위(g, m, L 등)를 쓰도록
+              바뀌었지만, 금 거래나 시장, 요리 레시피에서는 여전히 자주 쓰입니다.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-gray-100">
+                  <tr>
+                    <th className="px-2 py-2 text-left">단위</th>
+                    <th className="px-2 py-2 text-left">환산</th>
+                    <th className="px-2 py-2 text-left">주로 쓰는 곳</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["1돈", "3.75g", "금·은 거래 (금 1돈, 돌반지)"],
+                    ["1냥", "10돈 = 37.5g", "한약재, 금"],
+                    ["1근 (육류)", "16냥 = 600g", "정육점 고기"],
+                    ["1근 (채소·과일)", "10냥 = 375g", "시장 채소·과일"],
+                    ["1관", "1,000돈 = 3.75kg", "과일·채소 대량 거래"],
+                    ["1자 (척)", "10치 ≈ 30.3cm", "목공, 한옥, 옷감"],
+                    ["1치 (촌)", "≈ 3.03cm", "목재 두께, 한복 치수"],
+                    ["1리", "≈ 392.7m (10리 ≈ 4km)", "거리 표현 (십 리)"],
+                    ["1홉", "≈ 180mL", "쌀, 술 (소주 1홉)"],
+                    ["1되", "10홉 ≈ 1.8L", "쌀, 잡곡"],
+                    ["1말", "10되 ≈ 18L", "쌀, 곡물 (쌀 1말은 보통 8kg으로 거래)"],
+                  ].map(([unit, value, usage]) => (
+                    <tr key={unit} className="border-b border-gray-200">
+                      <td className="px-2 py-2 font-semibold">{unit}</td>
+                      <td className="px-2 py-2">{value}</td>
+                      <td className="px-2 py-2 text-gray-600">{usage}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ul className="text-sm space-y-1 list-disc pl-5">
+              <li>
+                근은 품목에 따라 기준이 다릅니다. 고기는 600g, 채소·과일은 375g으로 계산하는 것이
+                일반적이지만 지역·가게마다 다를 수 있습니다.
+              </li>
+              <li>
+                되와 말은 부피 단위라 같은 1말이라도 곡물 종류와 도정 상태에 따라 무게가 다릅니다.
+              </li>
+              <li>
+                넓이 단위인 평(1평 ≈ 3.3058m²)은 평수 계산기에서 변환할 수 있습니다.
+              </li>
+            </ul>
+          </section>
         </div>
       </div>
     </div>
