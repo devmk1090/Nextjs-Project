@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import DrawerNavigation from "./components/DrawerNavigation";
 import GoogleAdsense from "./components/GoogleAdsense";
+import SiteFooter from "./components/SiteFooter";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,6 +53,7 @@ export default function RootLayout({
         <GoogleAdsense />
         <DrawerNavigation />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );

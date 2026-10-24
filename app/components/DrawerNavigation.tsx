@@ -2,27 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { categories, tools } from "../tools";
+
+const siteLinks = [
+  { href: "/about", name: "사이트 소개" },
+  { href: "/privacy", name: "개인정보처리방침" },
+  { href: "/contact", name: "문의하기" },
+];
 
 export default function DrawerNavigation() {
   const [isOpen, setIsOpen] = useState(false);
-  const router = useRouter();
+  const pathname = usePathname();
 
-  const categories = [
-    { id: "calculator", name: "계산기", emoji: "📊", path: "/" },
-    { id: "developer", name: "개발자 도구", emoji: "🛠️", path: "/" },
-    { id: "text", name: "텍스트 도구", emoji: "📝", path: "/" },
-    { id: "color", name: "색상 도구", emoji: "🎨", path: "/" },
-    { id: "random", name: "랜덤 생성기", emoji: "🎲", path: "/" }
-  ];
-
-  const handleCategoryClick = (categoryId: string) => {
+  const handleCategoryClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    categoryId: string
+  ) => {
     setIsOpen(false);
-    // 현재 페이지가 홈이 아니면 홈으로 이동
-    if (window.location.pathname !== "/") {
-      router.push(`/#${categoryId}`);
-    } else {
-      // 이미 홈 페이지에 있으면 해시만 변경
+    // 이미 홈 페이지에 있으면 해시만 변경해서 탭 전환(hashchange 이벤트 발생)
+    if (pathname === "/") {
+      e.preventDefault();
       window.location.hash = categoryId;
     }
   };
@@ -89,22 +89,38 @@ export default function DrawerNavigation() {
               <h2 className="text-xl font-bold text-gray-800 px-4">
                 올인원 유틸리티 도구
               </h2>
-              <p className="text-sm text-gray-600 px-4 mt-1">35개의 도구</p>
+              <p className="text-sm text-gray-600 px-4 mt-1">{tools.length}개의 도구</p>
             </div>
 
             {/* 카테고리 목록 */}
             <ul className="space-y-2">
               {categories.map((category) => (
                 <li key={category.id}>
-                  <button
-                    onClick={() => handleCategoryClick(category.id)}
+                  <Link
+                    href={`/#${category.id}`}
+                    onClick={(e) => handleCategoryClick(e, category.id)}
                     className="w-full flex items-center px-4 py-3 text-gray-800 hover:bg-blue-100 rounded-lg transition-all group cursor-pointer"
                   >
                     <span className="text-2xl mr-3">{category.emoji}</span>
                     <span className="font-semibold group-hover:text-blue-600">
                       {category.name}
                     </span>
-                  </button>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* 사이트 정보 */}
+            <ul className="mt-6 pt-4 border-t border-gray-200 space-y-1">
+              {siteLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg"
+                  >
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
