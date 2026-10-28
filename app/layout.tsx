@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import DrawerNavigation from "./components/DrawerNavigation";
 import GoogleAdsense from "./components/GoogleAdsense";
@@ -57,6 +58,7 @@ export default function RootLayout({
         <DrawerNavigation />
         {children}
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );
