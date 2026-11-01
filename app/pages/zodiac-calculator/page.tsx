@@ -1,5 +1,9 @@
 import ZodiacCalculator from "./ZodiacCalculator";
 import { Metadata } from "next";
+import BirthYearIndex from "../age-calculator/BirthYearIndex";
+
+// 출생 연도별 목록의 나이가 해마다 바뀌므로 하루에 한 번 다시 생성합니다.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "띠 계산기 - 십이지 동물띠 확인 | 띠별 성격과 궁합",
@@ -13,5 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function ZodiacCalculatorPage() {
-  return <ZodiacCalculator />;
+  return (
+    <ZodiacCalculator>
+      <BirthYearIndex variant="zodiac" />
+    </ZodiacCalculator>
+  );
 }
