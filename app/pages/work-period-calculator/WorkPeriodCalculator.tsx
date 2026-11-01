@@ -1,300 +1,270 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import {
+  BulletList,
+  Card,
+  ErrorText,
+  FaqList,
+  Field,
+  PrimaryButton,
+  ResultHero,
+  StatGrid,
+  ToolPage,
+  inputClass,
+} from "../../components/tool/ToolUI";
+import { digitsOnly, koreanWon, won } from "../../lib/format";
+
+type WorkPeriod = {
+  startDate: Date;
+  totalDays: number;
+  years: number;
+  months: number;
+  days: number;
+  annualLeave: number;
+  estimatedSeverance: number;
+  salary: number;
+};
+
+const DAY_MS = 1000 * 60 * 60 * 24;
+
+// 연차 (근로기준법 제60조)
+// 1년 미만: 1개월 개근 시 1개씩, 최대 11개
+// 1년 이상: 15개, 3년 이상부터 최초 1년을 초과하는 근속 2년마다 1개 가산, 최대 25개
+const annualLeaveFor = (years: number, months: number) =>
+  years < 1 ? Math.min(months, 11) : Math.min(15 + Math.floor((years - 1) / 2), 25);
+
+const leaveTable = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21].map((years) => ({
+  years,
+  leave: annualLeaveFor(years, 0),
+}));
+
+const dateField =
+  "flex items-center h-14 rounded-2xl bg-canvas px-4 gap-1.5 focus-within:ring-2 focus-within:ring-brand";
+const dateInput =
+  "flex-1 min-w-0 bg-transparent outline-none text-lg font-bold text-ink placeholder:text-ink-4 placeholder:font-medium";
 
 export default function WorkPeriodCalculator() {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
   const [annualSalary, setAnnualSalary] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [workPeriod, setWorkPeriod] = useState<{
-    totalDays: number;
-    years: number;
-    months: number;
-    days: number;
-    annualLeave: number;
-    estimatedSeverance: number;
-  } | null>(null);
+  const [result, setResult] = useState<WorkPeriod | null>(null);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const today = new Date();
-    setYear(today.getFullYear().toString());
-    setMonth((today.getMonth() + 1).toString());
-    setDay(today.getDate().toString());
-  }, []);
+  const salaryValue = Number(annualSalary);
 
-  const calculateWorkPeriod = () => {
-    if (!year || !month || !day) {
-      alert("년, 월, 일을 모두 입력해주세요.");
-      return;
-    }
+  const fail = (message: string) => {
+    setResult(null);
+    setError(message);
+  };
 
-    const startYear = parseInt(year);
-    const startMonth = parseInt(month);
-    const startDay = parseInt(day);
+  const calculateWorkPeriod = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (year.length !== 4 || !month || !day) return fail("입사일을 모두 입력하세요. 연도는 4자리입니다.");
 
-    if (
-      startYear < 1900 ||
-      startYear > 2100 ||
-      startMonth < 1 ||
-      startMonth > 12 ||
-      startDay < 1 ||
-      startDay > 31
-    ) {
-      alert("올바른 날짜를 입력해주세요.");
-      return;
-    }
-
+    const startYear = Number(year);
+    const startMonth = Number(month);
+    const startDay = Number(day);
     const start = new Date(startYear, startMonth - 1, startDay);
-
     if (
       start.getFullYear() !== startYear ||
       start.getMonth() !== startMonth - 1 ||
       start.getDate() !== startDay
     ) {
-      alert("유효하지 않은 날짜입니다.");
-      return;
+      return fail("존재하지 않는 날짜입니다. 입사일을 다시 확인하세요.");
     }
 
-    const today = new Date();
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    if (start > today) return fail("입사일은 오늘이나 그 이전 날짜여야 합니다.");
 
-    if (start > today) {
-      alert("입사일은 오늘보다 이전 날짜여야 합니다.");
-      return;
-    }
-
-    setStartDate(start);
-
-    // 총 근무 일수 계산
-    const totalDays = Math.floor(
-      (today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const totalDays = Math.round((today.getTime() - start.getTime()) / DAY_MS);
 
     // 년, 월, 일 계산
     let years = today.getFullYear() - start.getFullYear();
     let months = today.getMonth() - start.getMonth();
     let days = today.getDate() - start.getDate();
-
     if (days < 0) {
       months--;
       const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
       days += prevMonth.getDate();
     }
-
     if (months < 0) {
       years--;
       months += 12;
     }
 
-    // 연차 계산 (근로기준법 제60조)
-    // 1년 미만: 1개월 개근 시 1개씩, 최대 11개
-    // 1년 이상: 15개, 3년 이상부터 최초 1년을 초과하는 근속 2년마다 1개 가산, 최대 25개
-    const annualLeave =
-      years < 1
-        ? Math.min(months, 11)
-        : Math.min(15 + Math.floor((years - 1) / 2), 25);
-
-    // 퇴직금 예상 계산 (연봉 입력 시 해당 연봉 기준, 미입력 시 0)
-    const salary = annualSalary ? parseInt(annualSalary) : 0;
-    const averageMonthlySalary = salary / 12;
-    const workYears = totalDays / 365;
-    // 퇴직금은 계속근로기간 1년 이상일 때만 지급 (근로자퇴직급여 보장법 제8조)
+    // 퇴직금 예상: 연봉 ÷ 12 × 근속연수 (계속근로기간 1년 이상일 때만, 근로자퇴직급여 보장법 제8조)
     const estimatedSeverance =
-      salary > 0 && years >= 1 ? Math.floor(averageMonthlySalary * workYears) : 0;
+      salaryValue > 0 && years >= 1 ? Math.floor((salaryValue / 12) * (totalDays / 365)) : 0;
 
-    setWorkPeriod({
+    setError("");
+    setResult({
+      startDate: start,
       totalDays,
       years,
       months,
       days,
-      annualLeave,
+      annualLeave: annualLeaveFor(years, months),
       estimatedSeverance,
+      salary: salaryValue,
     });
   };
 
+  const severanceText = (r: WorkPeriod) => {
+    if (r.years < 1) return "대상 아님";
+    if (r.salary > 0) return `약 ${won(r.estimatedSeverance)}원`;
+    return "연봉 입력 시 계산";
+  };
+
   return (
-    <div className="px-4 sm:px-6 py-8 sm:py-10">
-      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
-        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
-          근무일수 계산기
-        </h1>
-        <p className="text-ink-3 mb-8">
-          입사일 기준으로 근무 기간과 연차를 계산해보세요
-        </p>
-
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              입사일
-            </label>
-            <div className="flex gap-2">
+    <ToolPage
+      slug="work-period-calculator"
+      subtitle="입사일로 오늘까지의 근무 기간, 올해 연차 개수, 예상 퇴직금을 계산합니다."
+    >
+      <form onSubmit={calculateWorkPeriod} className="bg-white rounded-3xl p-6 sm:p-7 flex flex-col gap-5">
+        <fieldset className="flex flex-col">
+          <legend className="text-[15px] font-bold text-ink-2 mb-2">입사일</legend>
+          <div className="grid grid-cols-3 gap-2.5">
+            <label className={dateField}>
               <input
-                type="number"
+                inputMode="numeric"
+                aria-label="입사 연도"
                 value={year}
-                onChange={(e) => setYear(e.target.value)}
-                placeholder="년"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
+                onChange={(e) => setYear(digitsOnly(e.target.value).slice(0, 4))}
+                placeholder="2020"
+                className={dateInput}
               />
-              <input
-                type="number"
-                value={month}
-                onChange={(e) => setMonth(e.target.value)}
-                placeholder="월"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
-              />
-              <input
-                type="number"
-                value={day}
-                onChange={(e) => setDay(e.target.value)}
-                placeholder="일"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              연봉 (선택사항)
+              <span className="text-ink-4">년</span>
             </label>
-            <input
-              type="text"
-              value={
-                annualSalary
-                  ? parseInt(annualSalary.replace(/,/g, "")).toLocaleString()
-                  : ""
-              }
-              onChange={(e) => {
-                const value = e.target.value.replace(/,/g, "");
-                if (value === "" || /^\d+$/.test(value)) {
-                  setAnnualSalary(value);
-                }
-              }}
-              placeholder="예: 40,000,000"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              연봉을 입력하면 예상 퇴직금을 계산할 수 있습니다 (단위: 원)
-            </p>
+            <label className={dateField}>
+              <input
+                inputMode="numeric"
+                aria-label="입사 월"
+                value={month}
+                onChange={(e) => setMonth(digitsOnly(e.target.value).slice(0, 2))}
+                placeholder="3"
+                className={dateInput}
+              />
+              <span className="text-ink-4">월</span>
+            </label>
+            <label className={dateField}>
+              <input
+                inputMode="numeric"
+                aria-label="입사 일"
+                value={day}
+                onChange={(e) => setDay(digitsOnly(e.target.value).slice(0, 2))}
+                placeholder="2"
+                className={dateInput}
+              />
+              <span className="text-ink-4">일</span>
+            </label>
           </div>
+        </fieldset>
 
-          <button
-            onClick={calculateWorkPeriod}
-            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
-          >
-            계산하기
-          </button>
+        <Field
+          label="연봉 (선택)"
+          htmlFor="annual-salary"
+          hint={salaryValue > 0 ? koreanWon(salaryValue) : "입력하면 예상 퇴직금을 함께 계산합니다"}
+        >
+          <input
+            id="annual-salary"
+            inputMode="numeric"
+            value={annualSalary ? salaryValue.toLocaleString("ko-KR") : ""}
+            onChange={(e) => setAnnualSalary(digitsOnly(e.target.value).slice(0, 12))}
+            placeholder="40,000,000"
+            className={inputClass}
+          />
+        </Field>
 
-          {workPeriod && startDate && (
-            <div className="mt-8">
-              <div className="p-6 bg-canvas rounded-xl">
-                <div className="text-center mb-4">
-                  <p className="text-lg text-gray-700 mb-2">
-                    입사일: {startDate.getFullYear()}년{" "}
-                    {startDate.getMonth() + 1}월 {startDate.getDate()}일
-                  </p>
-                  <div className="text-5xl font-bold text-blue-600 my-4">
-                    {workPeriod.years}년 {workPeriod.months}개월{" "}
-                    {workPeriod.days}일
-                  </div>
-                  <p className="text-gray-600">
-                    총 {workPeriod.totalDays.toLocaleString()}일 근무
-                  </p>
-                </div>
-              </div>
+        {error && <ErrorText>{error}</ErrorText>}
+        <PrimaryButton type="submit">계산하기</PrimaryButton>
+      </form>
 
-              <div className="mt-6 grid grid-cols-1 gap-4">
-                <div className="bg-white rounded-xl p-5">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-sm font-medium text-gray-600">
-                        연차 개수
-                      </h3>
-                      <p className="text-3xl font-bold text-green-600 mt-1">
-                        {workPeriod.annualLeave}개
-                      </p>
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-3">
-                    {workPeriod.years < 1
-                      ? "1년 미만: 1개월 개근 시 1개씩 발생 (최대 11개)"
-                      : "1년 이상: 15개 기본 + 3년차부터 2년마다 1개 추가 (최대 25개)"}
-                  </p>
-                </div>
+      {result && (
+        <Card aria-label="계산 결과" aria-live="polite" className="flex flex-col gap-5">
+          <ResultHero
+            label={`${result.startDate.getFullYear()}년 ${result.startDate.getMonth() + 1}월 ${result.startDate.getDate()}일 입사 · 오늘까지`}
+            value={`${result.years}년 ${result.months}개월 ${result.days}일`}
+            sub={`총 ${result.totalDays.toLocaleString("ko-KR")}일, 약 ${Math.floor(result.totalDays / 7).toLocaleString("ko-KR")}주`}
+          />
+          <StatGrid
+            items={[
+              { label: result.years < 1 ? "지금까지 발생한 연차" : "올해 연차", value: `${result.annualLeave}개` },
+              { label: "예상 퇴직금 (세전)", value: severanceText(result) },
+              { label: "퇴직금 대상", value: result.years >= 1 ? "해당" : "1년 미만" },
+            ]}
+          />
+          <p className="text-sm text-ink-3 border-t border-line pt-4">
+            {result.years < 1
+              ? "1년 미만은 1개월 개근할 때마다 연차가 1개씩 생깁니다(최대 11개). 퇴직금은 1년 이상 근무해야 받을 수 있습니다."
+              : "1년 이상은 기본 15개에 3년차부터 2년마다 1개씩 늘어납니다(최대 25개). 퇴직금은 연봉 ÷ 12 × 근속연수로 어림한 값입니다."}
+          </p>
+        </Card>
+      )}
 
-                <div className="bg-white rounded-xl p-5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <h3 className="text-sm font-medium text-gray-600">
-                        예상 퇴직금 (세전)
-                      </h3>
-                      {workPeriod.years < 1 ? (
-                        <p className="text-sm text-gray-500 mt-1">
-                          근속 1년 미만은 퇴직금 지급 대상이 아닙니다
-                        </p>
-                      ) : workPeriod.estimatedSeverance > 0 ? (
-                        <p className="text-2xl font-bold text-brand mt-1">
-                          약 {workPeriod.estimatedSeverance.toLocaleString()}원
-                        </p>
-                      ) : (
-                        <p className="text-sm text-gray-500 mt-1">
-                          연봉을 입력해주세요
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-3">
-                    {annualSalary
-                      ? `연봉 ${parseInt(annualSalary).toLocaleString()}원 기준`
-                      : "연봉을 입력하면 정확한 퇴직금을 계산할 수 있습니다"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 p-4 bg-gray-50 rounded-xl">
-                <h3 className="font-semibold text-gray-700 mb-3">
-                  주요 근무 기간 정보
-                </h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">총 근무 주수:</span>
-                    <span className="font-medium text-gray-800">
-                      약 {Math.floor(workPeriod.totalDays / 7).toLocaleString()}
-                      주
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">총 근무 개월수:</span>
-                    <span className="font-medium text-gray-800">
-                      약{" "}
-                      {Math.floor(workPeriod.totalDays / 30).toLocaleString()}
-                      개월
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600">퇴직금 수령 가능:</span>
-                    <span className="font-medium text-gray-800">
-                      {workPeriod.years >= 1 ? "가능 ✓" : "불가능 (1년 이상 필요)"}
-                    </span>
-                  </div>
-                </div>
-              </div>
+      <Card title="근속연수별 연차 개수">
+        <p className="mb-4">
+          근로기준법 제60조에 따라 1년간 80% 이상 출근하면 15개의 유급휴가가 생기고, 3년 이상 근무하면
+          최초 1년을 넘는 근속 2년마다 1개씩 늘어 최대 25개까지 받습니다.
+        </p>
+        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+          <div className="bg-canvas rounded-2xl p-3 text-center">
+            <p className="text-[13px] text-ink-3">1년 미만</p>
+            <p className="font-extrabold text-ink">월 1개</p>
+          </div>
+          {leaveTable.map((row) => (
+            <div key={row.years} className="bg-canvas rounded-2xl p-3 text-center">
+              <p className="text-[13px] text-ink-3">{row.years === 21 ? "21년 이상" : `${row.years}년`}</p>
+              <p className="font-extrabold text-ink">{row.leave}개</p>
             </div>
-          )}
-
-          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 연차는 근로기준법 제60조에 따라 계산되며, 출근율 80% 이상을 가정합니다</li>
-              <li>• 표시되는 연차는 현재 근속연수에 해당하는 연간 발생 개수입니다</li>
-              <li>• 퇴직금은 1년 이상 근무 시 지급됩니다</li>
-              <li>• 퇴직금은 연봉 ÷ 12 × 근속년수 방식으로 계산됩니다</li>
-              <li>• 실제 퇴직금은 상여금, 수당 등에 따라 달라질 수 있습니다</li>
-              <li>• 연차 사용 및 이월 규정은 회사마다 다릅니다</li>
-            </ul>
-          </div>
+          ))}
         </div>
-      </div>
-    </div>
+      </Card>
+
+      <Card title="퇴직금 계산 방법">
+        <p className="mb-3">
+          법정 퇴직금은 <strong className="text-ink">1일 평균임금 × 30일 × (재직일수 ÷ 365)</strong>
+          입니다. 1일 평균임금은 퇴직 전 3개월 동안 받은 임금 총액을 그 기간의 총 일수로 나눈 값이며,
+          정기 상여금과 연차수당 일부도 포함됩니다.
+        </p>
+        <p>
+          이 계산기는 연봉을 12로 나눈 월급에 근속연수를 곱해 어림합니다. 상여금 비중이 크거나 퇴직 직전
+          임금이 바뀐 경우에는 실제 퇴직금과 차이가 날 수 있으니, 정확한 금액은 회사나 고용노동부
+          퇴직금 계산기로 확인하세요.
+        </p>
+      </Card>
+
+      <Card title="자주 묻는 질문">
+        <FaqList
+          items={[
+            [
+              "1년 미만 근무자도 연차가 있나요?",
+              "있습니다. 입사 후 1년 동안은 1개월 개근할 때마다 1개씩, 최대 11개의 연차가 생깁니다(근로기준법 제60조 제2항).",
+            ],
+            [
+              "퇴직금은 언제까지 받아야 하나요?",
+              "회사는 퇴직일로부터 14일 이내에 퇴직금을 지급해야 합니다. 당사자끼리 합의하면 지급 기일을 연장할 수 있습니다(근로자퇴직급여 보장법 제9조).",
+            ],
+            [
+              "아르바이트도 퇴직금과 연차를 받나요?",
+              "1년 이상 일했고 4주 평균 1주 소정근로시간이 15시간 이상이면 아르바이트도 퇴직금과 연차를 받습니다. 주 15시간 미만이면 둘 다 적용되지 않습니다.",
+            ],
+          ]}
+        />
+      </Card>
+
+      <Card title="참고 사항">
+        <BulletList
+          items={[
+            "연차는 출근율 80% 이상을 가정하며, 표시되는 개수는 현재 근속연수에 해당하는 연간 발생 개수입니다.",
+            "회계연도 기준으로 연차를 부여하는 회사는 입사 연도에 따라 개수가 다를 수 있습니다.",
+            "연차 사용 촉진, 미사용 연차수당, 이월 규정은 회사마다 다릅니다.",
+            "퇴직금은 세전 금액이며, 실제로는 퇴직소득세가 원천징수됩니다.",
+          ]}
+        />
+      </Card>
+    </ToolPage>
   );
 }
