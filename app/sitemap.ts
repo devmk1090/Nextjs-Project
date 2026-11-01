@@ -1,8 +1,9 @@
 import { MetadataRoute } from 'next'
 import { toolPath, tools } from './tools'
+import { siteUrl } from './site'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || 'https://all-in-one-k-calculator.vercel.app').replace(/\/$/, '')
+  const baseUrl = siteUrl
   const lastModified = new Date()
 
   return [

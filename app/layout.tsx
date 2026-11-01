@@ -5,6 +5,8 @@ import "./globals.css";
 import DrawerNavigation from "./components/DrawerNavigation";
 import GoogleAdsense from "./components/GoogleAdsense";
 import SiteFooter from "./components/SiteFooter";
+import ToolStructuredData from "./components/ToolStructuredData";
+import { siteUrl } from "./site";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://all-in-one-k-calculator.vercel.app/'),
+  metadataBase: new URL(siteUrl),
   openGraph: {
     type: 'website',
     locale: 'ko_KR',
@@ -58,6 +60,7 @@ export default function RootLayout({
         <DrawerNavigation />
         {children}
         <SiteFooter />
+        <ToolStructuredData />
         <Analytics />
       </body>
     </html>
