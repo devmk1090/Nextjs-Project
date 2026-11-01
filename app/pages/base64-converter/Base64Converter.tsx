@@ -85,16 +85,16 @@ export default function Base64Converter() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           Base64 인코더/디코더
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 인코딩 섹션 */}
-          <section className="border-2 border-blue-200 rounded-xl p-6 bg-blue-50">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">🔒 텍스트 → Base64 인코딩</h2>
+          <section className="rounded-2xl p-6 bg-canvas">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">텍스트 → Base64 인코딩</h2>
 
             {/* 텍스트 입력 */}
             <div className="mb-4">
@@ -103,7 +103,7 @@ export default function Base64Converter() {
                 value={textInput}
                 onChange={(e) => setTextInput(e.target.value)}
                 placeholder="인코딩할 텍스트를 입력하세요"
-                className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
+                className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
               />
             </div>
 
@@ -111,13 +111,13 @@ export default function Base64Converter() {
             <div className="flex gap-3 mb-4">
               <button
                 onClick={encodeToBase64}
-                className="flex-1 px-6 py-2 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all shadow-md hover:shadow-lg"
+                className="flex-1 px-6 py-2 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
               >
                 인코딩
               </button>
               <button
                 onClick={clearEncode}
-                className="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all shadow-md hover:shadow-lg"
+                className="px-6 py-2 bg-gray-500 text-white rounded-xl font-semibold hover:bg-gray-600 transition-all hover:shadow-md"
               >
                 초기화
               </button>
@@ -125,8 +125,8 @@ export default function Base64Converter() {
 
             {/* 에러 메시지 */}
             {encodeError && (
-              <div className="mb-4 p-3 bg-red-50 border-2 border-red-300 rounded-lg">
-                <p className="text-red-700 text-sm font-semibold">❌ {encodeError}</p>
+              <div className="mb-4 p-3 bg-red-50 rounded-xl">
+                <p className="text-red-700 text-sm font-semibold">{encodeError}</p>
               </div>
             )}
 
@@ -137,7 +137,7 @@ export default function Base64Converter() {
                 <button
                   onClick={copyEncoded}
                   disabled={!base64Output}
-                  className={`px-4 py-1 rounded-lg text-sm font-semibold transition-all ${
+                  className={`px-4 py-1 rounded-xl text-sm font-semibold transition-all ${
                     base64Output
                       ? "bg-green-500 text-white hover:bg-green-600"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -150,14 +150,14 @@ export default function Base64Converter() {
                 value={base64Output}
                 readOnly
                 placeholder="인코딩된 Base64 문자열이 여기에 표시됩니다"
-                className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-50 font-mono text-sm resize-none"
+                className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 font-mono text-sm resize-none"
               />
             </div>
           </section>
 
           {/* 디코딩 섹션 */}
-          <section className="border-2 border-purple-200 rounded-xl p-6 bg-purple-50">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">🔓 Base64 → 텍스트 디코딩</h2>
+          <section className="rounded-2xl p-6 bg-canvas">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">Base64 → 텍스트 디코딩</h2>
 
             {/* Base64 입력 */}
             <div className="mb-4">
@@ -166,7 +166,7 @@ export default function Base64Converter() {
                 value={base64Input}
                 onChange={(e) => setBase64Input(e.target.value)}
                 placeholder="디코딩할 Base64 문자열을 입력하세요"
-                className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono text-sm resize-none"
+                className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand font-mono text-sm resize-none"
               />
             </div>
 
@@ -174,13 +174,13 @@ export default function Base64Converter() {
             <div className="flex gap-3 mb-4">
               <button
                 onClick={decodeFromBase64}
-                className="flex-1 px-6 py-2 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition-all shadow-md hover:shadow-lg"
+                className="flex-1 px-6 py-2 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
               >
                 디코딩
               </button>
               <button
                 onClick={clearDecode}
-                className="px-6 py-2 bg-gray-500 text-white rounded-lg font-semibold hover:bg-gray-600 transition-all shadow-md hover:shadow-lg"
+                className="px-6 py-2 bg-gray-500 text-white rounded-xl font-semibold hover:bg-gray-600 transition-all hover:shadow-md"
               >
                 초기화
               </button>
@@ -188,8 +188,8 @@ export default function Base64Converter() {
 
             {/* 에러 메시지 */}
             {decodeError && (
-              <div className="mb-4 p-3 bg-red-50 border-2 border-red-300 rounded-lg">
-                <p className="text-red-700 text-sm font-semibold">❌ {decodeError}</p>
+              <div className="mb-4 p-3 bg-red-50 rounded-xl">
+                <p className="text-red-700 text-sm font-semibold">{decodeError}</p>
               </div>
             )}
 
@@ -200,7 +200,7 @@ export default function Base64Converter() {
                 <button
                   onClick={copyDecoded}
                   disabled={!textOutput}
-                  className={`px-4 py-1 rounded-lg text-sm font-semibold transition-all ${
+                  className={`px-4 py-1 rounded-xl text-sm font-semibold transition-all ${
                     textOutput
                       ? "bg-green-500 text-white hover:bg-green-600"
                       : "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -213,14 +213,14 @@ export default function Base64Converter() {
                 value={textOutput}
                 readOnly
                 placeholder="디코딩된 텍스트가 여기에 표시됩니다"
-                className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg bg-gray-50 text-sm resize-none"
+                className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 text-sm resize-none"
               />
             </div>
           </section>
         </div>
 
         {/* 소개 섹션 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Base64 인코딩이란?</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -244,7 +244,7 @@ export default function Base64Converter() {
         </div>
 
         {/* 활용 사례 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">활용 사례</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
@@ -305,11 +305,11 @@ export default function Base64Converter() {
         </div>
 
         {/* Base64의 원리 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Base64의 원리</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔤</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">64개 문자 사용:</strong> Base64는 A-Z(26개), a-z(26개), 0-9(10개), +(1개), /(1개) 총 64개 문자만 사용합니다.
                 여기에 패딩용 =(equals) 문자가 추가됩니다. 이 64개 문자는 모든 시스템에서 안전하게 전송 가능한 ASCII 문자들입니다.
@@ -317,7 +317,7 @@ export default function Base64Converter() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">📏</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">용량이 33% 증가:</strong> 원본 데이터를 Base64로 인코딩하면 크기가 약 4/3배(33% 증가)가 됩니다.
                 이는 8비트(1바이트) 데이터를 6비트씩 나눠서 표현하기 때문입니다. 예를 들어 3바이트(24비트) 원본은 4개 문자(24비트)로 변환됩니다.
@@ -325,7 +325,7 @@ export default function Base64Converter() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">⚖️</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">패딩(=) 문자의 역할:</strong> 원본 데이터가 3바이트의 배수가 아닐 때, 끝에 =나 ==를 붙여 길이를 맞춥니다.
                 예를 들어 "A"(1바이트)를 인코딩하면 "QQ=="가 되고, "AB"(2바이트)는 "QUI="가 됩니다.
@@ -333,7 +333,7 @@ export default function Base64Converter() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔒</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">암호화가 아닌 인코딩:</strong> Base64는 "변환" 방식일 뿐 "암호화"가 아닙니다.
                 누구나 Base64 디코더로 원본을 복원할 수 있으므로 비밀번호, 개인정보 같은 민감한 데이터를 숨기는 용도로는 절대 사용하면 안 됩니다.
@@ -341,7 +341,7 @@ export default function Base64Converter() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🌐</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">URL-safe Base64 변형:</strong> 표준 Base64의 +와 / 문자는 URL에서 특수 의미를 가지므로 문제가 됩니다.
                 URL-safe Base64는 +를 -, /를 _로 대체하고 패딩 =를 생략합니다. JWT 토큰이나 URL 파라미터에서 주로 사용됩니다.
@@ -352,10 +352,10 @@ export default function Base64Converter() {
         </div>
 
         {/* 자주 묻는 질문 */}
-        <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 묻는 질문 (FAQ)</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. Base64로 인코딩하면 안전한가요? 비밀번호를 숨길 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 아니요, 절대 안전하지 않습니다. Base64는 암호화가 아니라 단순 인코딩입니다.
@@ -363,7 +363,7 @@ export default function Base64Converter() {
                 보안이 필요하면 AES, RSA 같은 진짜 암호화 알고리즘을 사용하세요.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 한글이 깨지는데 어떻게 해야 하나요?</h3>
               <p className="text-gray-700">
                 A. 우리 도구는 UTF-8 인코딩을 자동으로 처리하므로 한글이 올바르게 변환됩니다.
@@ -371,7 +371,7 @@ export default function Base64Converter() {
                 btoa() 함수는 Latin1만 지원하므로, 한글 처리를 위해 encodeURIComponent()와 조합해야 합니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 이미지 파일도 Base64로 변환할 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 네, 가능하지만 이 도구는 텍스트 전용입니다. 이미지를 Base64로 변환하려면 별도의 이미지 인코더를 사용하거나,
@@ -379,7 +379,7 @@ export default function Base64Converter() {
                 단, 큰 이미지는 Base64로 인코딩하면 용량이 33% 증가하므로 성능에 주의하세요.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 끝에 있는 = 문자는 무엇인가요? 지워도 되나요?</h3>
               <p className="text-gray-700">
                 A. =는 패딩(padding) 문자로, 데이터 길이를 맞추기 위해 추가됩니다.
@@ -387,7 +387,7 @@ export default function Base64Converter() {
                 URL-safe Base64에서는 패딩을 생략하기도 하지만, 표준 Base64에서는 필수입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. JWT 토큰을 디코딩할 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 네, JWT는 점(.)으로 구분된 3개 부분(헤더.페이로드.서명)으로 구성되며, 각 부분이 Base64로 인코딩되어 있습니다.
@@ -395,7 +395,7 @@ export default function Base64Converter() {
                 단, JWT는 URL-safe Base64를 사용하므로 일부 디코더에서는 +와 /를 -와 _로 수동 변환해야 할 수 있습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 디코딩 오류가 나는데 이유가 뭔가요?</h3>
               <p className="text-gray-700">
                 A. Base64 형식이 올바르지 않거나 손상된 경우입니다. Base64는 A-Z, a-z, 0-9, +, /, = 문자만 허용합니다.
@@ -407,14 +407,14 @@ export default function Base64Converter() {
         </div>
 
         {/* 사용 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Base64란?</h2>
           <div className="text-gray-700 space-y-3">
             <p>
               Base64는 바이너리 데이터를 텍스트 형태로 변환하는 인코딩 방식입니다. 이메일, URL, JSON 등 텍스트만 지원하는
               환경에서 바이너리 데이터를 전송할 때 사용됩니다.
             </p>
-            <div className="bg-white rounded-lg p-4 border border-gray-200">
+            <div className="bg-white rounded-xl p-4 border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">주요 사용처:</h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>이미지를 HTML/CSS에 직접 임베딩 (Data URL)</li>
@@ -428,9 +428,9 @@ export default function Base64Converter() {
         </div>
 
         {/* 예제 */}
-        <div className="mt-8 bg-green-50 rounded-xl p-6 border-2 border-green-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">예제</h2>
-          <div className="bg-white rounded-lg p-4 border border-gray-200">
+          <div className="bg-white rounded-xl p-4 border border-gray-200">
             <div className="space-y-4">
               <div>
                 <p className="text-gray-700 mb-2 font-semibold">원본 텍스트:</p>

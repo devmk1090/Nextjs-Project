@@ -53,14 +53,14 @@ export default function RandomNumber() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           랜덤 숫자 생성기
         </h1>
 
         {/* 설정 영역 */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
+        <div className="mb-8 p-6 bg-canvas rounded-2xl">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-gray-700 font-semibold mb-2">최솟값</label>
@@ -68,7 +68,7 @@ export default function RandomNumber() {
                 type="number"
                 value={min}
                 onChange={(e) => setMin(Number(e.target.value))}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand"
               />
             </div>
             <div>
@@ -77,7 +77,7 @@ export default function RandomNumber() {
                 type="number"
                 value={max}
                 onChange={(e) => setMax(Number(e.target.value))}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function RandomNumber() {
 
           <button
             onClick={generateRandomNumbers}
-            className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
           >
             생성하기
           </button>
@@ -118,12 +118,12 @@ export default function RandomNumber() {
 
         {/* 결과 */}
         {results.length > 0 && (
-          <div className="mb-8 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200">
+          <div className="mb-8 bg-orange-50 rounded-2xl p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold text-gray-800">결과</h2>
               <button
                 onClick={copyToClipboard}
-                className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
+                className="px-4 py-2 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-all"
               >
                 복사
               </button>
@@ -132,7 +132,7 @@ export default function RandomNumber() {
               {results.map((num, index) => (
                 <div
                   key={index}
-                  className="px-6 py-4 bg-white rounded-lg shadow-md border-2 border-blue-300"
+                  className="px-6 py-4 bg-white rounded-xl"
                 >
                   <span className="text-2xl font-bold text-blue-600">{num}</span>
                 </div>
@@ -143,13 +143,13 @@ export default function RandomNumber() {
 
         {/* 히스토리 */}
         {history.length > 0 && (
-          <div className="bg-purple-50 rounded-xl p-6 border-2 border-purple-200">
+          <div className="bg-canvas rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">생성 히스토리</h2>
             <div className="space-y-2">
               {history.map((nums, index) => (
                 <div
                   key={index}
-                  className="p-3 bg-white rounded-lg border border-gray-300 text-gray-700"
+                  className="p-3 bg-white rounded-xl border border-gray-300 text-gray-700"
                 >
                   <span className="font-mono">{nums.join(", ")}</span>
                 </div>
@@ -159,7 +159,7 @@ export default function RandomNumber() {
         )}
 
         {/* 소개 섹션 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">랜덤 숫자 생성기란?</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -185,7 +185,7 @@ export default function RandomNumber() {
         </div>
 
         {/* 활용 사례 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">활용 사례</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
@@ -241,11 +241,11 @@ export default function RandomNumber() {
         </div>
 
         {/* 난수의 원리 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">난수의 원리</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔢</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">컴퓨터가 난수를 생성하는 방법:</strong> 컴퓨터는 결정론적 기계이기 때문에 완전한 무작위를 만들 수 없습니다.
                 대신 "선형 합동 생성기(Linear Congruential Generator)" 같은 복잡한 수학 공식을 사용하여 무작위처럼 보이는 숫자열을 생성합니다.
@@ -253,7 +253,7 @@ export default function RandomNumber() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🌱</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">시드(Seed)의 개념:</strong> 난수 생성기는 초기값(시드)을 기반으로 숫자를 생성합니다.
                 같은 시드를 사용하면 항상 같은 난수 패턴이 나옵니다. JavaScript의 Math.random()은 브라우저가 자동으로 현재 시간 등을 시드로 사용하여
@@ -261,7 +261,7 @@ export default function RandomNumber() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">📊</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">균등 분포(Uniform Distribution)란:</strong> 좋은 난수 생성기는 모든 숫자가 동일한 확률로 나와야 합니다.
                 예를 들어 1~100 범위에서 1이 나올 확률과 50이 나올 확률이 모두 1%로 같아야 합니다.
@@ -269,7 +269,7 @@ export default function RandomNumber() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔐</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">암호학적으로 안전한 난수:</strong> 비밀번호, 암호키, 보안 토큰 생성에는 Math.random()을 사용하면 안 됩니다.
                 해커가 패턴을 예측할 수 있기 때문입니다. 보안이 중요한 경우 crypto.getRandomValues()나 crypto.randomUUID() 같은
@@ -280,10 +280,10 @@ export default function RandomNumber() {
         </div>
 
         {/* 자주 묻는 질문 */}
-        <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 묻는 질문 (FAQ)</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 이 난수는 정말 무작위인가요? 공정한가요?</h3>
               <p className="text-gray-700">
                 A. 통계적으로 무작위이며 일반적인 용도로는 충분히 공정합니다. Math.random()은 균등 분포를 따르므로
@@ -291,7 +291,7 @@ export default function RandomNumber() {
                 복권 추첨이나 게임처럼 공정성이 중요한 곳에서 사용할 수 있지만, 암호나 보안 용도로는 적합하지 않습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 중복을 방지할 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 네, "중복 허용" 체크박스를 해제하면 같은 숫자가 두 번 나오지 않습니다.
@@ -299,7 +299,7 @@ export default function RandomNumber() {
                 단, 중복 불허 시에는 (최댓값 - 최솟값 + 1)보다 많은 개수를 생성할 수 없습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 음수나 소수점 숫자도 생성할 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 음수는 가능합니다. 최솟값을 -100, 최댓값을 100으로 설정하면 음수와 양수를 모두 포함하는 범위에서 생성됩니다.
@@ -307,7 +307,7 @@ export default function RandomNumber() {
                 소수점 난수가 필요하면 별도의 도구를 사용하거나 직접 Math.random()을 활용해야 합니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 히스토리는 어디에 저장되나요? 새로고침하면 사라지나요?</h3>
               <p className="text-gray-700">
                 A. 히스토리는 브라우저 메모리(RAM)에만 임시 저장되며, 페이지를 새로고침하거나 닫으면 모두 사라집니다.
@@ -315,7 +315,7 @@ export default function RandomNumber() {
                 히스토리를 보관하고 싶다면 "복사" 버튼으로 결과를 복사하여 메모장이나 엑셀에 저장하세요.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 범위를 넘어선 숫자가 나올 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 아니요, 절대 불가능합니다. 최솟값 10, 최댓값 20으로 설정하면 10~20 사이의 숫자만 나옵니다.
@@ -323,7 +323,7 @@ export default function RandomNumber() {
                 정확히 지정한 범위 내의 정수만 생성하도록 보장합니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 여러 번 돌려도 같은 숫자만 나오는데 버그인가요?</h3>
               <p className="text-gray-700">
                 A. 버그가 아니라 확률의 속성입니다. 예를 들어 1~10 범위에서 1개를 생성할 때, 연속으로 7이 3번 나올 확률은
@@ -335,7 +335,7 @@ export default function RandomNumber() {
         </div>
 
         {/* 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">사용 가이드</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">

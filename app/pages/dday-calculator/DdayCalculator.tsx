@@ -54,12 +54,12 @@ export default function DdayCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           디데이 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           특정 날짜까지 남은 일수를 계산해보세요
         </p>
 
@@ -74,34 +74,34 @@ export default function DdayCalculator() {
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
                 placeholder="년"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
               <input
                 type="number"
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
                 placeholder="월"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
               <input
                 type="number"
                 value={day}
                 onChange={(e) => setDay(e.target.value)}
                 placeholder="일"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
             </div>
           </div>
 
           <button
             onClick={calculateDday}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             계산하기
           </button>
 
           {dday !== null && targetDate && (
-            <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+            <div className="mt-8 p-6 bg-canvas rounded-xl">
               <div className="text-center">
                 <p className="text-lg text-gray-700 mb-2">
                   {targetDate.getFullYear()}년 {targetDate.getMonth() + 1}월{" "}
@@ -123,7 +123,7 @@ export default function DdayCalculator() {
               <div className="mt-6 pt-6 border-t border-blue-200">
                 <h3 className="font-semibold text-gray-700 mb-3">주요 기념일</h3>
                 <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-xl">
                     <span className="text-gray-600">100일:</span>
                     <span className="ml-2 font-medium text-gray-800">
                       {new Date(
@@ -131,7 +131,7 @@ export default function DdayCalculator() {
                       ).toLocaleDateString("ko-KR")}
                     </span>
                   </div>
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-xl">
                     <span className="text-gray-600">200일:</span>
                     <span className="ml-2 font-medium text-gray-800">
                       {new Date(
@@ -139,7 +139,7 @@ export default function DdayCalculator() {
                       ).toLocaleDateString("ko-KR")}
                     </span>
                   </div>
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-xl">
                     <span className="text-gray-600">300일:</span>
                     <span className="ml-2 font-medium text-gray-800">
                       {new Date(
@@ -147,7 +147,7 @@ export default function DdayCalculator() {
                       ).toLocaleDateString("ko-KR")}
                     </span>
                   </div>
-                  <div className="bg-white p-3 rounded-lg">
+                  <div className="bg-white p-3 rounded-xl">
                     <span className="text-gray-600">1년:</span>
                     <span className="ml-2 font-medium text-gray-800">
                       {new Date(
@@ -160,7 +160,7 @@ export default function DdayCalculator() {
             </div>
           )}
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">사용 예시</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• 수능, 입시일까지 남은 일수</li>
@@ -171,7 +171,7 @@ export default function DdayCalculator() {
           </div>
 
           {/* 소개 섹션 */}
-          <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+          <div className="mt-8 p-6 bg-canvas rounded-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               디데이 계산기란?
             </h2>
@@ -212,12 +212,12 @@ export default function DdayCalculator() {
           </div>
 
           {/* 활용 사례 */}
-          <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+          <div className="mt-8 p-6 bg-canvas rounded-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               디데이 계산기 활용 사례
             </h2>
             <div className="space-y-4">
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   1. 수험생의 입시 준비 (수능, 공무원 시험)
                 </h3>
@@ -231,7 +231,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   2. 임산부의 출산 예정일 카운트다운
                 </h3>
@@ -245,7 +245,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   3. 결혼 준비 (웨딩 플래닝)
                 </h3>
@@ -259,7 +259,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   4. 군 복무자의 전역일 계산
                 </h3>
@@ -272,7 +272,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   5. 프로젝트 마감일 관리 (업무, 학업)
                 </h3>
@@ -287,7 +287,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border-l-4 border-green-500">
+              <div className="bg-white p-4 rounded-xl border-l-2 border-line">
                 <h3 className="font-bold text-gray-800 mb-2">
                   6. 여행 카운트다운 및 기념일 추적
                 </h3>
@@ -303,13 +303,13 @@ export default function DdayCalculator() {
           </div>
 
           {/* 원리 섹션 */}
-          <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+          <div className="mt-8 p-6 bg-canvas rounded-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               날짜 계산의 원리와 기초 지식
             </h2>
             <div className="space-y-4">
               <div className="flex items-start">
-                <span className="font-bold text-yellow-600 mr-2 mt-1">📅</span>
+                <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
                 <div>
                   <strong className="text-gray-900">
                     그레고리력(Gregorian Calendar)과 윤년:
@@ -325,7 +325,7 @@ export default function DdayCalculator() {
               </div>
 
               <div className="flex items-start">
-                <span className="font-bold text-yellow-600 mr-2 mt-1">⏱️</span>
+                <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
                 <div>
                   <strong className="text-gray-900">
                     밀리초 기반 날짜 계산:
@@ -340,7 +340,7 @@ export default function DdayCalculator() {
               </div>
 
               <div className="flex items-start">
-                <span className="font-bold text-yellow-600 mr-2 mt-1">🌍</span>
+                <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
                 <div>
                   <strong className="text-gray-900">
                     시간대(Timezone)와 자정(Midnight) 처리:
@@ -355,7 +355,7 @@ export default function DdayCalculator() {
               </div>
 
               <div className="flex items-start">
-                <span className="font-bold text-yellow-600 mr-2 mt-1">🎯</span>
+                <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
                 <div>
                   <strong className="text-gray-900">
                     D-day vs D+day 표기 규칙:
@@ -369,7 +369,7 @@ export default function DdayCalculator() {
               </div>
 
               <div className="flex items-start">
-                <span className="font-bold text-yellow-600 mr-2 mt-1">💯</span>
+                <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
                 <div>
                   <strong className="text-gray-900">
                     기념일 계산(100일, 200일, 300일, 1년):
@@ -386,12 +386,12 @@ export default function DdayCalculator() {
           </div>
 
           {/* FAQ */}
-          <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+          <div className="mt-8 p-6 bg-canvas rounded-2xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">
               자주 묻는 질문
             </h2>
             <div className="space-y-4">
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 음력 날짜로도 D-day를 계산할 수 있나요?
                 </h3>
@@ -404,7 +404,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 시간까지 포함하여 계산할 수 있나요?
                 </h3>
@@ -417,7 +417,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 과거 날짜를 입력하면 어떻게 되나요?
                 </h3>
@@ -431,7 +431,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 주말이나 공휴일을 제외한 영업일만 계산할 수 있나요?
                 </h3>
@@ -445,7 +445,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 계산 결과가 정확한가요? (윤년, 각 월의 일수 차이 등)
                 </h3>
@@ -460,7 +460,7 @@ export default function DdayCalculator() {
                 </p>
               </div>
 
-              <div className="border-l-4 border-purple-400 pl-4">
+              <div className="border-l-2 border-line pl-4">
                 <h3 className="font-bold text-gray-800 mb-2">
                   Q. 기념일 날짜(100일 전, 200일 전 등)는 어떻게 계산되나요?
                 </h3>

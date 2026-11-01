@@ -57,9 +57,9 @@ export default function HashGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           해시 생성기
         </h1>
 
@@ -70,7 +70,7 @@ export default function HashGenerator() {
             value={input}
             onChange={(e) => handleInputChange(e.target.value)}
             placeholder="해시를 생성할 텍스트를 입력하세요"
-            className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
+            className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
           />
           <p className="text-sm text-gray-500 mt-2">
             입력한 텍스트의 해시가 자동으로 생성됩니다.
@@ -84,68 +84,68 @@ export default function HashGenerator() {
 
             {/* SHA-1 */}
             {hashes["SHA-1"] && (
-              <div className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-6 border-2 border-red-200">
+              <div className="bg-red-50 rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl font-bold text-gray-800">SHA-1</h3>
                   <div className="flex gap-2 items-center">
                     <span className="text-sm text-gray-600">{hashes["SHA-1"]?.length / 2} bytes</span>
                     <button
                       onClick={() => copyToClipboard(hashes["SHA-1"]!, "SHA-1")}
-                      className="px-4 py-1 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all"
+                      className="px-4 py-1 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600 transition-all"
                     >
                       {copied === "SHA-1" ? "복사됨!" : "복사"}
                     </button>
                   </div>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-gray-300 overflow-x-auto">
+                <div className="bg-white p-3 rounded-xl border border-gray-300 overflow-x-auto">
                   <code className="font-mono text-sm break-all">{hashes["SHA-1"]}</code>
                 </div>
                 <p className="text-xs text-red-600 mt-2">
-                  ⚠️ SHA-1은 보안에 취약하여 권장되지 않습니다. SHA-256 이상을 사용하세요.
+                  SHA-1은 보안에 취약하여 권장되지 않습니다. SHA-256 이상을 사용하세요.
                 </p>
               </div>
             )}
 
             {/* SHA-256 */}
             {hashes["SHA-256"] && (
-              <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-2 border-blue-200">
+              <div className="bg-canvas rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl font-bold text-gray-800">SHA-256</h3>
                   <div className="flex gap-2 items-center">
                     <span className="text-sm text-gray-600">{hashes["SHA-256"]?.length / 2} bytes</span>
                     <button
                       onClick={() => copyToClipboard(hashes["SHA-256"]!, "SHA-256")}
-                      className="px-4 py-1 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all"
+                      className="px-4 py-1 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600 transition-all"
                     >
                       {copied === "SHA-256" ? "복사됨!" : "복사"}
                     </button>
                   </div>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-gray-300 overflow-x-auto">
+                <div className="bg-white p-3 rounded-xl border border-gray-300 overflow-x-auto">
                   <code className="font-mono text-sm break-all">{hashes["SHA-256"]}</code>
                 </div>
                 <p className="text-xs text-green-600 mt-2">
-                  ✅ 권장되는 해시 알고리즘입니다. 비트코인, SSL/TLS 등에서 사용됩니다.
+                  권장되는 해시 알고리즘입니다. 비트코인, SSL/TLS 등에서 사용됩니다.
                 </p>
               </div>
             )}
 
             {/* SHA-384 */}
             {hashes["SHA-384"] && (
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border-2 border-purple-200">
+              <div className="bg-canvas rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl font-bold text-gray-800">SHA-384</h3>
                   <div className="flex gap-2 items-center">
                     <span className="text-sm text-gray-600">{hashes["SHA-384"]?.length / 2} bytes</span>
                     <button
                       onClick={() => copyToClipboard(hashes["SHA-384"]!, "SHA-384")}
-                      className="px-4 py-1 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all"
+                      className="px-4 py-1 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600 transition-all"
                     >
                       {copied === "SHA-384" ? "복사됨!" : "복사"}
                     </button>
                   </div>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-gray-300 overflow-x-auto">
+                <div className="bg-white p-3 rounded-xl border border-gray-300 overflow-x-auto">
                   <code className="font-mono text-sm break-all">{hashes["SHA-384"]}</code>
                 </div>
               </div>
@@ -153,24 +153,24 @@ export default function HashGenerator() {
 
             {/* SHA-512 */}
             {hashes["SHA-512"] && (
-              <div className="bg-gradient-to-r from-green-50 to-teal-50 rounded-xl p-6 border-2 border-green-200">
+              <div className="bg-canvas rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-2">
                   <h3 className="text-xl font-bold text-gray-800">SHA-512</h3>
                   <div className="flex gap-2 items-center">
                     <span className="text-sm text-gray-600">{hashes["SHA-512"]?.length / 2} bytes</span>
                     <button
                       onClick={() => copyToClipboard(hashes["SHA-512"]!, "SHA-512")}
-                      className="px-4 py-1 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600 transition-all"
+                      className="px-4 py-1 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600 transition-all"
                     >
                       {copied === "SHA-512" ? "복사됨!" : "복사"}
                     </button>
                   </div>
                 </div>
-                <div className="bg-white p-3 rounded-lg border border-gray-300 overflow-x-auto">
+                <div className="bg-white p-3 rounded-xl border border-gray-300 overflow-x-auto">
                   <code className="font-mono text-sm break-all">{hashes["SHA-512"]}</code>
                 </div>
                 <p className="text-xs text-green-600 mt-2">
-                  ✅ 가장 강력한 보안을 제공합니다. 높은 보안이 필요한 경우 사용하세요.
+                  가장 강력한 보안을 제공합니다. 높은 보안이 필요한 경우 사용하세요.
                 </p>
               </div>
             )}
@@ -178,14 +178,14 @@ export default function HashGenerator() {
         )}
 
         {/* 해시란? */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">해시(Hash)란?</h2>
           <div className="text-gray-700 space-y-3">
             <p>
               해시 함수는 임의의 길이의 데이터를 고정된 길이의 데이터로 변환하는 단방향 암호화 함수입니다.
               동일한 입력은 항상 동일한 해시 값을 생성하지만, 해시 값으로부터 원본 데이터를 복원할 수 없습니다.
             </p>
-            <div className="bg-white rounded-lg p-4 border border-gray-200">
+            <div className="bg-white rounded-xl p-4 border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">주요 특징:</h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>결정론적: 같은 입력 → 항상 같은 출력</li>
@@ -199,29 +199,29 @@ export default function HashGenerator() {
         </div>
 
         {/* 사용처 */}
-        <div className="mt-8 bg-green-50 rounded-xl p-6 border-2 border-green-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">주요 사용처</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">비밀번호 저장</h3>
               <p className="text-gray-700">
                 비밀번호를 평문으로 저장하지 않고 해시 값으로 저장하여 보안을 강화합니다.
                 (단, salt와 함께 사용 권장)
               </p>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">데이터 무결성 검증</h3>
               <p className="text-gray-700">
                 파일 다운로드 시 해시 값을 비교하여 파일이 변조되지 않았는지 확인합니다.
               </p>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">디지털 서명</h3>
               <p className="text-gray-700">
                 문서나 소프트웨어의 진위를 확인하기 위해 해시 값에 서명합니다.
               </p>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">블록체인</h3>
               <p className="text-gray-700">
                 비트코인 등 블록체인 기술에서 블록과 트랜잭션을 검증하는 데 사용됩니다.
@@ -231,7 +231,7 @@ export default function HashGenerator() {
         </div>
 
         {/* 알고리즘 비교 */}
-        <div className="mt-8 bg-purple-50 rounded-xl p-6 border-2 border-purple-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">알고리즘 비교</h2>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -248,25 +248,25 @@ export default function HashGenerator() {
                   <td className="px-4 py-2 font-mono">SHA-1</td>
                   <td className="px-4 py-2">160 bit (20 bytes)</td>
                   <td className="px-4 py-2 text-red-600">취약</td>
-                  <td className="px-4 py-2 text-red-600">❌ 비권장</td>
+                  <td className="px-4 py-2 text-red-600">비권장</td>
                 </tr>
                 <tr className="border-b">
                   <td className="px-4 py-2 font-mono">SHA-256</td>
                   <td className="px-4 py-2">256 bit (32 bytes)</td>
                   <td className="px-4 py-2 text-green-600">강력</td>
-                  <td className="px-4 py-2 text-green-600">✅ 권장</td>
+                  <td className="px-4 py-2 text-green-600">권장</td>
                 </tr>
                 <tr className="border-b">
                   <td className="px-4 py-2 font-mono">SHA-384</td>
                   <td className="px-4 py-2">384 bit (48 bytes)</td>
                   <td className="px-4 py-2 text-green-600">매우 강력</td>
-                  <td className="px-4 py-2 text-green-600">✅ 권장</td>
+                  <td className="px-4 py-2 text-green-600">권장</td>
                 </tr>
                 <tr>
                   <td className="px-4 py-2 font-mono">SHA-512</td>
                   <td className="px-4 py-2">512 bit (64 bytes)</td>
                   <td className="px-4 py-2 text-green-600">최강</td>
-                  <td className="px-4 py-2 text-green-600">✅ 권장</td>
+                  <td className="px-4 py-2 text-green-600">권장</td>
                 </tr>
               </tbody>
             </table>
@@ -274,8 +274,8 @@ export default function HashGenerator() {
         </div>
 
         {/* 주의사항 */}
-        <div className="mt-8 bg-yellow-50 rounded-xl p-6 border-2 border-yellow-200">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">⚠️ 주의사항</h2>
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">주의사항</h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700">
             <li>
               <strong>비밀번호 해싱:</strong> 비밀번호를 해시할 때는 반드시 salt를 사용하고,

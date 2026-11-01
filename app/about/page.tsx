@@ -56,9 +56,7 @@ export default function AboutPage() {
         <div className="grid sm:grid-cols-2 gap-6">
           {categories.map((category) => (
             <div key={category.id}>
-              <h3 className="font-semibold text-gray-800 mb-2">
-                {category.emoji} {category.name}
-              </h3>
+              <h3 className="font-bold text-ink mb-2">{category.name}</h3>
               <ul>
                 {getToolsByCategory(category.id).map((tool) => (
                   <li key={tool.slug}>

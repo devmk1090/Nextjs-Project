@@ -67,9 +67,9 @@ export default function CharCounter() {
   }, [text]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           글자 수 세기
         </h1>
 
@@ -80,32 +80,32 @@ export default function CharCounter() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="글자 수를 세고 싶은 텍스트를 입력하세요..."
-            className="w-full h-64 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
+            className="w-full h-64 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
           />
         </div>
 
         {/* 통계 그리드 */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-4 border-2 border-blue-200">
+          <div className="bg-brand-soft rounded-2xl p-4">
             <p className="text-sm text-gray-600 mb-1">전체 문자</p>
             <p className="text-3xl font-bold text-blue-600">{stats.totalChars.toLocaleString()}</p>
           </div>
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-4 border-2 border-green-200">
+          <div className="bg-green-50 rounded-2xl p-4">
             <p className="text-sm text-gray-600 mb-1">공백 제외</p>
             <p className="text-3xl font-bold text-green-600">{stats.charsNoSpaces.toLocaleString()}</p>
           </div>
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 border-2 border-purple-200">
+          <div className="bg-brand-soft rounded-2xl p-4">
             <p className="text-sm text-gray-600 mb-1">단어</p>
-            <p className="text-3xl font-bold text-purple-600">{stats.words.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-brand">{stats.words.toLocaleString()}</p>
           </div>
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-4 border-2 border-orange-200">
+          <div className="bg-orange-50 rounded-2xl p-4">
             <p className="text-sm text-gray-600 mb-1">문장</p>
             <p className="text-3xl font-bold text-orange-600">{stats.sentences.toLocaleString()}</p>
           </div>
         </div>
 
         {/* 상세 통계 */}
-        <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+        <div className="bg-canvas rounded-2xl p-6 border border-line">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">상세 통계</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex justify-between items-center">
@@ -128,7 +128,7 @@ export default function CharCounter() {
         </div>
 
         {/* 소개 섹션 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">글자 수 세기란?</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -151,7 +151,7 @@ export default function CharCounter() {
         </div>
 
         {/* 활용 사례 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">활용 사례</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
@@ -207,39 +207,39 @@ export default function CharCounter() {
         </div>
 
         {/* 알아두면 좋은 점 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">알아두면 좋은 점</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">💡</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">공백 포함 vs 공백 제외:</strong> "공백 포함"은 띄어쓰기와 줄바꿈을 모두 포함한 전체 문자 수이고,
                 "공백 제외"는 순수하게 글자만 센 개수입니다. 학술 논문은 보통 공백 포함, 번역은 공백 제외를 기준으로 합니다.
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">💡</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">단어 수 vs 글자 수:</strong> 영어는 단어 수(word count)를 주로 사용하고, 한국어는 글자 수(character count)를 사용합니다.
                 이는 언어 구조의 차이 때문입니다. 영어 1단어는 평균 5~6글자 정도입니다.
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">💡</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">읽기 시간 계산 원리:</strong> 평균적으로 성인은 분당 200~250단어를 읽습니다.
                 우리 도구는 200단어/분을 기준으로 예상 읽기 시간을 계산합니다. 블로그 글 상단에 "5분 읽기" 같은 표시를 할 때 유용합니다.
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">💡</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">다양한 플랫폼의 글자 수 제한:</strong> 트위터(280자), 인스타그램 캡션(2200자), 페이스북 게시물(63206자이지만 권장 80자),
                 유튜브 제목(100자), 유튜브 설명(5000자), 네이버 블로그 제목(50자), 티스토리 제목(200자) 등 플랫폼마다 제한이 다릅니다.
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">💡</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">한글 vs 영문의 차이:</strong> 한글 1글자는 보통 2~3바이트, 영문 1글자는 1바이트입니다.
                 데이터베이스나 시스템에서 바이트 제한이 있을 때는 한글이 영문보다 더 적은 글자만 입력 가능합니다.
@@ -249,31 +249,31 @@ export default function CharCounter() {
         </div>
 
         {/* 자주 묻는 질문 */}
-        <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 묻는 질문 (FAQ)</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 공백을 포함해서 세어야 하나요, 제외해야 하나요?</h3>
               <p className="text-gray-700">
                 A. 작성하는 문서의 요구사항에 따라 다릅니다. 학술 논문, 리포트, 대학 과제는 보통 "공백 포함" 기준입니다.
                 하지만 번역 업계에서는 "공백 제외"를 기준으로 비용을 계산하는 경우가 많습니다. 요구사항을 먼저 확인하세요.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 특수문자(!@#$%)와 숫자(123)도 글자 수에 포함되나요?</h3>
               <p className="text-gray-700">
                 A. 네, 포함됩니다. "전체 문자" 항목은 한글, 영문, 숫자, 특수문자, 공백, 줄바꿈 등 모든 문자를 포함합니다.
                 순수하게 문자(한글+영문)만 보고 싶다면 "공백 제외" 수치를 참고하되, 특수문자는 여전히 포함됩니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 단어 수는 어떻게 계산되나요?</h3>
               <p className="text-gray-700">
                 A. 공백(띄어쓰기)으로 구분된 덩어리를 1단어로 계산합니다. 예를 들어 "안녕하세요 반갑습니다"는 2단어입니다.
                 영어에서는 의미가 명확하지만, 한국어는 띄어쓰기 규칙에 따라 달라질 수 있습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 예상 읽기 시간은 정확한가요?</h3>
               <p className="text-gray-700">
                 A. 평균적인 성인의 읽기 속도(분당 200단어)를 기준으로 계산한 추정치입니다.
@@ -281,14 +281,14 @@ export default function CharCounter() {
                 블로그나 기사에서 대략적인 읽기 시간을 표시할 때 유용한 참고 수치입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 한글과 영문을 섞어 쓰면 글자 수가 다르게 계산되나요?</h3>
               <p className="text-gray-700">
                 A. 이 도구에서는 한글, 영문 모두 1글자로 동일하게 계산됩니다. 하지만 컴퓨터 시스템 내부적으로는
                 한글(2~3바이트)과 영문(1바이트)의 용량이 다르기 때문에, 데이터베이스나 일부 시스템에서는 바이트 기준으로 제한할 수 있습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 복사 붙여넣기 할 때 서식(볼드, 이탤릭)이 유지되나요?</h3>
               <p className="text-gray-700">
                 A. 아니요, 이 도구는 순수 텍스트(Plain Text)만 처리합니다. 워드나 구글 독스에서 복사해서 붙여넣으면
@@ -299,7 +299,7 @@ export default function CharCounter() {
         </div>
 
         {/* 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">사용 가이드</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">

@@ -87,16 +87,16 @@ export default function DiceCoin() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           주사위/동전 던지기
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
           {/* 주사위 섹션 */}
-          <div className="p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">🎲 주사위</h2>
+          <div className="p-6 bg-canvas rounded-2xl">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">주사위</h2>
 
             <div className="mb-4">
               <label className="block text-gray-700 font-semibold mb-2">
@@ -105,7 +105,7 @@ export default function DiceCoin() {
               <select
                 value={diceSides}
                 onChange={(e) => setDiceSides(Number(e.target.value))}
-                className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand"
               >
                 <option value={4}>4면체 (D4)</option>
                 <option value={6}>6면체 (D6)</option>
@@ -134,15 +134,15 @@ export default function DiceCoin() {
             <button
               onClick={rollDice}
               disabled={isRolling}
-              className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50"
+              className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md disabled:opacity-50"
             >
               {isRolling ? "굴리는 중..." : "주사위 굴리기"}
             </button>
           </div>
 
           {/* 동전 섹션 */}
-          <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">🪙 동전</h2>
+          <div className="p-6 bg-canvas rounded-2xl">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">동전</h2>
 
             <div className="mb-4">
               <label className="block text-gray-700 font-semibold mb-2">
@@ -161,7 +161,7 @@ export default function DiceCoin() {
             <button
               onClick={flipCoin}
               disabled={isRolling}
-              className="w-full px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg disabled:opacity-50 mt-20"
+              className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md disabled:opacity-50 mt-20"
             >
               {isRolling ? "던지는 중..." : "동전 던지기"}
             </button>
@@ -170,13 +170,13 @@ export default function DiceCoin() {
 
         {/* 결과 */}
         {results.length > 0 && (
-          <div className="mb-8 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200">
+          <div className="mb-8 bg-orange-50 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">결과</h2>
             <div className="flex flex-wrap gap-4 justify-center">
               {results.map((result, index) => (
                 <div
                   key={index}
-                  className="w-20 h-20 flex items-center justify-center bg-white rounded-xl shadow-lg border-2 border-blue-300 transform transition-transform hover:scale-110"
+                  className="w-20 h-20 flex items-center justify-center bg-white rounded-2xl transform transition-transform hover:scale-110"
                 >
                   <span className="text-3xl font-bold text-blue-600">{result}</span>
                 </div>
@@ -185,11 +185,11 @@ export default function DiceCoin() {
 
             {/* 통계 */}
             {Object.keys(statistics).length > 0 && (
-              <div className="mt-6 p-4 bg-white rounded-lg border border-gray-300">
+              <div className="mt-6 p-4 bg-white rounded-xl border border-gray-300">
                 <h3 className="font-bold text-gray-800 mb-2">이번 결과 통계</h3>
                 <div className="flex flex-wrap gap-3">
                   {Object.entries(statistics).map(([key, value]) => (
-                    <div key={key} className="px-3 py-1 bg-blue-100 rounded-lg">
+                    <div key={key} className="px-3 py-1 bg-blue-100 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700">
                         {key}: {value}회
                       </span>
@@ -208,12 +208,12 @@ export default function DiceCoin() {
 
         {/* 히스토리 */}
         {history.length > 0 && (
-          <div className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
+          <div className="bg-canvas rounded-2xl p-6">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold text-gray-800">전체 히스토리</h2>
               <button
                 onClick={resetHistory}
-                className="px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-all"
+                className="px-4 py-2 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition-all"
               >
                 초기화
               </button>
@@ -222,10 +222,10 @@ export default function DiceCoin() {
               {history.map((item, index) => (
                 <div
                   key={index}
-                  className="p-3 bg-white rounded-lg border border-gray-300 text-center"
+                  className="p-3 bg-white rounded-xl border border-gray-300 text-center"
                 >
                   <div className="text-xs text-gray-500 mb-1">
-                    {item.type === "dice" ? "🎲" : "🪙"}
+                    {item.type === "dice" ? "주사위" : "동전"}
                   </div>
                   <div className="text-lg font-bold text-blue-600">{item.value}</div>
                 </div>
@@ -238,7 +238,7 @@ export default function DiceCoin() {
         )}
 
         {/* 소개 섹션 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">주사위/동전 시뮬레이터란?</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -264,7 +264,7 @@ export default function DiceCoin() {
         </div>
 
         {/* 활용 사례 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">활용 사례</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
@@ -320,11 +320,11 @@ export default function DiceCoin() {
         </div>
 
         {/* 확률의 원리 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">확률의 원리</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🎲</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">주사위의 확률 분포:</strong> 공정한 6면체 주사위(D6)에서 각 숫자(1~6)가 나올 확률은 모두 1/6 (약 16.67%)입니다.
                 이는 "균등 분포(Uniform Distribution)"라고 하며, 모든 결과가 동일한 확률을 가집니다.
@@ -332,7 +332,7 @@ export default function DiceCoin() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🪙</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">동전의 50:50 확률:</strong> 공정한 동전은 앞면과 뒷면이 나올 확률이 각각 1/2 (50%)입니다.
                 하지만 100번 던진다고 해서 정확히 앞면 50번, 뒷면 50번이 나오는 것은 아닙니다.
@@ -340,7 +340,7 @@ export default function DiceCoin() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">📊</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">독립 시행의 개념:</strong> 이전에 무엇이 나왔든 다음 결과에는 영향을 주지 않습니다.
                 동전에서 앞면이 연속 10번 나왔다고 해서 다음엔 뒷면이 나올 확률이 높아지지 않습니다. 여전히 50:50입니다.
@@ -348,7 +348,7 @@ export default function DiceCoin() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🎯</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">기댓값(Expected Value):</strong> D6 주사위를 굴렸을 때 기댓값은 (1+2+3+4+5+6)/6 = 3.5입니다.
                 실제로는 3.5가 나올 수 없지만, 여러 번 굴렸을 때 평균값이 3.5에 가까워집니다.
@@ -356,7 +356,7 @@ export default function DiceCoin() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔬</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">시뮬레이션과 실제 주사위의 차이:</strong> 물리적 주사위는 무게 중심, 표면 마찰, 던지는 힘 등의 영향을 받아
                 완벽하게 공정하지 않을 수 있습니다(카지노에서는 0.1g 단위로 무게를 맞춥니다).
@@ -368,10 +368,10 @@ export default function DiceCoin() {
         </div>
 
         {/* 자주 묻는 질문 */}
-        <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 묻는 질문 (FAQ)</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 결과가 정말 무작위인가요? 조작되지 않았나요?</h3>
               <p className="text-gray-700">
                 A. 네, 완전히 무작위입니다. JavaScript의 Math.random() 함수를 사용하여 생성되며,
@@ -379,7 +379,7 @@ export default function DiceCoin() {
                 연속으로 같은 숫자가 나올 수도 있는데, 이는 버그가 아니라 확률의 자연스러운 현상입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. D4, D8, D20은 무엇인가요?</h3>
               <p className="text-gray-700">
                 A. TRPG(테이블탑 롤플레잉 게임) 용어로, "D" 뒤의 숫자는 주사위 면 수를 의미합니다.
@@ -387,7 +387,7 @@ export default function DiceCoin() {
                 D&amp;D에서 D20은 행동 성공 여부를, D4~D12는 피해량을 결정할 때 주로 사용됩니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 주사위 여러 개를 동시에 굴릴 수 있나요?</h3>
               <p className="text-gray-700">
                 A. 네, 최대 10개까지 동시에 굴릴 수 있습니다. 슬라이더로 개수를 조절하세요.
@@ -395,7 +395,7 @@ export default function DiceCoin() {
                 예를 들어 "3D6" (6면체 주사위 3개)처럼 TRPG 표기법을 구현할 수 있습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 앞면이 5번 연속 나왔는데 다음엔 뒷면이 나올 확률이 높나요?</h3>
               <p className="text-gray-700">
                 A. 아니요, 여전히 50:50입니다. 이를 "도박사의 오류(Gambler's Fallacy)"라고 합니다.
@@ -403,7 +403,7 @@ export default function DiceCoin() {
                 앞면이 100번 연속 나와도 다음 던지기의 확률은 여전히 앞면 50%, 뒷면 50%입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 히스토리는 얼마나 저장되나요?</h3>
               <p className="text-gray-700">
                 A. 최근 50회까지 자동으로 저장됩니다. 51번째 결과가 나오면 가장 오래된 결과가 사라집니다.
@@ -411,7 +411,7 @@ export default function DiceCoin() {
                 확률 실험을 위해 데이터를 보관하고 싶다면 "초기화" 전에 별도로 기록해두세요.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 왜 0.5초 딜레이가 있나요?</h3>
               <p className="text-gray-700">
                 A. 실제로 주사위를 굴리거나 동전을 던지는 느낌을 주기 위한 애니메이션 효과입니다.
@@ -423,7 +423,7 @@ export default function DiceCoin() {
         </div>
 
         {/* 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">사용 가이드</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">

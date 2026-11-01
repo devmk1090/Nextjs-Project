@@ -38,18 +38,18 @@ const stems = [
 ];
 
 const branches = [
-  { ko: "자", hanja: "子", animal: "쥐", emoji: "🐭" },
-  { ko: "축", hanja: "丑", animal: "소", emoji: "🐮" },
-  { ko: "인", hanja: "寅", animal: "호랑이", emoji: "🐯" },
-  { ko: "묘", hanja: "卯", animal: "토끼", emoji: "🐰" },
-  { ko: "진", hanja: "辰", animal: "용", emoji: "🐲" },
-  { ko: "사", hanja: "巳", animal: "뱀", emoji: "🐍" },
-  { ko: "오", hanja: "午", animal: "말", emoji: "🐴" },
-  { ko: "미", hanja: "未", animal: "양", emoji: "🐑" },
-  { ko: "신", hanja: "申", animal: "원숭이", emoji: "🐵" },
-  { ko: "유", hanja: "酉", animal: "닭", emoji: "🐔" },
-  { ko: "술", hanja: "戌", animal: "개", emoji: "🐶" },
-  { ko: "해", hanja: "亥", animal: "돼지", emoji: "🐷" },
+  { ko: "자", hanja: "子", animal: "쥐" },
+  { ko: "축", hanja: "丑", animal: "소" },
+  { ko: "인", hanja: "寅", animal: "호랑이" },
+  { ko: "묘", hanja: "卯", animal: "토끼" },
+  { ko: "진", hanja: "辰", animal: "용" },
+  { ko: "사", hanja: "巳", animal: "뱀" },
+  { ko: "오", hanja: "午", animal: "말" },
+  { ko: "미", hanja: "未", animal: "양" },
+  { ko: "신", hanja: "申", animal: "원숭이" },
+  { ko: "유", hanja: "酉", animal: "닭" },
+  { ko: "술", hanja: "戌", animal: "개" },
+  { ko: "해", hanja: "亥", animal: "돼지" },
 ];
 
 // 60갑자. 1984년이 갑자년입니다.
@@ -60,7 +60,6 @@ export function ganzhi(year: number) {
     name: `${stem.ko}${branch.ko}년`,
     hanja: `${stem.hanja}${branch.hanja}年`,
     animal: branch.animal,
-    emoji: branch.emoji,
     colorAnimal: `${stem.color} ${branch.animal}`,
   };
 }

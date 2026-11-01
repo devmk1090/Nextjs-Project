@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
-import DrawerNavigation from "./components/DrawerNavigation";
 import GoogleAdsense from "./components/GoogleAdsense";
 import SiteFooter from "./components/SiteFooter";
+import SiteHeader from "./components/SiteHeader";
 import ToolStructuredData from "./components/ToolStructuredData";
 import { siteUrl } from "./site";
-
-const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: {
@@ -55,9 +52,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body>
         <GoogleAdsense />
-        <DrawerNavigation />
+        <SiteHeader />
         {children}
         <SiteFooter />
         <ToolStructuredData />

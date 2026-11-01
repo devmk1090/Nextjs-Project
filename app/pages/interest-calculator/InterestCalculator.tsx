@@ -113,12 +113,12 @@ export default function InterestCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           예금/적금 이자 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           예금과 적금의 이자를 계산해보세요 (세전 기준)
         </p>
 
@@ -134,9 +134,9 @@ export default function InterestCalculator() {
                   setCalculatorType("deposit");
                   setResult(null);
                 }}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   calculatorType === "deposit"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -147,9 +147,9 @@ export default function InterestCalculator() {
                   setCalculatorType("savings");
                   setResult(null);
                 }}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   calculatorType === "savings"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -176,9 +176,9 @@ export default function InterestCalculator() {
                     setInterestMethod(method.id);
                     setResult(null);
                   }}
-                  className={`py-2 px-4 rounded-lg font-semibold transition duration-200 ${
+                  className={`py-2 px-4 rounded-xl font-semibold transition duration-200 ${
                     interestMethod === method.id
-                      ? "bg-blue-500 text-white"
+                      ? "bg-brand text-white"
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   }`}
                 >
@@ -210,9 +210,9 @@ export default function InterestCalculator() {
                     setTaxType(tax.id);
                     setResult(null);
                   }}
-                  className={`py-2 px-2 rounded-lg text-sm font-semibold transition duration-200 ${
+                  className={`py-2 px-2 rounded-xl text-sm font-semibold transition duration-200 ${
                     taxType === tax.id
-                      ? "bg-blue-500 text-white"
+                      ? "bg-brand text-white"
                       : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function InterestCalculator() {
                 onChange={(e) => setCustomTaxRate(e.target.value)}
                 placeholder="세율 (%) 예: 1.4"
                 step="0.1"
-                className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
             )}
           </div>
@@ -253,7 +253,7 @@ export default function InterestCalculator() {
                     }
                   }}
                   placeholder="예: 10,000,000"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
                 />
               </div>
             </>
@@ -280,7 +280,7 @@ export default function InterestCalculator() {
                     }
                   }}
                   placeholder="예: 500,000"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
                 />
               </div>
             </>
@@ -296,7 +296,7 @@ export default function InterestCalculator() {
               onChange={(e) => setInterestRate(e.target.value)}
               placeholder="예: 3.5"
               step="0.01"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
@@ -309,20 +309,20 @@ export default function InterestCalculator() {
               value={period}
               onChange={(e) => setPeriod(e.target.value)}
               placeholder="예: 12"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
           <button
             onClick={calculateInterest}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             계산하기
           </button>
 
           {result && (
             <div className="mt-8">
-              <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+              <div className="p-6 bg-canvas rounded-xl">
                 <div className="text-center mb-6">
                   <p className="text-lg text-gray-700 mb-2">
                     {calculatorType === "deposit" ? "예금" : "적금"} 만기 시
@@ -337,7 +337,7 @@ export default function InterestCalculator() {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white rounded-xl">
                     <span className="text-gray-600">
                       {calculatorType === "deposit"
                         ? "예치금액"
@@ -347,19 +347,19 @@ export default function InterestCalculator() {
                       {Math.floor(result.totalPrincipal).toLocaleString()}원
                     </span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white rounded-xl">
                     <span className="text-gray-600">이자 (세전)</span>
                     <span className="font-bold text-green-600">
                       +{Math.floor(result.totalInterest).toLocaleString()}원
                     </span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white rounded-xl">
                     <span className="text-gray-600">만기 금액 (세전)</span>
                     <span className="font-bold text-blue-600">
                       {Math.floor(result.totalAmount).toLocaleString()}원
                     </span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-red-50 rounded-lg border border-red-200">
+                  <div className="flex justify-between items-center p-3 bg-red-50 rounded-xl border border-red-200">
                     <span className="text-red-600">
                       이자소득세 ({+(result.taxRate * 100).toFixed(2)}%)
                     </span>
@@ -367,18 +367,18 @@ export default function InterestCalculator() {
                       -{Math.floor(result.taxAmount).toLocaleString()}원
                     </span>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-purple-100 rounded-lg border-2 border-purple-300">
-                    <span className="text-purple-700 font-semibold">
+                  <div className="flex justify-between items-center p-3 bg-brand-soft rounded-xl">
+                    <span className="text-brand font-semibold">
                       세후 수령액
                     </span>
-                    <span className="font-bold text-purple-700 text-xl">
+                    <span className="font-bold text-brand text-xl">
                       {Math.floor(result.finalAmount).toLocaleString()}원
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <div className="mt-6 p-4 bg-blue-50 rounded-xl">
                 <h3 className="font-semibold text-gray-700 mb-3">
                   {calculatorType === "deposit" ? "예금" : "적금"} 정보
                 </h3>
@@ -469,7 +469,7 @@ export default function InterestCalculator() {
             </p>
           </section>
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• 일반과세 이자소득세는 15.4% (소득세 14% + 지방소득세 1.4%)입니다</li>
