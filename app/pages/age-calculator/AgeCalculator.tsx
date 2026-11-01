@@ -4,287 +4,344 @@ import Link from "next/link";
 import { useState } from "react";
 import { birthYearPath, hasBirthYearPage } from "./birthYearPath";
 
+const animals = ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양", "원숭이", "닭", "개", "돼지"];
+
+type Result = {
+  birthYear: number;
+  baseDate: Date;
+  age: number;
+  countingAge: number;
+  yearAge: number;
+  animal: string;
+  nextBirthday: Date;
+  daysToBirthday: number;
+};
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function calculate(year: number, month: number, day: number): Result | string {
+  const birth = new Date(year, month - 1, day);
+  if (
+    birth.getFullYear() !== year ||
+    birth.getMonth() !== month - 1 ||
+    birth.getDate() !== day
+  ) {
+    return "존재하지 않는 날짜입니다. 생년월일을 다시 확인하세요.";
+  }
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if (birth > today) return "생년월일이 오늘보다 늦습니다.";
+
+  // 만 나이: 올해 생일이 지나지 않았으면 1을 뺌
+  let age = today.getFullYear() - year;
+  const beforeBirthday =
+    today.getMonth() < month - 1 ||
+    (today.getMonth() === month - 1 && today.getDate() < day);
+  if (beforeBirthday) age--;
+
+  // 다음 생일 (2월 29일생은 평년에 3월 1일로 넘어감)
+  let nextBirthday = new Date(today.getFullYear(), month - 1, day);
+  if (nextBirthday <= today) nextBirthday = new Date(today.getFullYear() + 1, month - 1, day);
+
+  return {
+    birthYear: year,
+    baseDate: today,
+    age,
+    countingAge: today.getFullYear() - year + 1,
+    yearAge: today.getFullYear() - year,
+    animal: animals[(((year - 4) % 12) + 12) % 12],
+    nextBirthday,
+    daysToBirthday: Math.round((nextBirthday.getTime() - today.getTime()) / DAY_MS),
+  };
+}
+
+const formatDate = (date: Date) =>
+  `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+
+const card = "bg-white rounded-3xl p-6 sm:p-7";
+const cardTitle = "text-xl font-extrabold text-ink mb-4";
+const field =
+  "flex items-center h-14 rounded-2xl bg-canvas px-4 gap-1.5 focus-within:ring-2 focus-within:ring-brand";
+
 export default function AgeCalculator({ children }: { children?: React.ReactNode }) {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
-  const [age, setAge] = useState<number | null>(null);
+  const [result, setResult] = useState<Result | null>(null);
+  const [error, setError] = useState("");
 
-  const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
-    if (value.length <= 4) {
-      setYear(value);
+  const onlyDigits = (value: string, max: number) => value.replace(/[^0-9]/g, "").slice(0, max);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (year.length !== 4 || !month || !day) {
+      setResult(null);
+      setError("생년월일을 모두 입력하세요. 연도는 4자리입니다.");
+      return;
     }
-  };
-
-  const handleMonthDayChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    setter: (value: string) => void
-  ) => {
-    const value = e.target.value.replace(/[^0-9]/g, ""); // 숫자만 허용
-    if (value.length <= 2) {
-      setter(value);
+    const outcome = calculate(Number(year), Number(month), Number(day));
+    if (typeof outcome === "string") {
+      setResult(null);
+      setError(outcome);
+    } else {
+      setError("");
+      setResult(outcome);
     }
-  };
-
-  const calculateAge = () => {
-    if (!year || !month || !day) return;
-
-    const birth = new Date(Number(year), Number(month) - 1, Number(day));
-    const today = new Date();
-
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
-    const dayDiff = today.getDate() - birth.getDate();
-
-    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
-      age--;
-    }
-
-    setAge(age);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10 flex flex-col gap-4 text-ink-2 leading-relaxed">
+      <nav aria-label="현재 위치" className="text-sm text-ink-4 flex gap-2">
+        <Link href="/" className="hover:text-ink">
+          홈
+        </Link>
+        <span aria-hidden="true">›</span>
+        <span className="text-ink-2">만 나이 계산기</span>
+      </nav>
+      <div className="pb-2">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink">
           만 나이 계산기
         </h1>
-
-        {/* 소개 섹션 */}
-        <div className="mb-8 p-4 bg-blue-50 rounded-lg">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">만 나이란?</h2>
-          <p className="text-gray-700 leading-relaxed mb-3">
-            만 나이는 국제적으로 통용되는 나이 계산 방식으로, 태어난 날을 0세로 시작하여 생일이 지날 때마다 1살씩 나이가 증가하는 방식입니다.
-            2023년 6월부터 한국에서도 공식적으로 만 나이를 사용하게 되었습니다.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            기존에 한국에서 사용하던 세는 나이(태어나자마자 1세, 1월 1일마다 증가)와 달리, 만 나이는 실제로 살아온 기간을 정확하게 반영합니다.
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="flex flex-col">
-              <div className="flex">
-                <input
-                  id="year"
-                  type="text"
-                  value={year}
-                  onChange={handleYearChange}
-                  placeholder="YYYY"
-                  min="1900"
-                  max="2100"
-                  maxLength={4}
-                  pattern="[0-9]{4}"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
-                  년
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex">
-                <input
-                  id="month"
-                  type="text"
-                  value={month}
-                  onChange={(e) => handleMonthDayChange(e, setMonth)}
-                  placeholder="MM"
-                  min="1"
-                  max="12"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
-                  월
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col">
-              <div className="flex">
-                <input
-                  id="day"
-                  type="text"
-                  value={day}
-                  onChange={(e) => handleMonthDayChange(e, setDay)}
-                  placeholder="DD"
-                  min="1"
-                  max="31"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                />
-                <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
-                  일
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <button
-            onClick={calculateAge}
-            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
-          >
-            계산하기
-          </button>
-
-          {age !== null && (
-            <div className="mt-6 text-center">
-              <h2 className="text-2xl font-bold text-gray-800">
-                만 나이는 <span className="text-blue-500">{age}</span>세 입니다.
-              </h2>
-              {hasBirthYearPage(Number(year)) && (
-                <p className="mt-2">
-                  <Link href={birthYearPath(Number(year))} className="text-blue-600 underline">
-                    {year}년생 띠·입학 연도·국민연금 나이 보기 →
-                  </Link>
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* 한국 나이 체계 설명 */}
-        <div className="mt-8 p-6 bg-gray-50 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">한국의 세 가지 나이 계산법</h2>
-
-          <div className="space-y-4">
-            <div className="border-l-4 border-blue-500 pl-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">1. 만 나이 (국제 나이)</h3>
-              <p className="text-gray-700 leading-relaxed">
-                태어난 날을 0세로 시작하여 생일이 돌아올 때마다 1살씩 증가합니다.
-                2023년 6월 28일부터 대한민국에서 법적으로 사용하는 공식 나이 계산법입니다.
-                법률, 의료, 행정 등 모든 공식 문서에서 만 나이를 사용합니다.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-green-500 pl-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">2. 세는 나이 (한국식 나이)</h3>
-              <p className="text-gray-700 leading-relaxed">
-                태어나자마자 1세가 되고, 1월 1일이 되면 나이가 1살 증가합니다.
-                과거 한국에서 전통적으로 사용하던 방식으로, 현재는 일상 대화에서만 간혹 사용됩니다.
-                만 나이보다 1~2살 많게 계산됩니다.
-              </p>
-            </div>
-
-            <div className="border-l-4 border-purple-500 pl-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">3. 연 나이</h3>
-              <p className="text-gray-700 leading-relaxed">
-                현재 연도에서 출생 연도를 뺀 나이입니다. 생일이 지났는지 여부와 관계없이 계산됩니다.
-                주로 학년을 구분하거나 병역 판정 등에 사용되었습니다.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 만 나이 통일법 설명 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">만 나이 통일법 (2023년 시행)</h2>
-          <p className="text-gray-700 leading-relaxed mb-3">
-            2023년 6월 28일부터 「행정기본법」 개정으로 대한민국에서는 모든 법령과 공식 문서에서
-            만 나이를 사용하도록 통일되었습니다. 이는 국제 기준에 맞추고 나이 계산의 혼란을 없애기 위한 조치입니다.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            다만 일부 법률(예: 청소년보호법, 병역법 등)은 특정 연도 출생자를 기준으로 하는 연 나이를
-            계속 사용할 수 있으며, 전통적인 관습에서는 세는 나이를 사용할 수 있습니다.
-          </p>
-        </div>
-
-        {/* 실생활 활용 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">만 나이가 필요한 경우</h2>
-          <ul className="space-y-3">
-            <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">•</span>
-              <div>
-                <span className="font-semibold text-gray-800">공식 문서 작성:</span>
-                <span className="text-gray-700"> 주민등록, 여권, 운전면허증 등 모든 신분증과 공식 서류</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">•</span>
-              <div>
-                <span className="font-semibold text-gray-800">의료 기록:</span>
-                <span className="text-gray-700"> 병원 진료, 건강검진, 예방접종 등 의료 관련 기록</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">•</span>
-              <div>
-                <span className="font-semibold text-gray-800">법적 계약:</span>
-                <span className="text-gray-700"> 보험 가입, 부동산 계약, 금융 거래 등</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">•</span>
-              <div>
-                <span className="font-semibold text-gray-800">국제 교류:</span>
-                <span className="text-gray-700"> 해외 유학, 이민, 국제결혼 등 외국과의 소통</span>
-              </div>
-            </li>
-            <li className="flex items-start">
-              <span className="text-green-600 font-bold mr-3">•</span>
-              <div>
-                <span className="font-semibold text-gray-800">복지 혜택:</span>
-                <span className="text-gray-700"> 각종 정부 지원금, 노인 복지, 아동 수당 등의 연령 기준</span>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        {/* FAQ */}
-        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">자주 묻는 질문</h2>
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Q. 생일이 지나지 않았으면 어떻게 계산하나요?</h3>
-              <p className="text-gray-700 leading-relaxed">
-                A. 생일이 지나지 않았다면 현재 연도에서 출생 연도를 뺀 값에서 1을 뺍니다.
-                예를 들어 2000년생이 2024년 2월에는 만 23세이지만, 생일 이후에는 만 24세가 됩니다.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Q. 윤년 2월 29일생은 어떻게 계산하나요?</h3>
-              <p className="text-gray-700 leading-relaxed">
-                A. 윤년이 아닌 해에는 보통 2월 28일이나 3월 1일을 생일로 간주합니다.
-                법적으로는 2월 28일 24시에 나이가 증가하는 것으로 봅니다.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Q. 만 나이와 세는 나이의 차이는 얼마인가요?</h3>
-              <p className="text-gray-700 leading-relaxed">
-                A. 생일이 지났다면 1살, 생일이 지나지 않았다면 2살 차이가 납니다.
-                예를 들어 생일이 지난 사람이 만 20세라면 세는 나이로는 21세,
-                생일 전이라면 세는 나이로는 22세입니다.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Q. 일상 대화에서도 만 나이를 써야 하나요?</h3>
-              <p className="text-gray-700 leading-relaxed">
-                A. 법적으로 강제되는 것은 공식 문서와 행정 절차입니다.
-                일상 대화에서는 개인의 선택이지만, 혼란을 줄이기 위해 만 나이 사용을 권장합니다.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* 사용 팁 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">💡 계산기 사용 팁</h2>
-          <ul className="space-y-2 text-gray-700">
-            <li>• 정확한 만 나이를 알고 싶다면 생년월일을 정확히 입력하세요.</li>
-            <li>• 1900년부터 2100년까지의 날짜를 계산할 수 있습니다.</li>
-            <li>• 계산 결과는 오늘 날짜를 기준으로 자동 계산됩니다.</li>
-            <li>• 공식 문서 작성 시 이 계산기로 확인한 만 나이를 사용하시면 됩니다.</li>
-          </ul>
-        </div>
-
-        {children}
+        <p className="text-ink-3 mt-1">
+          2023년 6월 28일부터 법령과 공문서의 나이는 만 나이로 통일되었습니다.
+        </p>
       </div>
-    </div>
+
+      <form onSubmit={handleSubmit} className={`${card} flex flex-col gap-5`}>
+        <fieldset className="flex flex-col gap-2.5">
+          <legend className="text-[15px] font-bold text-ink-2 mb-2.5">생년월일</legend>
+          <div className="grid grid-cols-3 gap-2.5">
+            <label className={field}>
+              <input
+                inputMode="numeric"
+                value={year}
+                onChange={(e) => setYear(onlyDigits(e.target.value, 4))}
+                placeholder="1990"
+                aria-label="년"
+                className="flex-1 min-w-0 bg-transparent outline-none text-lg font-bold text-ink placeholder:text-ink-4 placeholder:font-medium"
+              />
+              <span className="text-ink-4">년</span>
+            </label>
+            <label className={field}>
+              <input
+                inputMode="numeric"
+                value={month}
+                onChange={(e) => setMonth(onlyDigits(e.target.value, 2))}
+                placeholder="5"
+                aria-label="월"
+                className="flex-1 min-w-0 bg-transparent outline-none text-lg font-bold text-ink placeholder:text-ink-4 placeholder:font-medium"
+              />
+              <span className="text-ink-4">월</span>
+            </label>
+            <label className={field}>
+              <input
+                inputMode="numeric"
+                value={day}
+                onChange={(e) => setDay(onlyDigits(e.target.value, 2))}
+                placeholder="15"
+                aria-label="일"
+                className="flex-1 min-w-0 bg-transparent outline-none text-lg font-bold text-ink placeholder:text-ink-4 placeholder:font-medium"
+              />
+              <span className="text-ink-4">일</span>
+            </label>
+          </div>
+        </fieldset>
+        {error && (
+          <p role="alert" className="text-sm font-medium text-red-600">
+            {error}
+          </p>
+        )}
+        <button
+          type="submit"
+          className="h-14 rounded-2xl bg-brand hover:bg-brand-hover text-white text-[17px] font-bold transition"
+        >
+          계산하기
+        </button>
+      </form>
+
+      {result && (
+        <section aria-label="계산 결과" aria-live="polite" className={`${card} flex flex-col gap-5`}>
+          <div>
+            <p className="text-[15px] text-ink-3">{formatDate(result.baseDate)} 기준 만 나이</p>
+            <p className="text-5xl sm:text-[52px] font-extrabold tracking-tight text-brand mt-1">
+              {result.age}세
+            </p>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5">
+            {[
+              ["세는 나이", `${result.countingAge}세`],
+              ["연 나이", `${result.yearAge}세`],
+              ["띠", `${result.animal}띠`],
+            ].map(([label, value]) => (
+              <div key={label} className="bg-canvas rounded-2xl p-4">
+                <p className="text-[13px] text-ink-3">{label}</p>
+                <p className="text-xl font-extrabold text-ink">{value}</p>
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
+            <p className="text-[15px] text-ink-2">
+              다음 생일까지 <strong>{result.daysToBirthday}일</strong> ({formatDate(result.nextBirthday)})
+            </p>
+            {hasBirthYearPage(result.birthYear) && (
+              <Link href={birthYearPath(result.birthYear)} className="text-[15px] font-bold text-brand">
+                {result.birthYear}년생 정보 더 보기 ›
+              </Link>
+            )}
+          </div>
+        </section>
+      )}
+
+      <section className={card}>
+        <h2 className={cardTitle}>만 나이란?</h2>
+        <p className="mb-3">
+          만 나이는 국제적으로 통용되는 나이 계산 방식으로, 태어난 날을 0세로 시작하여 생일이 지날
+          때마다 1살씩 나이가 증가하는 방식입니다. 2023년 6월부터 한국에서도 공식적으로 만 나이를
+          사용하게 되었습니다.
+        </p>
+        <p>
+          기존에 한국에서 사용하던 세는 나이(태어나자마자 1세, 1월 1일마다 증가)와 달리, 만 나이는
+          실제로 살아온 기간을 정확하게 반영합니다.
+        </p>
+      </section>
+
+      <section className={card}>
+        <h2 className={cardTitle}>한국의 세 가지 나이 계산법</h2>
+        <div className="overflow-x-auto mb-5">
+          <table className="w-full min-w-[480px] text-[15px] text-left">
+            <thead className="text-ink-3">
+              <tr className="border-b border-line">
+                <th className="py-2.5 pr-3 font-medium">구분</th>
+                <th className="py-2.5 px-3 font-medium">계산법</th>
+                <th className="py-2.5 pl-3 font-medium">쓰이는 곳</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-canvas">
+              <tr>
+                <td className="py-3.5 pr-3 font-bold text-ink">만 나이</td>
+                <td className="py-3.5 px-3">0세에서 시작, 생일마다 1살</td>
+                <td className="py-3.5 pl-3">법령, 공문서, 의료</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-3 font-bold text-ink">세는 나이</td>
+                <td className="py-3.5 px-3">1세에서 시작, 1월 1일마다 1살</td>
+                <td className="py-3.5 pl-3">일상 대화(관습)</td>
+              </tr>
+              <tr>
+                <td className="py-3.5 pr-3 font-bold text-ink">연 나이</td>
+                <td className="py-3.5 px-3">올해 연도 − 출생 연도</td>
+                <td className="py-3.5 pl-3">청소년보호법, 병역법</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div className="space-y-4">
+          <div>
+            <h3 className="font-bold text-ink mb-1">1. 만 나이 (국제 나이)</h3>
+            <p>
+              태어난 날을 0세로 시작하여 생일이 돌아올 때마다 1살씩 증가합니다. 2023년 6월 28일부터
+              대한민국에서 법적으로 사용하는 공식 나이 계산법입니다. 법률, 의료, 행정 등 모든 공식
+              문서에서 만 나이를 사용합니다.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold text-ink mb-1">2. 세는 나이 (한국식 나이)</h3>
+            <p>
+              태어나자마자 1세가 되고, 1월 1일이 되면 나이가 1살 증가합니다. 과거 한국에서
+              전통적으로 사용하던 방식으로, 현재는 일상 대화에서만 간혹 사용됩니다. 만 나이보다
+              1~2살 많게 계산됩니다.
+            </p>
+          </div>
+          <div>
+            <h3 className="font-bold text-ink mb-1">3. 연 나이</h3>
+            <p>
+              현재 연도에서 출생 연도를 뺀 나이입니다. 생일이 지났는지 여부와 관계없이 계산됩니다.
+              주로 학년을 구분하거나 병역 판정 등에 사용되었습니다.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className={card}>
+        <h2 className={cardTitle}>만 나이 통일법 (2023년 시행)</h2>
+        <p className="mb-3">
+          2023년 6월 28일부터 「행정기본법」 개정으로 대한민국에서는 모든 법령과 공식 문서에서 만
+          나이를 사용하도록 통일되었습니다. 이는 국제 기준에 맞추고 나이 계산의 혼란을 없애기 위한
+          조치입니다.
+        </p>
+        <p>
+          다만 일부 법률(예: 청소년보호법, 병역법 등)은 특정 연도 출생자를 기준으로 하는 연 나이를
+          계속 사용할 수 있으며, 전통적인 관습에서는 세는 나이를 사용할 수 있습니다.
+        </p>
+      </section>
+
+      <section className={card}>
+        <h2 className={cardTitle}>만 나이가 필요한 경우</h2>
+        <ul className="space-y-2.5">
+          {[
+            ["공식 문서 작성", "주민등록, 여권, 운전면허증 등 모든 신분증과 공식 서류"],
+            ["의료 기록", "병원 진료, 건강검진, 예방접종 등 의료 관련 기록"],
+            ["법적 계약", "보험 가입, 부동산 계약, 금융 거래 등"],
+            ["국제 교류", "해외 유학, 이민, 국제결혼 등 외국과의 소통"],
+            ["복지 혜택", "각종 정부 지원금, 노인 복지, 아동 수당 등의 연령 기준"],
+          ].map(([title, desc]) => (
+            <li key={title} className="flex gap-3">
+              <span className="mt-2.5 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+              <span>
+                <strong className="text-ink">{title}:</strong> {desc}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className={card}>
+        <h2 className={cardTitle}>자주 묻는 질문</h2>
+        <div className="divide-y divide-canvas">
+          {[
+            [
+              "생일이 지나지 않았으면 어떻게 계산하나요?",
+              "생일이 지나지 않았다면 현재 연도에서 출생 연도를 뺀 값에서 1을 뺍니다. 예를 들어 2000년생이 2024년 2월에는 만 23세이지만, 생일 이후에는 만 24세가 됩니다.",
+            ],
+            [
+              "윤년 2월 29일생은 어떻게 계산하나요?",
+              "윤년이 아닌 해에는 보통 2월 28일이나 3월 1일을 생일로 간주합니다. 법적으로는 2월 28일 24시에 나이가 증가하는 것으로 봅니다.",
+            ],
+            [
+              "만 나이와 세는 나이의 차이는 얼마인가요?",
+              "생일이 지났다면 1살, 생일이 지나지 않았다면 2살 차이가 납니다. 예를 들어 생일이 지난 사람이 만 20세라면 세는 나이로는 21세, 생일 전이라면 세는 나이로는 22세입니다.",
+            ],
+            [
+              "일상 대화에서도 만 나이를 써야 하나요?",
+              "법적으로 강제되는 것은 공식 문서와 행정 절차입니다. 일상 대화에서는 개인의 선택이지만, 혼란을 줄이기 위해 만 나이 사용을 권장합니다.",
+            ],
+          ].map(([q, a]) => (
+            <div key={q} className="py-4 first:pt-0 last:pb-0">
+              <h3 className="font-bold text-ink mb-1.5">{q}</h3>
+              <p className="text-ink-3">{a}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className={card}>
+        <h2 className={cardTitle}>계산기 사용 팁</h2>
+        <ul className="space-y-2">
+          {[
+            "정확한 만 나이를 알고 싶다면 생년월일을 정확히 입력하세요.",
+            "계산 결과는 오늘 날짜를 기준으로 자동 계산됩니다.",
+            "공식 문서 작성 시 이 계산기로 확인한 만 나이를 사용하시면 됩니다.",
+          ].map((tip) => (
+            <li key={tip} className="flex gap-3">
+              <span className="mt-2.5 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {children}
+    </main>
   );
 }
