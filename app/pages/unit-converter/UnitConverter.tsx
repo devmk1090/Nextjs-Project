@@ -142,12 +142,12 @@ export default function UnitConverter() {
   const currentUnits = units[unitType];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           단위 변환 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           길이, 무게, 부피, 온도 단위를 변환해보세요
         </p>
 
@@ -160,9 +160,9 @@ export default function UnitConverter() {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <button
                 onClick={() => handleUnitTypeChange("length")}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   unitType === "length"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -170,9 +170,9 @@ export default function UnitConverter() {
               </button>
               <button
                 onClick={() => handleUnitTypeChange("weight")}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   unitType === "weight"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -180,9 +180,9 @@ export default function UnitConverter() {
               </button>
               <button
                 onClick={() => handleUnitTypeChange("volume")}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   unitType === "volume"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -190,9 +190,9 @@ export default function UnitConverter() {
               </button>
               <button
                 onClick={() => handleUnitTypeChange("temperature")}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   unitType === "temperature"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -212,7 +212,7 @@ export default function UnitConverter() {
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="예: 100"
               step="any"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
@@ -224,7 +224,7 @@ export default function UnitConverter() {
             <select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             >
               {Object.entries(currentUnits).map(([key, unit]) => (
                 <option key={key} value={key}>
@@ -242,7 +242,7 @@ export default function UnitConverter() {
             <select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             >
               {Object.entries(currentUnits).map(([key, unit]) => (
                 <option key={key} value={key}>
@@ -254,14 +254,14 @@ export default function UnitConverter() {
 
           <button
             onClick={convert}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             변환하기
           </button>
 
           {result !== null && (
             <div className="mt-8">
-              <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+              <div className="p-6 bg-canvas rounded-xl">
                 <div className="text-center">
                   <p className="text-lg text-gray-700 mb-2">변환 결과</p>
                   <div className="text-4xl font-bold text-blue-600 my-4">
@@ -280,7 +280,7 @@ export default function UnitConverter() {
                 </div>
 
                 <div className="mt-6 pt-6 border-t border-blue-200">
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white rounded-xl">
                     <span className="text-gray-600">입력 값</span>
                     <span className="font-bold text-gray-800">
                       {inputValue}{" "}
@@ -309,7 +309,7 @@ export default function UnitConverter() {
                       />
                     </svg>
                   </div>
-                  <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                  <div className="flex justify-between items-center p-3 bg-white rounded-xl">
                     <span className="text-gray-600">변환 결과</span>
                     <span className="font-bold text-blue-600">
                       {result.toFixed(6).replace(/\.?0+$/, "")}{" "}
@@ -328,7 +328,7 @@ export default function UnitConverter() {
             </div>
           )}
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>

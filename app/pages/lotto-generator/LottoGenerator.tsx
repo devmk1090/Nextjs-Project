@@ -99,14 +99,14 @@ export default function LottoGenerator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           로또 번호 생성기
         </h1>
 
         {/* 설정 영역 */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
+        <div className="mb-8 p-6 bg-canvas rounded-2xl">
           <div className="mb-4">
             <label className="block text-gray-700 font-semibold mb-2">
               게임 수: {gameCount}게임
@@ -130,7 +130,7 @@ export default function LottoGenerator() {
               value={includeNumbers}
               onChange={(e) => setIncludeNumbers(e.target.value)}
               placeholder="예: 7, 13, 21"
-              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand"
             />
           </div>
 
@@ -143,13 +143,13 @@ export default function LottoGenerator() {
               value={excludeNumbers}
               onChange={(e) => setExcludeNumbers(e.target.value)}
               placeholder="예: 4, 14, 24"
-              className="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand"
             />
           </div>
 
           <button
             onClick={generateLotto}
-            className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
           >
             번호 생성하기
           </button>
@@ -157,13 +157,13 @@ export default function LottoGenerator() {
 
         {/* 결과 */}
         {results.length > 0 && (
-          <div className="mb-8 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200">
+          <div className="mb-8 bg-orange-50 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">생성된 번호</h2>
             <div className="space-y-4">
               {results.map((lottoSet, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-white rounded-lg shadow-md border-2 border-blue-300"
+                  className="p-4 bg-white rounded-xl"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-gray-700">
@@ -180,7 +180,7 @@ export default function LottoGenerator() {
                         onClick={() => addToFavorites(lottoSet)}
                         className="px-3 py-1 bg-yellow-500 text-white rounded text-sm hover:bg-yellow-600"
                       >
-                        ⭐
+                        즐겨찾기
                       </button>
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export default function LottoGenerator() {
                         key={i}
                         className={`w-12 h-12 flex items-center justify-center rounded-full ${getNumberColor(
                           num
-                        )} font-bold text-lg shadow-md`}
+                        )} font-bold text-lg `}
                       >
                         {num}
                       </div>
@@ -204,13 +204,13 @@ export default function LottoGenerator() {
 
         {/* 즐겨찾기 */}
         {favorites.length > 0 && (
-          <div className="mb-8 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border-2 border-purple-200">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">⭐ 즐겨찾기</h2>
+          <div className="mb-8 bg-canvas rounded-2xl p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-4">즐겨찾기</h2>
             <div className="space-y-4">
               {favorites.map((lottoSet, index) => (
                 <div
                   key={index}
-                  className="p-4 bg-white rounded-lg shadow-md border-2 border-purple-300"
+                  className="p-4 bg-white rounded-xl"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-bold text-gray-700">즐겨찾기 {index + 1}</span>
@@ -235,7 +235,7 @@ export default function LottoGenerator() {
                         key={i}
                         className={`w-12 h-12 flex items-center justify-center rounded-full ${getNumberColor(
                           num
-                        )} font-bold text-lg shadow-md`}
+                        )} font-bold text-lg `}
                       >
                         {num}
                       </div>
@@ -248,7 +248,7 @@ export default function LottoGenerator() {
         )}
 
         {/* 가이드 */}
-        <div className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">사용 가이드</h2>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">

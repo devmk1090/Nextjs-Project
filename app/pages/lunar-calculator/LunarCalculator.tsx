@@ -73,14 +73,14 @@ export default function LunarCalculator() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <div className="flex flex-col items-center px-4 sm:px-6 py-8 sm:py-10">
+      <div className="bg-white rounded-3xl p-6 w-full max-w-4xl">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           음력 날짜 계산기
         </h1>
 
         {/* 소개 섹션 */}
-        <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+        <div className="mb-8 p-4 bg-blue-50 rounded-xl">
           <h2 className="text-xl font-semibold mb-3 text-gray-800">음력이란?</h2>
           <p className="text-gray-700 leading-relaxed mb-3">
             음력(陰曆)은 달의 차고 기우는 주기를 기준으로 만든 달력입니다.
@@ -102,7 +102,7 @@ export default function LunarCalculator() {
                   value={year}
                   onChange={handleYearChange}
                   placeholder="YYYY"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   년
@@ -118,7 +118,7 @@ export default function LunarCalculator() {
                   value={month}
                   onChange={(e) => handleMonthDayChange(e, setMonth)}
                   placeholder="MM"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   월
@@ -134,7 +134,7 @@ export default function LunarCalculator() {
                   value={day}
                   onChange={(e) => handleMonthDayChange(e, setDay)}
                   placeholder="DD"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-full sm:w-20 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   일
@@ -145,7 +145,7 @@ export default function LunarCalculator() {
 
           <button
             onClick={calculateLunarDate}
-            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
+            className="w-full bg-brand text-white py-3 rounded-md hover:bg-brand-hover transition-colors duration-200 font-medium"
           >
             음력으로 변환하기
           </button>
@@ -169,11 +169,11 @@ export default function LunarCalculator() {
         </div>
 
         {/* 음력과 양력의 차이 */}
-        <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">음력과 양력의 차이</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-4 bg-white rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🌙 음력 (太陰曆)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">음력 (太陰曆)</h3>
               <ul className="text-sm text-gray-700 space-y-2">
                 <li>• <strong>기준:</strong> 달의 차고 기우는 주기</li>
                 <li>• <strong>한 달:</strong> 약 29~30일</li>
@@ -183,8 +183,8 @@ export default function LunarCalculator() {
               </ul>
             </div>
 
-            <div className="p-4 bg-white rounded-lg border-l-4 border-yellow-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">☀️ 양력 (太陽曆)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">양력 (太陽曆)</h3>
               <ul className="text-sm text-gray-700 space-y-2">
                 <li>• <strong>기준:</strong> 지구의 공전 주기</li>
                 <li>• <strong>한 달:</strong> 28~31일 (고정)</li>
@@ -197,47 +197,47 @@ export default function LunarCalculator() {
         </div>
 
         {/* 한국의 주요 음력 명절 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">한국의 주요 음력 명절</h2>
           <div className="space-y-3">
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🎊 설날 (음력 1월 1일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">설날 (음력 1월 1일)</h3>
               <p className="text-sm text-gray-700">
                 한국의 가장 큰 명절로, 새해의 첫날입니다. 떡국을 먹고 세배를 드리며,
                 가족들이 모여 차례를 지냅니다.
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🌕 대보름 (음력 1월 15일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">대보름 (음력 1월 15일)</h3>
               <p className="text-sm text-gray-700">
                 한 해의 첫 보름달이 뜨는 날로, 오곡밥과 나물을 먹고 부럼을 깨며 건강을 기원합니다.
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🌸 삼짇날 (음력 3월 3일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">삼짇날 (음력 3월 3일)</h3>
               <p className="text-sm text-gray-700">
                 봄을 맞이하는 명절로, 진달래전을 먹고 봄나들이를 떠나는 풍습이 있습니다.
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🪷 초파일 (음력 4월 8일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">초파일 (음력 4월 8일)</h3>
               <p className="text-sm text-gray-700">
                 부처님 오신 날로, 사찰에서는 연등을 밝히고 법회를 엽니다.
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🌾 단오 (음력 5월 5일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">단오 (음력 5월 5일)</h3>
               <p className="text-sm text-gray-700">
                 창포물에 머리를 감고 그네뛰기, 씨름 등의 민속놀이를 즐기는 명절입니다.
               </p>
             </div>
 
-            <div className="p-4 bg-white rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-2">🌕 추석 (음력 8월 15일)</h3>
+            <div className="p-4 bg-white rounded-xl">
+              <h3 className="font-bold text-gray-800 mb-2">추석 (음력 8월 15일)</h3>
               <p className="text-sm text-gray-700">
                 설날과 함께 한국의 2대 명절로, 햅쌀로 송편을 빚고 차례를 지냅니다.
                 한가위라고도 부르며, 풍성한 수확을 감사하는 날입니다.
@@ -247,7 +247,7 @@ export default function LunarCalculator() {
         </div>
 
         {/* 음력 생일의 의미 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-xl border border-yellow-200">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">음력 생일의 의미</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -266,7 +266,7 @@ export default function LunarCalculator() {
         </div>
 
         {/* FAQ */}
-        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-lg">
+        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">자주 묻는 질문</h2>
           <div className="space-y-4">
             <div>
@@ -306,8 +306,8 @@ export default function LunarCalculator() {
         </div>
 
         {/* 사용 팁 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">💡 계산기 사용 팁</h2>
+        <div className="mt-8 p-6 bg-canvas rounded-xl border-l-2 border-line">
+          <h2 className="text-xl font-semibold mb-3 text-gray-800">계산기 사용 팁</h2>
           <ul className="space-y-2 text-gray-700">
             <li>• 양력 생년월일을 입력하면 음력 날짜로 변환됩니다.</li>
             <li>• 1900년부터 2100년까지의 날짜를 계산할 수 있습니다.</li>

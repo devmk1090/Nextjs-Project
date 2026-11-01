@@ -60,14 +60,14 @@ export default function RandomString() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           랜덤 문자열 생성기
         </h1>
 
         {/* 비밀번호 생성 */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
+        <div className="mb-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">비밀번호 생성</h2>
 
           <div className="mb-4">
@@ -125,35 +125,35 @@ export default function RandomString() {
 
           <button
             onClick={generatePassword}
-            className="w-full px-6 py-3 bg-blue-500 text-white rounded-lg font-semibold hover:bg-blue-600 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
           >
             비밀번호 생성
           </button>
         </div>
 
         {/* UUID 생성 */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
+        <div className="mb-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">UUID 생성</h2>
           <p className="text-gray-700 mb-4 text-sm">
             범용 고유 식별자(UUID v4)를 생성합니다. 데이터베이스 ID, API 키 등에 사용됩니다.
           </p>
           <button
             onClick={generateUUID}
-            className="w-full px-6 py-3 bg-purple-500 text-white rounded-lg font-semibold hover:bg-purple-600 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-6 py-3 bg-brand text-white rounded-xl font-semibold hover:bg-brand-hover transition-all hover:shadow-md"
           >
             UUID 생성
           </button>
         </div>
 
         {/* Nano ID 생성 */}
-        <div className="mb-8 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200">
+        <div className="mb-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Nano ID 생성</h2>
           <p className="text-gray-700 mb-4 text-sm">
             짧고 안전한 URL 친화적 고유 ID를 생성합니다. (21자)
           </p>
           <button
             onClick={generateNanoid}
-            className="w-full px-6 py-3 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all shadow-md hover:shadow-lg"
+            className="w-full px-6 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-all hover:shadow-md"
           >
             Nano ID 생성
           </button>
@@ -161,24 +161,24 @@ export default function RandomString() {
 
         {/* 결과 */}
         {result && (
-          <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-xl p-6 border-2 border-orange-200">
+          <div className="bg-orange-50 rounded-2xl p-6">
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-2xl font-bold text-gray-800">결과</h2>
               <button
                 onClick={copyToClipboard}
-                className="px-4 py-2 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
+                className="px-4 py-2 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition-all"
               >
                 {copied ? "복사됨!" : "복사"}
               </button>
             </div>
-            <div className="bg-white p-4 rounded-lg border-2 border-gray-300 overflow-x-auto">
+            <div className="bg-white p-4 rounded-xl border border-gray-300 overflow-x-auto">
               <code className="font-mono text-lg break-all">{result}</code>
             </div>
           </div>
         )}
 
         {/* 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">사용 가이드</h2>
           <ul className="space-y-2 text-gray-700 text-sm">
             <li className="flex items-start">

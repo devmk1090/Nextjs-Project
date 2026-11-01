@@ -62,12 +62,12 @@ export default function PyeongCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           평형/평수 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           평형(평)과 제곱미터(m²)를 변환해보세요
         </p>
 
@@ -84,9 +84,9 @@ export default function PyeongCalculator() {
                   setInputValue("");
                   setResult(null);
                 }}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   conversionType === "toPyeong"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -98,9 +98,9 @@ export default function PyeongCalculator() {
                   setInputValue("");
                   setResult(null);
                 }}
-                className={`py-3 px-4 rounded-lg font-semibold transition duration-200 ${
+                className={`py-3 px-4 rounded-xl font-semibold transition duration-200 ${
                   conversionType === "toSquareMeter"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-brand text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -122,20 +122,20 @@ export default function PyeongCalculator() {
                 conversionType === "toPyeong" ? "예: 84.5" : "예: 25.5"
               }
               step="0.01"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
           <button
             onClick={convert}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             변환하기
           </button>
 
           {result && (
             <div className="mt-8">
-              <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+              <div className="p-6 bg-canvas rounded-xl">
                 <div className="text-center">
                   <p className="text-lg text-gray-700 mb-4">변환 결과</p>
 
@@ -165,7 +165,7 @@ export default function PyeongCalculator() {
 
                     <div>
                       <p className="text-sm text-gray-600 mb-1">평</p>
-                      <div className="text-4xl font-bold text-purple-600">
+                      <div className="text-4xl font-bold text-brand">
                         {result.pyeong.toFixed(2)}평
                       </div>
                     </div>
@@ -177,19 +177,19 @@ export default function PyeongCalculator() {
                     상세 정보
                   </h3>
                   <div className="space-y-2 text-sm">
-                    <div className="flex justify-between p-3 bg-white rounded-lg">
+                    <div className="flex justify-between p-3 bg-white rounded-xl">
                       <span className="text-gray-600">제곱미터(m²)</span>
                       <span className="font-medium text-gray-800">
                         {result.squareMeter.toFixed(4)} m²
                       </span>
                     </div>
-                    <div className="flex justify-between p-3 bg-white rounded-lg">
+                    <div className="flex justify-between p-3 bg-white rounded-xl">
                       <span className="text-gray-600">평(정확한 값)</span>
                       <span className="font-medium text-gray-800">
                         {result.pyeong.toFixed(4)}평
                       </span>
                     </div>
-                    <div className="flex justify-between p-3 bg-white rounded-lg">
+                    <div className="flex justify-between p-3 bg-white rounded-xl">
                       <span className="text-gray-600">변환 비율</span>
                       <span className="font-medium text-gray-800">
                         1평 ≈ 3.3058 m²
@@ -225,7 +225,7 @@ export default function PyeongCalculator() {
                   value={exclusiveArea}
                   onChange={(e) => setExclusiveArea(e.target.value)}
                   step="0.01"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
                 />
               </div>
               <div>
@@ -238,7 +238,7 @@ export default function PyeongCalculator() {
                   onChange={(e) => setExclusiveRatio(e.target.value)}
                   min="1"
                   max="100"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
                 />
               </div>
             </div>
@@ -247,7 +247,7 @@ export default function PyeongCalculator() {
               건축물대장의 공급면적으로 확인하세요.
             </p>
             {supplyArea && (
-              <div className="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200 grid grid-cols-3 gap-2 text-center">
+              <div className="mt-4 p-4 bg-brand-soft rounded-xl grid grid-cols-3 gap-2 text-center">
                 <div>
                   <p className="text-xs text-gray-600">전용면적</p>
                   <p className="font-bold text-gray-800">
@@ -260,7 +260,7 @@ export default function PyeongCalculator() {
                 </div>
                 <div>
                   <p className="text-xs text-gray-600">추정 평형</p>
-                  <p className="text-2xl font-bold text-purple-600">
+                  <p className="text-2xl font-bold text-brand">
                     {Math.round(supplyArea / M2_PER_PYEONG)}평형
                   </p>
                 </div>
@@ -302,7 +302,7 @@ export default function PyeongCalculator() {
           </section>
 
           {/* 면적별 환산 페이지 */}
-          <section className="mt-10">
+          <section id="areas" className="mt-10 scroll-mt-4">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">자주 찾는 면적</h2>
             <p className="text-sm text-gray-600 mb-4">
               평형별 전용면적, 전용면적별 평형을 표로 정리한 페이지입니다.
@@ -333,31 +333,31 @@ export default function PyeongCalculator() {
           <section className="mt-10">
             <h2 className="text-2xl font-bold text-gray-800 mb-4">아파트 면적 용어 정리</h2>
             <div className="space-y-3 text-sm text-gray-700">
-              <div className="p-4 bg-blue-50 rounded-lg">
+              <div className="p-4 bg-blue-50 rounded-xl">
                 <strong>전용면적</strong>: 현관문 안쪽, 세대가 혼자 쓰는 공간의 면적입니다. 방, 거실,
                 주방, 욕실이 포함되며 발코니는 제외됩니다. 국민주택 규모(85m² 이하)나 각종 세금 기준은
                 전용면적으로 판단합니다.
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-green-50 rounded-xl">
                 <strong>주거공용면적</strong>: 계단, 복도, 엘리베이터, 1층 현관처럼 같은 동 주민이 함께
                 쓰는 공간을 세대별로 나눈 면적입니다.
               </div>
-              <div className="p-4 bg-purple-50 rounded-lg">
+              <div className="p-4 bg-brand-soft rounded-xl">
                 <strong>공급면적</strong> = 전용면적 + 주거공용면적. 흔히 말하는 &quot;34평형&quot; 같은
                 아파트 평형의 기준입니다.
               </div>
-              <div className="p-4 bg-orange-50 rounded-lg">
+              <div className="p-4 bg-orange-50 rounded-xl">
                 <strong>계약면적</strong> = 공급면적 + 기타공용면적(지하주차장, 관리사무소, 노인정 등).
                 오피스텔은 보통 계약면적 기준으로 표시해 전용률이 50% 안팎으로 낮게 나옵니다.
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
+              <div className="p-4 bg-gray-50 rounded-xl">
                 <strong>서비스면적</strong>: 발코니처럼 면적 계산에서 빠지는 공간입니다. 발코니를 확장하면
                 실제 사용 공간은 전용면적보다 넓어집니다.
               </div>
             </div>
           </section>
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• 1평 = 400/121 m² ≈ 3.3058 m², 1m² ≈ 0.3025평</li>

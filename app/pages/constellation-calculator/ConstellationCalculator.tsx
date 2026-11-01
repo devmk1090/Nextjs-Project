@@ -54,14 +54,14 @@ export default function ConstellationCalculator() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <div className="flex flex-col items-center px-4 sm:px-6 py-8 sm:py-10">
+      <div className="bg-white rounded-3xl p-6 w-full max-w-4xl">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           별자리 계산기
         </h1>
 
         {/* 소개 섹션 */}
-        <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+        <div className="mb-8 p-4 bg-blue-50 rounded-xl">
           <h2 className="text-xl font-semibold mb-3 text-gray-800">12 별자리란?</h2>
           <p className="text-gray-700 leading-relaxed mb-3">
             12 별자리는 서양 점성술에서 사용하는 황도대(Zodiac)의 12개 구역을 의미합니다.
@@ -83,7 +83,7 @@ export default function ConstellationCalculator() {
                   value={month}
                   onChange={(e) => handleMonthDayChange(e, setMonth)}
                   placeholder="MM"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   월
@@ -99,7 +99,7 @@ export default function ConstellationCalculator() {
                   value={day}
                   onChange={(e) => handleMonthDayChange(e, setDay)}
                   placeholder="DD"
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-20 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                 />
                 <span className="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-md text-gray-600 text-lg whitespace-nowrap">
                   일
@@ -110,7 +110,7 @@ export default function ConstellationCalculator() {
 
           <button
             onClick={calculateConstellation}
-            className="w-full bg-blue-500 text-white py-3 rounded-md hover:bg-blue-600 transition-colors duration-200 font-medium"
+            className="w-full bg-brand text-white py-3 rounded-md hover:bg-brand-hover transition-colors duration-200 font-medium"
           >
             계산하기
           </button>
@@ -125,12 +125,12 @@ export default function ConstellationCalculator() {
         </div>
 
         {/* 12별자리 상세 정보 */}
-        <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-6 text-gray-800">12 별자리 상세 정보</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* 양자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-red-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♈ 양자리 (Aries)</h3>
               <p className="text-sm text-gray-600 mb-2">3월 21일 ~ 4월 19일 | 원소: 불</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -141,7 +141,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 황소자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-green-600">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♉ 황소자리 (Taurus)</h3>
               <p className="text-sm text-gray-600 mb-2">4월 20일 ~ 5월 20일 | 원소: 흙</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -152,7 +152,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 쌍둥이자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-yellow-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♊ 쌍둥이자리 (Gemini)</h3>
               <p className="text-sm text-gray-600 mb-2">5월 21일 ~ 6월 20일 | 원소: 공기</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -163,7 +163,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 게자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-blue-400">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♋ 게자리 (Cancer)</h3>
               <p className="text-sm text-gray-600 mb-2">6월 21일 ~ 7월 22일 | 원소: 물</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -174,7 +174,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 사자자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-orange-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♌ 사자자리 (Leo)</h3>
               <p className="text-sm text-gray-600 mb-2">7월 23일 ~ 8월 22일 | 원소: 불</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -185,7 +185,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 처녀자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-emerald-600">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♍ 처녀자리 (Virgo)</h3>
               <p className="text-sm text-gray-600 mb-2">8월 23일 ~ 9월 22일 | 원소: 흙</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -196,7 +196,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 천칭자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-pink-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♎ 천칭자리 (Libra)</h3>
               <p className="text-sm text-gray-600 mb-2">9월 23일 ~ 10월 22일 | 원소: 공기</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -207,7 +207,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 전갈자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-purple-700">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♏ 전갈자리 (Scorpio)</h3>
               <p className="text-sm text-gray-600 mb-2">10월 23일 ~ 11월 21일 | 원소: 물</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -218,7 +218,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 사수자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-indigo-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♐ 사수자리 (Sagittarius)</h3>
               <p className="text-sm text-gray-600 mb-2">11월 22일 ~ 12월 21일 | 원소: 불</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -229,7 +229,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 염소자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-gray-700">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♑ 염소자리 (Capricorn)</h3>
               <p className="text-sm text-gray-600 mb-2">12월 22일 ~ 1월 19일 | 원소: 흙</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -240,7 +240,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 물병자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-cyan-500">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♒ 물병자리 (Aquarius)</h3>
               <p className="text-sm text-gray-600 mb-2">1월 20일 ~ 2월 18일 | 원소: 공기</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -251,7 +251,7 @@ export default function ConstellationCalculator() {
             </div>
 
             {/* 물고기자리 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-blue-600">
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
               <h3 className="text-lg font-bold text-gray-800 mb-2">♓ 물고기자리 (Pisces)</h3>
               <p className="text-sm text-gray-600 mb-2">2월 19일 ~ 3월 20일 | 원소: 물</p>
               <p className="text-gray-700 text-sm leading-relaxed">
@@ -264,26 +264,26 @@ export default function ConstellationCalculator() {
         </div>
 
         {/* 4원소 */}
-        <div className="mt-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 rounded-lg">
+        <div className="mt-8 p-6 bg-red-50 rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">별자리의 4원소</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-bold text-red-600 mb-2">🔥 불 (Fire)</h3>
+            <div className="bg-white p-4 rounded-xl">
+              <h3 className="font-bold text-red-600 mb-2">불 (Fire)</h3>
               <p className="text-sm text-gray-700 mb-2">양자리, 사자자리, 사수자리</p>
               <p className="text-sm text-gray-600">열정적, 활동적, 자신감 넘침. 에너지가 넘치고 도전적.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-bold text-green-700 mb-2">🌍 흙 (Earth)</h3>
+            <div className="bg-white p-4 rounded-xl">
+              <h3 className="font-bold text-green-700 mb-2">흙 (Earth)</h3>
               <p className="text-sm text-gray-700 mb-2">황소자리, 처녀자리, 염소자리</p>
               <p className="text-sm text-gray-600">실용적, 안정적, 현실적. 신뢰할 수 있고 근면함.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-bold text-sky-600 mb-2">💨 공기 (Air)</h3>
+            <div className="bg-white p-4 rounded-xl">
+              <h3 className="font-bold text-sky-600 mb-2">공기 (Air)</h3>
               <p className="text-sm text-gray-700 mb-2">쌍둥이자리, 천칭자리, 물병자리</p>
               <p className="text-sm text-gray-600">지적, 사교적, 소통 능력 뛰어남. 논리적이고 객관적.</p>
             </div>
-            <div className="bg-white p-4 rounded-lg">
-              <h3 className="font-bold text-blue-600 mb-2">💧 물 (Water)</h3>
+            <div className="bg-white p-4 rounded-xl">
+              <h3 className="font-bold text-blue-600 mb-2">물 (Water)</h3>
               <p className="text-sm text-gray-700 mb-2">게자리, 전갈자리, 물고기자리</p>
               <p className="text-sm text-gray-600">감성적, 직관적, 공감 능력 강함. 깊은 감정과 상상력.</p>
             </div>
@@ -291,7 +291,7 @@ export default function ConstellationCalculator() {
         </div>
 
         {/* 별자리 궁합 */}
-        <div className="mt-8 p-6 bg-pink-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">별자리 궁합 가이드</h2>
           <div className="space-y-3 text-gray-700">
             <p className="leading-relaxed">
@@ -303,16 +303,16 @@ export default function ConstellationCalculator() {
             <p className="leading-relaxed">
               <strong>도전 관계:</strong> 불과 물, 흙과 공기는 가치관 차이로 인해 갈등이 생길 수 있으나, 서로 배우고 성장할 수 있습니다.
             </p>
-            <div className="mt-4 p-4 bg-white rounded-lg">
+            <div className="mt-4 p-4 bg-white rounded-xl">
               <p className="text-sm text-gray-600">
-                💡 별자리 궁합은 참고용일 뿐, 실제 관계는 개인의 노력과 이해가 더 중요합니다.
+                별자리 궁합은 참고용일 뿐, 실제 관계는 개인의 노력과 이해가 더 중요합니다.
               </p>
             </div>
           </div>
         </div>
 
         {/* FAQ */}
-        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-lg">
+        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">자주 묻는 질문</h2>
           <div className="space-y-4">
             <div>
@@ -350,8 +350,8 @@ export default function ConstellationCalculator() {
         </div>
 
         {/* 사용 팁 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">💡 계산기 사용 팁</h2>
+        <div className="mt-8 p-6 bg-canvas rounded-xl border-l-2 border-line">
+          <h2 className="text-xl font-semibold mb-3 text-gray-800">계산기 사용 팁</h2>
           <ul className="space-y-2 text-gray-700">
             <li>• 생일의 월과 일만 입력하면 별자리를 바로 확인할 수 있습니다.</li>
             <li>• 연도는 별자리 결정에 영향을 주지 않습니다.</li>

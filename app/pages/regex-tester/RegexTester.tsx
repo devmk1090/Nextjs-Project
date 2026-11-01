@@ -86,9 +86,9 @@ export default function RegexTester() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           정규식 테스터
         </h1>
 
@@ -102,7 +102,7 @@ export default function RegexTester() {
               value={pattern}
               onChange={(e) => setPattern(e.target.value)}
               placeholder="정규식 패턴을 입력하세요 (예: \w+@\w+\.\w+)"
-              className="flex-1 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-lg"
+              className="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand font-mono text-lg"
             />
             <span className="text-2xl text-gray-600">/</span>
             <input
@@ -110,7 +110,7 @@ export default function RegexTester() {
               value={flags}
               onChange={(e) => setFlags(e.target.value)}
               placeholder="플래그"
-              className="w-20 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-lg text-center"
+              className="w-20 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand font-mono text-lg text-center"
             />
           </div>
         </div>
@@ -121,9 +121,9 @@ export default function RegexTester() {
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => toggleFlag("g")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-4 py-2 rounded-xl font-semibold transition-all ${
                 flags.includes("g")
-                  ? "bg-blue-500 text-white"
+                  ? "bg-brand text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -131,9 +131,9 @@ export default function RegexTester() {
             </button>
             <button
               onClick={() => toggleFlag("i")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-4 py-2 rounded-xl font-semibold transition-all ${
                 flags.includes("i")
-                  ? "bg-blue-500 text-white"
+                  ? "bg-brand text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -141,9 +141,9 @@ export default function RegexTester() {
             </button>
             <button
               onClick={() => toggleFlag("m")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-4 py-2 rounded-xl font-semibold transition-all ${
                 flags.includes("m")
-                  ? "bg-blue-500 text-white"
+                  ? "bg-brand text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -151,9 +151,9 @@ export default function RegexTester() {
             </button>
             <button
               onClick={() => toggleFlag("s")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
+              className={`px-4 py-2 rounded-xl font-semibold transition-all ${
                 flags.includes("s")
-                  ? "bg-blue-500 text-white"
+                  ? "bg-brand text-white"
                   : "bg-gray-200 text-gray-700 hover:bg-gray-300"
               }`}
             >
@@ -169,14 +169,14 @@ export default function RegexTester() {
             value={testString}
             onChange={(e) => setTestString(e.target.value)}
             placeholder="테스트할 문자열을 입력하세요"
-            className="w-full h-40 px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none"
+            className="w-full h-40 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
           />
         </div>
 
         {/* 에러 메시지 */}
         {error && (
-          <div className="mb-6 p-4 bg-red-50 border-2 border-red-300 rounded-lg">
-            <p className="text-red-700 font-semibold">❌ {error}</p>
+          <div className="mb-6 p-4 bg-red-50 rounded-xl">
+            <p className="text-red-700 font-semibold">{error}</p>
           </div>
         )}
 
@@ -184,35 +184,35 @@ export default function RegexTester() {
         {!error && pattern && testString && (
           <div className="space-y-6">
             {/* 매칭 결과 요약 */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-200">
+            <div className="bg-canvas rounded-2xl p-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">매칭 결과</h2>
               <div className="text-lg">
                 {matches && matches.length > 0 ? (
                   <p className="text-green-600 font-bold">
-                    ✅ {matches.length}개의 매칭이 발견되었습니다.
+                    {matches.length}개의 매칭이 발견되었습니다.
                   </p>
                 ) : (
-                  <p className="text-gray-600 font-bold">❌ 매칭되는 결과가 없습니다.</p>
+                  <p className="text-gray-600 font-bold">매칭되는 결과가 없습니다.</p>
                 )}
               </div>
             </div>
 
             {/* 하이라이트된 텍스트 */}
-            <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+            <div className="bg-canvas rounded-2xl p-6 border border-line">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">하이라이트</h2>
               <div
-                className="bg-white p-4 rounded-lg border border-gray-300 min-h-[100px] whitespace-pre-wrap break-words"
+                className="bg-white p-4 rounded-xl border border-gray-300 min-h-[100px] whitespace-pre-wrap break-words"
                 dangerouslySetInnerHTML={{ __html: highlightedText || testString }}
               />
             </div>
 
             {/* 매칭 상세 정보 */}
             {matches && matches.length > 0 && (
-              <div className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
+              <div className="bg-canvas rounded-2xl p-6">
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">매칭 상세</h2>
                 <div className="space-y-3">
                   {matches.map((match, index) => (
-                    <div key={index} className="bg-white p-4 rounded-lg border border-gray-300">
+                    <div key={index} className="bg-white p-4 rounded-xl border border-gray-300">
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
                         <div>
                           <span className="font-bold text-gray-700">매칭 #{index + 1}:</span>{" "}
@@ -246,7 +246,7 @@ export default function RegexTester() {
         )}
 
         {/* 소개 섹션 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-xl border-2 border-blue-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">정규식(Regular Expression)이란?</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -272,7 +272,7 @@ export default function RegexTester() {
         </div>
 
         {/* 활용 사례 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-xl border-2 border-green-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">활용 사례</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
@@ -331,11 +331,11 @@ export default function RegexTester() {
         </div>
 
         {/* 정규식의 기초 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-xl border-2 border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">정규식의 기초</h2>
           <ul className="space-y-3 text-gray-700">
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">📝</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">메타 문자의 의미:</strong> 정규식에서 \d, \w, \s, ., +, *, ? 같은 특수 문자는 "메타 문자"로 특별한 의미를 가집니다.
                 예를 들어 \d는 0~9 숫자, \w는 영문자/숫자/밑줄, \s는 공백/탭/개행을 의미합니다.
@@ -343,7 +343,7 @@ export default function RegexTester() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🔁</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">수량자의 탐욕성:</strong> *와 +는 기본적으로 "탐욕적(greedy)"입니다. 즉, 가능한 한 많이 매칭합니다.
                 예를 들어 "&lt;div&gt;안녕&lt;/div&gt;&lt;div&gt;하세요&lt;/div&gt;"에서 /&lt;div&gt;.*&lt;\/div&gt;/는 전체를 하나로 매칭합니다.
@@ -351,7 +351,7 @@ export default function RegexTester() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">📍</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">앵커(^, $)의 역할:</strong> ^는 문자열의 시작, $는 끝을 의미합니다.
                 /hello/는 "hello world"나 "say hello"를 모두 매칭하지만, /^hello$/는 정확히 "hello"만 매칭합니다.
@@ -359,7 +359,7 @@ export default function RegexTester() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🏷️</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">캡처 그룹의 활용:</strong> 괄호 ()로 묶으면 "캡처 그룹"이 생성되어 매칭된 부분을 따로 추출할 수 있습니다.
                 예: /(\d{4})-(\d{2})-(\d{2})/로 "2025-12-25"를 매칭하면 $1=2025, $2=12, $3=25로 접근할 수 있습니다.
@@ -367,7 +367,7 @@ export default function RegexTester() {
               </div>
             </li>
             <li className="flex items-start">
-              <span className="font-bold text-yellow-600 mr-2 mt-1">🚩</span>
+              <span className="mt-2.5 mr-3 w-1.5 h-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />
               <div>
                 <strong className="text-gray-900">플래그(flags)의 종류:</strong> 정규식 끝에 붙는 플래그는 동작 방식을 변경합니다.
                 g(global)는 모든 매칭을 찾고, i(ignoreCase)는 대소문자를 무시하며, m(multiline)은 ^와 $가 각 줄마다 적용되게 합니다.
@@ -378,10 +378,10 @@ export default function RegexTester() {
         </div>
 
         {/* 자주 묻는 질문 */}
-        <div className="mt-8 p-6 bg-purple-50 rounded-xl border-2 border-purple-200">
+        <div className="mt-8 p-6 bg-canvas rounded-2xl">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 묻는 질문 (FAQ)</h2>
           <div className="space-y-4">
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 정규식이 너무 어려운데 꼭 배워야 하나요?</h3>
               <p className="text-gray-700">
                 A. 정규식은 처음엔 어렵지만, 기본 패턴만 익히면 업무 효율이 10배 이상 향상됩니다.
@@ -389,7 +389,7 @@ export default function RegexTester() {
                 \d(숫자), \w(문자), +(1회 이상), *(0회 이상) 같은 기본 4~5개만 알아도 80% 상황을 해결할 수 있으니 포기하지 마세요!
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. /g 플래그는 언제 사용하나요?</h3>
               <p className="text-gray-700">
                 A. g(global) 플래그는 "모든 매칭"을 찾을 때 사용합니다. 플래그 없이는 첫 번째 매칭만 찾고 멈춥니다.
@@ -397,7 +397,7 @@ export default function RegexTester() {
                 문자열 치환(replace)이나 전체 검색에서 필수입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 한글은 어떻게 검색하나요?</h3>
               <p className="text-gray-700">
                 A. [가-힣]는 완성된 한글 음절(가~힣)을 의미합니다. /[가-힣]+/로 "안녕하세요" 같은 한글 단어를 찾을 수 있습니다.
@@ -405,7 +405,7 @@ export default function RegexTester() {
                 한글+영문+숫자를 모두 찾으려면 /[가-힣\w]+/처럼 조합하면 됩니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 이메일 검증 정규식이 정말 정확한가요?</h3>
               <p className="text-gray-700">
                 A. 완벽한 이메일 정규식은 매우 복잡합니다(수백 자 이상). {`/^\\w+@\\w+\\.\\w+$/`}는 "기본적인" 형식만 검증합니다.
@@ -413,7 +413,7 @@ export default function RegexTester() {
                 정규식만으로는 "존재하는 도메인인지"까지 확인할 수 없기 때문입니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 성능이 느린데 정규식 때문인가요?</h3>
               <p className="text-gray-700">
                 A. 복잡한 정규식(특히 중첩된 수량자 .*.*.*같은 패턴)은 "재앙적 백트래킹"으로 인해 매우 느릴 수 있습니다.
@@ -421,7 +421,7 @@ export default function RegexTester() {
                 성능이 중요하다면 정규식을 미리 컴파일(new RegExp)하고 재사용하는 것이 좋습니다.
               </p>
             </div>
-            <div className="border-l-4 border-purple-400 pl-4">
+            <div className="border-l-2 border-line pl-4">
               <h3 className="font-bold text-gray-800 mb-2">Q. 비캡처 그룹 (?:...)은 언제 쓰나요?</h3>
               <p className="text-gray-700">
                 A. 그룹화는 필요하지만 캡처(추출)는 필요 없을 때 사용합니다.
@@ -433,10 +433,10 @@ export default function RegexTester() {
         </div>
 
         {/* 가이드 */}
-        <div className="mt-8 bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">정규식 치트시트</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">문자 클래스</h3>
               <ul className="space-y-1 font-mono text-gray-700">
                 <li><span className="text-blue-600">\d</span> - 숫자 [0-9]</li>
@@ -447,7 +447,7 @@ export default function RegexTester() {
                 <li><span className="text-blue-600">[^abc]</span> - a, b, c가 아닌 것</li>
               </ul>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">수량자</h3>
               <ul className="space-y-1 font-mono text-gray-700">
                 <li><span className="text-blue-600">*</span> - 0회 이상</li>
@@ -458,7 +458,7 @@ export default function RegexTester() {
                 <li><span className="text-blue-600">{`{n,m}`}</span> - n회 이상 m회 이하</li>
               </ul>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">앵커</h3>
               <ul className="space-y-1 font-mono text-gray-700">
                 <li><span className="text-blue-600">^</span> - 문자열 시작</li>
@@ -467,7 +467,7 @@ export default function RegexTester() {
                 <li><span className="text-blue-600">\B</span> - 단어 경계 아님</li>
               </ul>
             </div>
-            <div className="bg-white p-4 rounded-lg border border-gray-200">
+            <div className="bg-white p-4 rounded-xl border border-gray-200">
               <h3 className="font-bold text-gray-800 mb-2">그룹</h3>
               <ul className="space-y-1 font-mono text-gray-700">
                 <li><span className="text-blue-600">(abc)</span> - 캡처 그룹</li>
@@ -479,22 +479,22 @@ export default function RegexTester() {
         </div>
 
         {/* 예제 */}
-        <div className="mt-8 bg-purple-50 rounded-xl p-6 border-2 border-purple-200">
+        <div className="mt-8 bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">자주 사용하는 패턴</h2>
           <div className="space-y-2 text-sm">
-            <div className="bg-white p-3 rounded-lg border border-gray-200">
+            <div className="bg-white p-3 rounded-xl border border-gray-200">
               <span className="font-bold text-gray-800">이메일:</span>{" "}
               <code className="font-mono text-blue-600">\w+@\w+\.\w+</code>
             </div>
-            <div className="bg-white p-3 rounded-lg border border-gray-200">
+            <div className="bg-white p-3 rounded-xl border border-gray-200">
               <span className="font-bold text-gray-800">URL:</span>{" "}
               <code className="font-mono text-blue-600">https?://[\w\.-]+</code>
             </div>
-            <div className="bg-white p-3 rounded-lg border border-gray-200">
+            <div className="bg-white p-3 rounded-xl border border-gray-200">
               <span className="font-bold text-gray-800">전화번호:</span>{" "}
               <code className="font-mono text-blue-600">\d{`{2,3}`}-\d{`{3,4}`}-\d{`{4}`}</code>
             </div>
-            <div className="bg-white p-3 rounded-lg border border-gray-200">
+            <div className="bg-white p-3 rounded-xl border border-gray-200">
               <span className="font-bold text-gray-800">날짜 (YYYY-MM-DD):</span>{" "}
               <code className="font-mono text-blue-600">\d{`{4}`}-\d{`{2}`}-\d{`{2}`}</code>
             </div>

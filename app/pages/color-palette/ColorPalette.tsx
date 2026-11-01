@@ -85,7 +85,7 @@ export default function ColorPalette() {
   const ColorBox = ({ color }: { color: string }) => (
     <div className="flex-1">
       <div
-        className="h-24 rounded-lg border-2 border-gray-300 cursor-pointer hover:scale-105 transition-transform"
+        className="h-24 rounded-xl border border-gray-300 cursor-pointer hover:scale-105 transition-transform"
         style={{ backgroundColor: color }}
         onClick={() => navigator.clipboard.writeText(color)}
       />
@@ -94,9 +94,9 @@ export default function ColorPalette() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-7xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           컬러 팔레트 생성기
         </h1>
 
@@ -108,24 +108,24 @@ export default function ColorPalette() {
               type="color"
               value={baseColor}
               onChange={(e) => setBaseColor(e.target.value)}
-              className="w-32 h-16 rounded-lg border-2 border-gray-300 cursor-pointer"
+              className="w-32 h-16 rounded-xl border border-gray-300 cursor-pointer"
             />
             <input
               type="text"
               value={baseColor}
               onChange={(e) => setBaseColor(e.target.value)}
-              className="flex-1 px-4 py-2 border-2 border-gray-300 rounded-lg font-mono text-lg"
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-xl font-mono text-lg"
             />
           </div>
         </div>
 
         {/* 단색 조화 */}
-        <div className="mb-6 p-6 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border-2 border-blue-200">
+        <div className="mb-6 p-6 bg-canvas rounded-2xl">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">단색 조화 (Monochromatic)</h2>
             <button
               onClick={() => copyPalette(monochromatic, "단색 조화")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600"
             >
               복사
             </button>
@@ -138,12 +138,12 @@ export default function ColorPalette() {
         </div>
 
         {/* 유사 색상 */}
-        <div className="mb-6 p-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200">
+        <div className="mb-6 p-6 bg-canvas rounded-2xl">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">유사 색상 (Analogous)</h2>
             <button
               onClick={() => copyPalette(analogous, "유사 색상")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600"
             >
               복사
             </button>
@@ -156,12 +156,12 @@ export default function ColorPalette() {
         </div>
 
         {/* 보색 */}
-        <div className="mb-6 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
+        <div className="mb-6 p-6 bg-canvas rounded-2xl">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">보색 (Complementary)</h2>
             <button
               onClick={() => copyPalette(complementary, "보색")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600"
             >
               복사
             </button>
@@ -174,12 +174,12 @@ export default function ColorPalette() {
         </div>
 
         {/* 삼각 조화 */}
-        <div className="mb-6 p-6 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl border-2 border-orange-200">
+        <div className="mb-6 p-6 bg-orange-50 rounded-2xl">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">삼각 조화 (Triadic)</h2>
             <button
               onClick={() => copyPalette(triadic, "삼각 조화")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600"
             >
               복사
             </button>
@@ -192,12 +192,12 @@ export default function ColorPalette() {
         </div>
 
         {/* 사각 조화 */}
-        <div className="mb-6 p-6 bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl border-2 border-yellow-200">
+        <div className="mb-6 p-6 bg-canvas rounded-2xl">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-xl font-bold text-gray-800">사각 조화 (Tetradic)</h2>
             <button
               onClick={() => copyPalette(tetradic, "사각 조화")}
-              className="px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold hover:bg-green-600"
+              className="px-4 py-2 bg-green-500 text-white rounded-xl text-sm font-semibold hover:bg-green-600"
             >
               복사
             </button>
@@ -210,7 +210,7 @@ export default function ColorPalette() {
         </div>
 
         {/* 가이드 */}
-        <div className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
+        <div className="bg-canvas rounded-2xl p-6">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">색상 조화 설명</h2>
           <ul className="space-y-2 text-gray-700 text-sm">
             <li><strong>단색 조화:</strong> 같은 색상의 밝기만 다른 조합. 깔끔하고 세련된 느낌</li>

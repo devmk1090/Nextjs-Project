@@ -4,12 +4,12 @@ import { useState } from "react";
 
 // 대한비만학회 비만 진료지침(2022) 기준
 const bmiCategories = [
-  { name: "저체중", range: "18.5 미만", max: 18.5, color: "text-blue-600", emoji: "😰" },
-  { name: "정상", range: "18.5 ~ 22.9", max: 23, color: "text-green-600", emoji: "😊" },
-  { name: "비만 전단계", range: "23.0 ~ 24.9", max: 25, color: "text-yellow-600", emoji: "😅" },
-  { name: "1단계 비만", range: "25.0 ~ 29.9", max: 30, color: "text-orange-600", emoji: "😰" },
-  { name: "2단계 비만", range: "30.0 ~ 34.9", max: 35, color: "text-red-500", emoji: "😱" },
-  { name: "3단계 비만 (고도비만)", range: "35.0 이상", max: Infinity, color: "text-red-700", emoji: "😱" },
+  { name: "저체중", range: "18.5 미만", max: 18.5, color: "text-blue-600" },
+  { name: "정상", range: "18.5 ~ 22.9", max: 23, color: "text-green-600" },
+  { name: "비만 전단계", range: "23.0 ~ 24.9", max: 25, color: "text-yellow-600" },
+  { name: "1단계 비만", range: "25.0 ~ 29.9", max: 30, color: "text-orange-600" },
+  { name: "2단계 비만", range: "30.0 ~ 34.9", max: 35, color: "text-red-500" },
+  { name: "3단계 비만 (고도비만)", range: "35.0 이상", max: Infinity, color: "text-red-700" },
 ];
 
 export default function BmiCalculator() {
@@ -21,7 +21,6 @@ export default function BmiCalculator() {
     standardWeight: number;
     weightDiff: number;
     categoryColor: string;
-    categoryEmoji: string;
   } | null>(null);
 
   const calculateBMI = () => {
@@ -53,7 +52,7 @@ export default function BmiCalculator() {
     // 체중 차이
     const weightDiff = weightNum - standardWeight;
 
-    const { name: category, color: categoryColor, emoji: categoryEmoji } =
+    const { name: category, color: categoryColor } =
       bmiCategories.find((c) => bmi < c.max)!;
 
     setBmiResult({
@@ -62,17 +61,16 @@ export default function BmiCalculator() {
       standardWeight: parseFloat(standardWeight.toFixed(1)),
       weightDiff: parseFloat(weightDiff.toFixed(1)),
       categoryColor,
-      categoryEmoji,
     });
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           BMI 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           체질량지수(BMI)와 표준체중을 계산해보세요
         </p>
 
@@ -86,7 +84,7 @@ export default function BmiCalculator() {
               value={height}
               onChange={(e) => setHeight(e.target.value)}
               placeholder="예: 170"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
@@ -99,25 +97,24 @@ export default function BmiCalculator() {
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
               placeholder="예: 65"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
             />
           </div>
 
           <button
             onClick={calculateBMI}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             계산하기
           </button>
 
           {bmiResult && (
             <div className="mt-8">
-              <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+              <div className="p-6 bg-canvas rounded-xl">
                 <div className="text-center">
                   <p className="text-lg text-gray-700 mb-2">
                     키: {height}cm | 몸무게: {weight}kg
                   </p>
-                  <div className="text-6xl my-4">{bmiResult.categoryEmoji}</div>
                   <div className="text-5xl font-bold text-blue-600 my-2">
                     BMI {bmiResult.bmi}
                   </div>
@@ -130,7 +127,7 @@ export default function BmiCalculator() {
               </div>
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-white border-2 border-green-200 rounded-lg p-5">
+                <div className="bg-white rounded-xl p-5">
                   <div className="text-center">
                     <h3 className="text-sm font-medium text-gray-600 mb-2">
                       표준체중
@@ -141,7 +138,7 @@ export default function BmiCalculator() {
                   </div>
                 </div>
 
-                <div className="bg-white border-2 border-purple-200 rounded-lg p-5">
+                <div className="bg-white rounded-xl p-5">
                   <div className="text-center">
                     <h3 className="text-sm font-medium text-gray-600 mb-2">
                       표준체중과의 차이
@@ -162,7 +159,7 @@ export default function BmiCalculator() {
                 </div>
               </div>
 
-              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <div className="mt-6 p-4 bg-blue-50 rounded-xl">
                 <h3 className="font-semibold text-gray-700 mb-3">
                   {bmiResult.category}에 대한 정보
                 </h3>
@@ -217,7 +214,7 @@ export default function BmiCalculator() {
           )}
 
           {/* BMI 기준표 */}
-          <section className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <section className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h2 className="text-xl font-bold text-gray-800 mb-3">
               BMI 기준 (대한비만학회 2022)
             </h2>
@@ -260,7 +257,7 @@ export default function BmiCalculator() {
             </p>
           </section>
 
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-8 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">참고 사항</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• BMI는 체지방을 직접 측정하는 것이 아닙니다</li>

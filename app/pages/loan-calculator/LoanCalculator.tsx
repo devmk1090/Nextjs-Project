@@ -106,9 +106,9 @@ export default function LoanCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-4 sm:p-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           대출 이자 계산기
         </h1>
 
@@ -126,7 +126,7 @@ export default function LoanCalculator() {
                 }
               }}
               placeholder="예: 100,000,000"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-lg"
             />
           </div>
 
@@ -139,7 +139,7 @@ export default function LoanCalculator() {
               onChange={(e) => setInterestRate(e.target.value)}
               placeholder="예: 3.5"
               step="0.01"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-lg"
             />
           </div>
 
@@ -151,7 +151,7 @@ export default function LoanCalculator() {
               value={loanPeriod}
               onChange={(e) => setLoanPeriod(e.target.value)}
               placeholder="예: 360"
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand text-lg"
             />
           </div>
 
@@ -177,7 +177,7 @@ export default function LoanCalculator() {
           {/* 계산 버튼 */}
           <button
             onClick={calculateLoan}
-            className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg"
+            className="w-full bg-brand text-white py-4 rounded-xl font-semibold text-lg hover:bg-brand-hover transition-all hover:shadow-md"
           >
             계산하기
           </button>
@@ -186,7 +186,7 @@ export default function LoanCalculator() {
         {/* 결과 */}
         {result && (
           <div className="mt-8 space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-200">
+            <div className="bg-canvas rounded-2xl p-6">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">대출 요약</h2>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
@@ -203,12 +203,12 @@ export default function LoanCalculator() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600 font-semibold">첫 달 상환액:</span>
-                  <span className="text-xl font-bold text-purple-600">{formatCurrency(result.monthlyPayments[0].payment)}원</span>
+                  <span className="text-xl font-bold text-brand">{formatCurrency(result.monthlyPayments[0].payment)}원</span>
                 </div>
                 {result.type !== "equal-installment" && (
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 font-semibold">마지막 달 상환액:</span>
-                    <span className="text-xl font-bold text-purple-600">
+                    <span className="text-xl font-bold text-brand">
                       {formatCurrency(result.monthlyPayments[result.monthlyPayments.length - 1].payment)}원
                     </span>
                   </div>
@@ -217,7 +217,7 @@ export default function LoanCalculator() {
             </div>
 
             {/* 상환 일정표 */}
-            <div className="bg-gray-50 rounded-xl p-6 border-2 border-gray-200">
+            <div className="bg-canvas rounded-2xl p-6 border border-line">
               <h2 className="text-2xl font-bold text-gray-800 mb-4">상환 일정표</h2>
               <div className="overflow-x-auto">
                 <div className="max-h-96 overflow-y-auto">
@@ -251,7 +251,7 @@ export default function LoanCalculator() {
 
         {/* 상환 방식 비교 */}
         {result && (
-          <div className="mt-6 bg-white rounded-xl p-6 border-2 border-purple-200">
+          <div className="mt-6 bg-white rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-2">상환 방식별 비교</h2>
             <p className="text-sm text-gray-600 mb-4">같은 금액·금리·기간일 때 상환 방식에 따른 차이입니다.</p>
             <div className="overflow-x-auto">
@@ -295,21 +295,21 @@ export default function LoanCalculator() {
         {/* 상환 방식 설명 */}
         <section className="mt-10 space-y-4 text-gray-700">
           <h2 className="text-2xl font-bold text-gray-800">대출 상환 방식 3가지</h2>
-          <div className="p-4 bg-blue-50 rounded-lg">
+          <div className="p-4 bg-blue-50 rounded-xl">
             <h3 className="font-bold text-gray-800 mb-1">원리금균등상환</h3>
             <p className="text-sm">
               원금과 이자를 합친 금액을 매월 똑같이 냅니다. 초기에는 이자 비중이 크고 갈수록 원금 비중이
               커집니다. 월 상환액이 일정해 자금 계획을 세우기 쉬워 주택담보대출에서 가장 많이 쓰입니다.
             </p>
           </div>
-          <div className="p-4 bg-green-50 rounded-lg">
+          <div className="p-4 bg-green-50 rounded-xl">
             <h3 className="font-bold text-gray-800 mb-1">원금균등상환</h3>
             <p className="text-sm">
               원금을 매월 똑같이 나눠 갚고, 남은 원금에 대한 이자를 더해 냅니다. 원금이 빨리 줄어 총 이자가
               세 방식 중 가장 적지만, 첫 달 상환액이 가장 큽니다.
             </p>
           </div>
-          <div className="p-4 bg-orange-50 rounded-lg">
+          <div className="p-4 bg-orange-50 rounded-xl">
             <h3 className="font-bold text-gray-800 mb-1">만기일시상환</h3>
             <p className="text-sm">
               대출 기간 동안 매월 이자만 내고 원금은 만기에 한 번에 갚습니다. 매월 부담은 가장 작지만 원금이

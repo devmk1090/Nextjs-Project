@@ -106,7 +106,7 @@ export default function AnniversaryCalculator() {
       );
     } else if (daysFrom <= 30) {
       return (
-        <span className="px-2 py-1 bg-blue-500 text-white text-xs rounded-full">
+        <span className="px-2 py-1 bg-brand text-white text-xs rounded-full">
           다가옴
         </span>
       );
@@ -120,12 +120,12 @@ export default function AnniversaryCalculator() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 py-8 px-4">
-      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-xl p-6 sm:p-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center mb-2 text-gray-800">
+    <div className="px-4 sm:px-6 py-8 sm:py-10">
+      <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
           기념일 계산기
         </h1>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-ink-3 mb-8">
           시작일로부터 100일, 200일, 1년 등 기념일을 확인하세요
         </p>
 
@@ -140,35 +140,35 @@ export default function AnniversaryCalculator() {
                 value={year}
                 onChange={(e) => setYear(e.target.value)}
                 placeholder="년"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
               <input
                 type="number"
                 value={month}
                 onChange={(e) => setMonth(e.target.value)}
                 placeholder="월"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
               <input
                 type="number"
                 value={day}
                 onChange={(e) => setDay(e.target.value)}
                 placeholder="일"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
               />
             </div>
           </div>
 
           <button
             onClick={calculateAnniversaries}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
           >
             기념일 계산하기
           </button>
 
           {startDate && anniversaries.length > 0 && (
             <div className="mt-8">
-              <div className="mb-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200">
+              <div className="mb-4 p-4 bg-brand-soft rounded-xl">
                 <p className="text-center text-lg font-semibold text-gray-800">
                   시작일: {startDate.getFullYear()}년{" "}
                   {startDate.getMonth() + 1}월 {startDate.getDate()}일
@@ -184,7 +184,7 @@ export default function AnniversaryCalculator() {
                 {anniversaries.map((anniversary, index) => (
                   <div
                     key={index}
-                    className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
+                    className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
                   >
                     <div className="flex justify-between items-center">
                       <div className="flex-1">
@@ -214,7 +214,7 @@ export default function AnniversaryCalculator() {
             </div>
           )}
 
-          <div className="mt-8 p-4 bg-blue-50 rounded-lg">
+          <div className="mt-8 p-4 bg-blue-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">기념일 계산 기준</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>
@@ -232,7 +232,7 @@ export default function AnniversaryCalculator() {
             </ul>
           </div>
 
-          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+          <div className="mt-4 p-4 bg-gray-50 rounded-xl">
             <h3 className="font-semibold text-gray-700 mb-2">사용 예시</h3>
             <ul className="text-sm text-gray-600 space-y-1">
               <li>• 연애 시작일로부터 100일, 200일 계산</li>

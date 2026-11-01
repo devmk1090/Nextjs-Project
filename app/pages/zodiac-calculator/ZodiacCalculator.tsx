@@ -44,14 +44,14 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
   const zodiacResult = calculateZodiac();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-purple-100 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-4xl">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+    <div className="flex flex-col items-center px-4 sm:px-6 py-8 sm:py-10">
+      <div className="bg-white rounded-3xl p-8 w-full max-w-4xl">
+        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-6">
           띠 계산기
         </h1>
 
         {/* 소개 섹션 */}
-        <div className="mb-8 p-4 bg-blue-50 rounded-lg">
+        <div className="mb-8 p-4 bg-blue-50 rounded-xl">
           <h2 className="text-xl font-semibold mb-3 text-gray-800">십이지(十二支) 띠란?</h2>
           <p className="text-gray-700 leading-relaxed mb-3">
             십이지는 12년을 주기로 반복되는 동양의 전통 천간지지(天干地支) 체계 중 지지(地支)를 동물로 표현한 것입니다.
@@ -74,7 +74,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
                   onChange={handleYearChange}
                   placeholder="YYYY"
                   maxLength={4}
-                  className="border border-gray-300 rounded-l-md px-3 py-3 w-28 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:z-10 text-lg"
+                  className="border border-gray-300 rounded-l-md px-3 py-3 w-28 focus:outline-none focus:ring-2 focus:ring-brand focus:z-10 text-lg"
                 />
                 <span className="inline-flex items-center px-3 py-3 border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-lg rounded-r-md">
                   년
@@ -84,7 +84,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
           </div>
 
           {zodiacResult && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+            <div className="mt-6 p-4 bg-blue-50 rounded-xl">
               <p className="text-center text-xl text-gray-800">
                 <span className="font-semibold">{year}년</span>은{" "}
                 <span className="font-bold text-blue-600">
@@ -104,13 +104,13 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
         </div>
 
         {/* 12가지 띠 상세 설명 */}
-        <div className="mt-8 p-6 bg-gray-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-6 text-gray-800">12가지 띠의 성격과 특징</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* 쥐띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-red-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐭 쥐띠 (子)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">쥐띠 (子)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2020, 2008, 1996, 1984, 1972...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 영리하고 재치있으며 적응력이 뛰어남. 근면하고 절약 정신이 강함.
@@ -120,8 +120,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 소띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-orange-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐂 소띠 (丑)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">소띠 (丑)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2021, 2009, 1997, 1985, 1973...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 성실하고 근면하며 책임감이 강함. 인내심이 뛰어나고 신뢰할 수 있음.
@@ -131,8 +131,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 호랑이띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-yellow-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐯 호랑이띠 (寅)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">호랑이띠 (寅)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2022, 2010, 1998, 1986, 1974...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 용감하고 자신감 넘치며 리더십이 강함. 정의감이 뛰어남.
@@ -142,8 +142,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 토끼띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-green-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐰 토끼띠 (卯)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">토끼띠 (卯)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2023, 2011, 1999, 1987, 1975...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 온화하고 섬세하며 예술적 감각이 뛰어남. 평화를 사랑함.
@@ -153,8 +153,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 용띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐲 용띠 (辰)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">용띠 (辰)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2024, 2012, 2000, 1988, 1976...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 강인하고 카리스마 넘치며 야망이 큼. 행운의 상징.
@@ -164,8 +164,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 뱀띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-indigo-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐍 뱀띠 (巳)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">뱀띠 (巳)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2025, 2013, 2001, 1989, 1977...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 지혜롭고 직관력이 뛰어나며 신비로움. 깊이있는 사고를 함.
@@ -175,8 +175,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 말띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-purple-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐴 말띠 (午)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">말띠 (午)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2026, 2014, 2002, 1990, 1978...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 활발하고 자유로우며 열정적임. 사교적이고 낙천적.
@@ -186,8 +186,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 양띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-pink-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐑 양띠 (未)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">양띠 (未)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2027, 2015, 2003, 1991, 1979...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 부드럽고 온순하며 예술적 감성이 풍부함. 타인을 배려함.
@@ -197,8 +197,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 원숭이띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-amber-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐵 원숭이띠 (申)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">원숭이띠 (申)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2028, 2016, 2004, 1992, 1980...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 영리하고 재치있으며 호기심이 많음. 문제 해결 능력이 뛰어남.
@@ -208,8 +208,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 닭띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-red-600">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐔 닭띠 (酉)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">닭띠 (酉)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2029, 2017, 2005, 1993, 1981...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 정확하고 체계적이며 관찰력이 뛰어남. 자신감이 강함.
@@ -219,8 +219,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 개띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-teal-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐕 개띠 (戌)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">개띠 (戌)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2030, 2018, 2006, 1994, 1982...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 충성스럽고 정직하며 책임감이 강함. 정의감이 뛰어남.
@@ -230,8 +230,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
             </div>
 
             {/* 돼지띠 */}
-            <div className="p-4 bg-white rounded-lg border-l-4 border-rose-500">
-              <h3 className="text-lg font-bold text-gray-800 mb-2">🐷 돼지띠 (亥)</h3>
+            <div className="p-4 bg-white rounded-xl border-l-2 border-line">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">돼지띠 (亥)</h3>
               <p className="text-sm text-gray-600 mb-2">해당 연도: 2031, 2019, 2007, 1995, 1983...</p>
               <p className="text-gray-700 text-sm leading-relaxed">
                 <strong>성격:</strong> 관대하고 솔직하며 낙천적임. 성실하고 인내심이 강함.
@@ -243,10 +243,10 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
         </div>
 
         {/* 띠별 궁합 */}
-        <div className="mt-8 p-6 bg-green-50 rounded-lg">
+        <div className="mt-8 p-6 bg-canvas rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">띠별 궁합</h2>
           <div className="space-y-3">
-            <div className="bg-white p-4 rounded-lg">
+            <div className="bg-white p-4 rounded-xl">
               <h3 className="font-semibold text-gray-800 mb-2">최고의 궁합</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• <strong>쥐띠:</strong> 용띠, 원숭이띠, 소띠</li>
@@ -257,7 +257,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
                 <li>• <strong>뱀띠:</strong> 소띠, 닭띠</li>
               </ul>
             </div>
-            <div className="bg-white p-4 rounded-lg">
+            <div className="bg-white p-4 rounded-xl">
               <h3 className="font-semibold text-gray-800 mb-2">주의가 필요한 궁합</h3>
               <ul className="text-sm text-gray-700 space-y-1">
                 <li>• 쥐띠 ↔ 말띠 (서로 상반된 성격)</li>
@@ -271,7 +271,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
         </div>
 
         {/* 문화적 의미 */}
-        <div className="mt-8 p-6 bg-yellow-50 rounded-lg border border-yellow-200">
+        <div className="mt-8 p-6 bg-canvas rounded-xl border border-yellow-200">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">한국 문화 속 띠의 의미</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -291,7 +291,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
         </div>
 
         {/* FAQ */}
-        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-lg">
+        <div className="mt-8 p-6 bg-white border border-gray-200 rounded-xl">
           <h2 className="text-2xl font-semibold mb-4 text-gray-800">자주 묻는 질문</h2>
           <div className="space-y-4">
             <div>
@@ -322,8 +322,8 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
         </div>
 
         {/* 사용 팁 */}
-        <div className="mt-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800">💡 계산기 사용 팁</h2>
+        <div className="mt-8 p-6 bg-canvas rounded-xl border-l-2 border-line">
+          <h2 className="text-xl font-semibold mb-3 text-gray-800">계산기 사용 팁</h2>
           <ul className="space-y-2 text-gray-700">
             <li>• 태어난 해(연도)만 입력하면 띠를 바로 확인할 수 있습니다.</li>
             <li>• 1900년부터 2100년까지의 연도를 계산할 수 있습니다.</li>
@@ -332,7 +332,7 @@ export default function ZodiacCalculator({ children }: { children?: React.ReactN
           </ul>
         </div>
 
-        {children}
+        <div className="mt-8">{children}</div>
       </div>
     </div>
   );
