@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SubPage from "../../../components/SubPage";
+import SubPage, { subPageCard } from "../../../components/SubPage";
 import { Faq } from "../../../lib/structuredData";
 import { toolPath } from "../../../tools";
 import {
@@ -111,50 +111,39 @@ export default async function BirthYearPage({ params }: Props) {
       lead={`${year}년에 태어난 사람의 ${currentYear}년 만 나이, 세는 나이, 띠, 학교 입학 연도와 나이 기준 제도를 정리했습니다. 생년월일로 정확히 계산하려면 만 나이 계산기를 이용하세요.`}
       faqs={faqs}
     >
-      <section>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-gray-600">만 나이</p>
-            <p className="text-2xl font-bold text-blue-600">
-              {isNewborn ? "0세" : `${age.beforeBirthday}~${age.afterBirthday}세`}
-            </p>
-            {!isNewborn && (
-              <p className="text-xs text-gray-500 mt-1">
-                생일 전 {age.beforeBirthday}세 / 후 {age.afterBirthday}세
-              </p>
-            )}
-          </div>
-          <div className="p-4 bg-green-50 rounded-lg">
-            <p className="text-sm text-gray-600">세는 나이</p>
-            <p className="text-2xl font-bold text-green-600">{age.counting}세</p>
-            <p className="text-xs text-gray-500 mt-1">한국식 나이</p>
-          </div>
-          <div className="p-4 bg-purple-50 rounded-lg">
-            <p className="text-sm text-gray-600">연 나이</p>
-            <p className="text-2xl font-bold text-purple-600">{age.yearAge}세</p>
-            <p className="text-xs text-gray-500 mt-1">{currentYear} - {year}</p>
-          </div>
-          <div className="p-4 bg-orange-50 rounded-lg">
-            <p className="text-sm text-gray-600">띠</p>
-            <p className="text-2xl font-bold text-orange-600">
-              {g.emoji} {g.animal}띠
-            </p>
-            <p className="text-xs text-gray-500 mt-1">
-              {g.name} · {g.colorAnimal}띠
-            </p>
-          </div>
+      <section className={subPageCard}>
+        <p className="text-[15px] text-ink-3">{currentYear}년 기준 만 나이</p>
+        <p className="text-5xl font-extrabold tracking-tight text-brand mt-1">
+          {isNewborn ? "0세" : `${age.beforeBirthday}~${age.afterBirthday}세`}
+        </p>
+        {!isNewborn && (
+          <p className="text-sm text-ink-3 mt-2">
+            생일 전 {age.beforeBirthday}세, 생일이 지나면 {age.afterBirthday}세
+          </p>
+        )}
+        <div className="grid grid-cols-3 gap-2.5 mt-5">
+          {[
+            ["세는 나이", `${age.counting}세`],
+            ["연 나이", `${age.yearAge}세`],
+            ["띠", `${g.animal}띠`],
+          ].map(([label, value]) => (
+            <div key={label} className="bg-canvas rounded-2xl p-4">
+              <p className="text-[13px] text-ink-3">{label}</p>
+              <p className="text-xl font-extrabold text-ink">{value}</p>
+            </div>
+          ))}
         </div>
-        <p className="mt-4 text-sm text-gray-600">
+        <p className="mt-5 pt-5 border-t border-line text-sm text-ink-3">
           2023년 6월 28일부터 법령과 공문서의 나이는 만 나이로 통일되었습니다. 생일이 지났는지에
           따라 만 나이가 1살 달라지므로, 정확한 나이는{" "}
-          <Link href={toolPath("age-calculator")} className="text-blue-600 underline">
+          <Link href={toolPath("age-calculator")} className="text-brand font-bold">
             만 나이 계산기
           </Link>
           에 생년월일을 넣어 확인하세요.
         </p>
       </section>
 
-      <section>
+      <section className={subPageCard}>
         <h2>
           {year}년생의 띠: {g.name}({g.hanja})
         </h2>
@@ -163,22 +152,22 @@ export default async function BirthYearPage({ params }: Props) {
           {g.name[1]}&apos;의 동물을 합쳐 <strong>{g.colorAnimal}띠</strong>라고도 부릅니다.
         </p>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm border border-gray-200">
+          <table className="w-full text-sm">
             <tbody>
-              <tr className="border-b border-gray-200">
-                <th className="bg-gray-50 px-3 py-2 text-left w-40">{year}년 설날</th>
+              <tr className="border-b border-line">
+                <th className="bg-canvas px-3 py-2 text-left w-40">{year}년 설날</th>
                 <td className="px-3 py-2">
                   양력 {seollal.month}월 {seollal.day}일
                 </td>
               </tr>
-              <tr className="border-b border-gray-200">
-                <th className="bg-gray-50 px-3 py-2 text-left">{year}년 입춘</th>
+              <tr className="border-b border-line">
+                <th className="bg-canvas px-3 py-2 text-left">{year}년 입춘</th>
                 <td className="px-3 py-2">
                   양력 {ipchun.month}월 {ipchun.day}일
                 </td>
               </tr>
               <tr>
-                <th className="bg-gray-50 px-3 py-2 text-left">1·2월생의 띠</th>
+                <th className="bg-canvas px-3 py-2 text-left">1·2월생의 띠</th>
                 <td className="px-3 py-2">
                   설날 전 출생이면 음력으로 {prev.name}({prev.animal}띠)
                 </td>
@@ -186,11 +175,11 @@ export default async function BirthYearPage({ params }: Props) {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-sm text-gray-600">
+        <p className="mt-3 text-sm text-ink-3">
           일상에서는 출생 연도로 띠를 말하는 경우가 많지만, 음력으로는 설날부터 새해가 시작되고 사주
           명리학에서는 입춘을 한 해의 시작으로 봅니다. 그래서 {year}년 1월 1일부터 설날 전날까지
           태어났다면 기준에 따라 {prev.animal}띠로 보기도 합니다. 띠별 성격과 궁합은{" "}
-          <Link href={toolPath("zodiac-calculator")} className="text-blue-600 underline">
+          <Link href={toolPath("zodiac-calculator")} className="text-brand font-bold">
             띠 계산기
           </Link>
           에서 볼 수 있습니다.
@@ -198,21 +187,21 @@ export default async function BirthYearPage({ params }: Props) {
       </section>
 
       {year >= 1960 && (
-        <section>
+        <section className={subPageCard}>
           <h2>{year}년생 학교 입학·졸업 연도</h2>
           {grade && (
-            <p className="mb-3 p-3 bg-blue-50 rounded-lg">
+            <p className="mb-4 p-4 bg-brand-soft rounded-2xl text-ink">
               {currentYear}년 3월 기준으로 {year}년생은 <strong>{grade}</strong>입니다.
             </p>
           )}
           {!grade && school.elementaryEntry > currentYear && (
-            <p className="mb-3 p-3 bg-blue-50 rounded-lg">
+            <p className="mb-4 p-4 bg-brand-soft rounded-2xl text-ink">
               {year}년생은 <strong>{school.elementaryEntry}년 3월</strong>에 초등학교에 입학합니다.
             </p>
           )}
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200">
-              <thead className="bg-gray-50">
+            <table className="w-full text-sm">
+              <thead className="bg-canvas">
                 <tr>
                   <th className="px-3 py-2 text-left">구분</th>
                   <th className="px-3 py-2 text-right">연도</th>
@@ -230,7 +219,7 @@ export default async function BirthYearPage({ params }: Props) {
                     `${school.universityEntry}년 3월 (${String(school.universityEntry).slice(2)}학번)`,
                   ],
                 ].map(([label, value]) => (
-                  <tr key={label} className="border-t border-gray-200">
+                  <tr key={label} className="border-t border-line">
                     <td className="px-3 py-2">{label}</td>
                     <td className="px-3 py-2 text-right">{value}</td>
                   </tr>
@@ -238,7 +227,7 @@ export default async function BirthYearPage({ params }: Props) {
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-sm text-gray-600">
+          <p className="mt-3 text-sm text-ink-3">
             {school.hasEarlyBirthCohort
               ? `2008학년도까지는 3월생부터 이듬해 2월생까지 같은 학년이었습니다. 그래서 ${year}년 1·2월생('빠른 ${shortYear}년생')은 보통 한 해 이른 ${school.elementaryEntry - 1}년에 입학했고, 위 연도도 1년씩 앞당겨집니다. `
               : "2009학년도부터 1월생부터 12월생까지 같은 학년이 되어 '빠른 년생' 구분이 없습니다. "}
@@ -247,15 +236,15 @@ export default async function BirthYearPage({ params }: Props) {
         </section>
       )}
 
-      <section>
+      <section className={subPageCard}>
         <h2>{year}년생 나이 기준 일정</h2>
         <p className="mb-3">
           법과 제도에서 정한 나이 기준을 {year}년생에게 적용하면 다음과 같습니다. 만 나이 기준은
           해당 연도의 생일부터, 연 나이 기준은 해당 연도 1월 1일부터 적용됩니다.
         </p>
         <div className="overflow-x-auto">
-          <table className="w-full text-sm border border-gray-200">
-            <thead className="bg-gray-50">
+          <table className="w-full text-sm">
+            <thead className="bg-canvas">
               <tr>
                 <th className="px-3 py-2 text-left">연도</th>
                 <th className="px-3 py-2 text-left">기준</th>
@@ -264,12 +253,12 @@ export default async function BirthYearPage({ params }: Props) {
             </thead>
             <tbody>
               {milestones(year).map((m) => (
-                <tr key={m.label} className="border-t border-gray-200">
+                <tr key={m.label} className="border-t border-line">
                   <td className="px-3 py-2 whitespace-nowrap">{m.year}년</td>
                   <td className="px-3 py-2">{m.label}</td>
                   <td
                     className={`px-3 py-2 text-right whitespace-nowrap ${
-                      m.year === currentYear ? "font-bold text-blue-600" : "text-gray-500"
+                      m.year === currentYear ? "font-bold text-brand" : "text-ink-4"
                     }`}
                   >
                     {formatStatus(m.year, currentYear)}
@@ -279,25 +268,25 @@ export default async function BirthYearPage({ params }: Props) {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 text-sm text-gray-600">
+        <p className="mt-3 text-sm text-ink-3">
           국민연금 수령 나이는 출생 연도에 따라 1953년생부터 단계적으로 늦춰져 1969년생 이후는 만
           65세입니다. 제도는 법 개정으로 바뀔 수 있으니 신청 전에 국민연금공단에서 확인하세요.
         </p>
       </section>
 
-      <section>
+      <section className={subPageCard}>
         <h2>다른 출생 연도 보기</h2>
         {sameAnimalYears.length > 0 && (
           <>
-            <h3 className="font-semibold text-gray-800 mb-2">
-              같은 {g.animal}띠 ({g.emoji})
+            <h3 className="font-bold text-ink mb-2">
+              같은 {g.animal}띠
             </h3>
             <div className="flex flex-wrap gap-2 mb-4">
               {sameAnimalYears.map((y) => (
                 <Link
                   key={y}
                   href={birthYearPath(y)}
-                  className="px-3 py-1 border border-gray-300 rounded-full hover:border-blue-400 hover:text-blue-600"
+                  className="px-3.5 py-1.5 bg-canvas rounded-full text-sm text-ink-2 hover:bg-brand-soft hover:text-brand"
                 >
                   {y}년생 ({ganzhi(y).name})
                 </Link>
@@ -305,13 +294,13 @@ export default async function BirthYearPage({ params }: Props) {
             </div>
           </>
         )}
-        <h3 className="font-semibold text-gray-800 mb-2">가까운 연도</h3>
+        <h3 className="font-bold text-ink mb-2">가까운 연도</h3>
         <div className="flex flex-wrap gap-2">
           {nearbyYears.map((y) => (
             <Link
               key={y}
               href={birthYearPath(y)}
-              className="px-3 py-1 border border-gray-300 rounded-full hover:border-blue-400 hover:text-blue-600"
+              className="px-3.5 py-1.5 bg-canvas rounded-full text-sm text-ink-2 hover:bg-brand-soft hover:text-brand"
             >
               {y}년생 ({ganzhi(y).animal}띠)
             </Link>

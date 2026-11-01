@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import SubPage from "../../../components/SubPage";
+import SubPage, { subPageCard } from "../../../components/SubPage";
 import { Faq } from "../../../lib/structuredData";
 import { toolPath } from "../../../tools";
 import {
@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const AreaLink = ({ page }: { page: AreaPage }) => (
   <Link
     href={areaPagePath(page)}
-    className="px-3 py-1 border border-gray-300 rounded-full text-sm hover:border-blue-400 hover:text-blue-600"
+    className="px-3.5 py-1.5 bg-canvas rounded-full text-sm text-ink-2 hover:bg-brand-soft hover:text-brand"
   >
     {areaPageLabel(page)}
   </Link>
@@ -107,7 +107,7 @@ export default async function AreaConversionPage({ params }: Props) {
     ];
     body = (
       <>
-        <section>
+        <section className={subPageCard}>
           <h2>아파트 {page.value}평형이라면</h2>
           <p className="mb-3">
             분양 광고나 일상에서 말하는 &quot;{page.value}평형&quot;은 전용면적에 계단·복도 같은
@@ -115,8 +115,8 @@ export default async function AreaConversionPage({ params }: Props) {
             전용률 70~80%를 적용하면 실제로 세대가 쓰는 전용면적은 다음과 같습니다.
           </p>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200">
-              <thead className="bg-gray-50">
+            <table className="w-full text-sm">
+              <thead className="bg-canvas">
                 <tr>
                   <th className="px-3 py-2 text-left">전용률</th>
                   <th className="px-3 py-2 text-right">전용면적</th>
@@ -125,7 +125,7 @@ export default async function AreaConversionPage({ params }: Props) {
               </thead>
               <tbody>
                 {[0.7, 0.75, 0.8].map((ratio) => (
-                  <tr key={ratio} className="border-t border-gray-200">
+                  <tr key={ratio} className="border-t border-line">
                     <td className="px-3 py-2">
                       {ratio * 100}% {ratio === 0.7 ? "(복도식)" : ratio === 0.8 ? "(계단식)" : ""}
                     </td>
@@ -146,7 +146,7 @@ export default async function AreaConversionPage({ params }: Props) {
                     <span key={area}>
                       {i > 0 && ", "}
                       {target ? (
-                        <Link href={areaPagePath(target)} className="text-blue-600 underline">
+                        <Link href={areaPagePath(target)} className="text-brand font-bold">
                           전용 {area}m²
                         </Link>
                       ) : (
@@ -162,7 +162,7 @@ export default async function AreaConversionPage({ params }: Props) {
           </p>
         </section>
 
-        <section>
+        <section className={subPageCard}>
           <h2>실평수(전용면적) {page.value}평이라면</h2>
           <p>
             원룸·상가·사무실이나 &quot;실평수&quot;로 말할 때는 전용면적 {page.value}평, 즉{" "}
@@ -197,7 +197,7 @@ export default async function AreaConversionPage({ params }: Props) {
     ];
     body = (
       <>
-        <section>
+        <section className={subPageCard}>
           <h2>아파트 전용 {page.value}m²라면</h2>
           <p className="mb-3">
             분양공고나 등기부의 &quot;{page.value}m²&quot;는 보통 세대가 혼자 쓰는{" "}
@@ -206,8 +206,8 @@ export default async function AreaConversionPage({ params }: Props) {
             불립니다.
           </p>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border border-gray-200">
-              <thead className="bg-gray-50">
+            <table className="w-full text-sm">
+              <thead className="bg-canvas">
                 <tr>
                   <th className="px-3 py-2 text-left">전용률</th>
                   <th className="px-3 py-2 text-right">공급면적</th>
@@ -216,7 +216,7 @@ export default async function AreaConversionPage({ params }: Props) {
               </thead>
               <tbody>
                 {[0.7, 0.75, 0.8].map((ratio) => (
-                  <tr key={ratio} className="border-t border-gray-200">
+                  <tr key={ratio} className="border-t border-line">
                     <td className="px-3 py-2">
                       {ratio * 100}% {ratio === 0.7 ? "(복도식)" : ratio === 0.8 ? "(계단식)" : ""}
                     </td>
@@ -232,7 +232,7 @@ export default async function AreaConversionPage({ params }: Props) {
           <p className="mt-3">{nationalHousingText(page.value, page.value)}</p>
         </section>
 
-        <section>
+        <section className={subPageCard}>
           <h2>공급면적·계약면적 {page.value}m²라면</h2>
           <p>
             오피스텔이나 상가처럼 공급면적·계약면적으로 {page.value}m²를 표시했다면 평으로는{" "}
@@ -263,23 +263,22 @@ export default async function AreaConversionPage({ params }: Props) {
       }
       faqs={faqs}
     >
-      <section>
-        <div className="p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border-2 border-blue-200 text-center">
-          <p className="text-3xl font-bold text-gray-800">
-            {page.kind === "pyeong"
-              ? `${page.value}평 = ${fmt(m2)}m²`
-              : `${page.value}m² = ${fmt(pyeong)}평`}
-          </p>
-          <p className="text-sm text-gray-600 mt-2">
-            정확한 값 {fmt(m2, 4)}m² = {fmt(pyeong, 4)}평 (1평 = 400/121m² ≈ 3.3058m²)
-          </p>
-        </div>
-        {note && <p className="mt-4 p-4 bg-yellow-50 rounded-lg">{note}</p>}
+      <section className={subPageCard}>
+        <p className="text-[15px] text-ink-3">
+          {page.kind === "pyeong" ? `${page.value}평을 제곱미터로` : `${page.value}m²를 평으로`}
+        </p>
+        <p className="text-5xl font-extrabold tracking-tight text-brand mt-1">
+          {page.kind === "pyeong" ? `${fmt(m2)}m²` : `${fmt(pyeong)}평`}
+        </p>
+        <p className="text-sm text-ink-3 mt-2">
+          정확한 값 {fmt(m2, 4)}m² = {fmt(pyeong, 4)}평 (1평 = 400/121m² ≈ 3.3058m²)
+        </p>
+        {note && <p className="mt-5 pt-5 border-t border-line">{note}</p>}
       </section>
 
       {body}
 
-      <section>
+      <section className={subPageCard}>
         <h2>
           {label}
           {page.kind === "pyeong" ? "은" : "는"} 얼마나 넓을까?
@@ -296,24 +295,24 @@ export default async function AreaConversionPage({ params }: Props) {
             제곱피트로는 약 <strong>{fmt(m2 * SQFT_PER_M2, 0)}ft²</strong>입니다.
           </li>
         </ul>
-        <p className="mt-3 text-sm text-gray-600">
+        <p className="mt-3 text-sm text-ink-3">
           다른 값은{" "}
-          <Link href={toolPath("pyeong-calculator")} className="text-blue-600 underline">
+          <Link href={toolPath("pyeong-calculator")} className="text-brand font-bold">
             평형/평수 계산기
           </Link>
           에서 직접 변환하거나 전용률을 바꿔 평형을 계산할 수 있습니다.
         </p>
       </section>
 
-      <section>
+      <section className={subPageCard}>
         <h2>다른 면적 보기</h2>
-        <h3 className="font-semibold text-gray-800 mb-2">평 → m²</h3>
+        <h3 className="font-bold text-ink mb-2">평 → m²</h3>
         <div className="flex flex-wrap gap-2 mb-4">
           {pyeongPages.map((p) => (
             <AreaLink key={p.slug} page={p} />
           ))}
         </div>
-        <h3 className="font-semibold text-gray-800 mb-2">m² → 평</h3>
+        <h3 className="font-bold text-ink mb-2">m² → 평</h3>
         <div className="flex flex-wrap gap-2">
           {m2Pages.map((p) => (
             <AreaLink key={p.slug} page={p} />
