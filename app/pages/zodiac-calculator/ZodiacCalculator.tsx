@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { birthYearPath, hasBirthYearPage } from "../age-calculator/birthYearPath";
 
-export default function ZodiacCalculator() {
+export default function ZodiacCalculator({ children }: { children?: React.ReactNode }) {
   const [year, setYear] = useState("");
 
   const handleYearChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,6 +92,13 @@ export default function ZodiacCalculator() {
                 </span>{" "}
                 입니다
               </p>
+              {hasBirthYearPage(Number(year)) && (
+                <p className="text-center mt-2">
+                  <Link href={birthYearPath(Number(year))} className="text-blue-600 underline">
+                    {year}년생 나이·설날 기준 띠 자세히 보기 →
+                  </Link>
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -322,6 +331,8 @@ export default function ZodiacCalculator() {
             <li>• 띠는 12년 주기로 반복되므로 ±12년 단위로 같은 띠입니다.</li>
           </ul>
         </div>
+
+        {children}
       </div>
     </div>
   );

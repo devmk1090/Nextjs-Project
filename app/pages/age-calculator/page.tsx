@@ -1,5 +1,9 @@
 import AgeCalculator from "./AgeCalculator";
 import { Metadata } from "next";
+import BirthYearIndex from "./BirthYearIndex";
+
+// 출생 연도별 나이표가 해마다 바뀌므로 하루에 한 번 다시 생성합니다.
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "만 나이 계산기 - 정확한 한국 나이 계산 | 2023년 만 나이 통일법",
@@ -13,5 +17,9 @@ export const metadata: Metadata = {
 };
 
 export default function AgeCalculatorPage() {
-  return <AgeCalculator />;
+  return (
+    <AgeCalculator>
+      <BirthYearIndex variant="age" />
+    </AgeCalculator>
+  );
 }

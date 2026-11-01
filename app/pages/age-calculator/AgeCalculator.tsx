@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { birthYearPath, hasBirthYearPage } from "./birthYearPath";
 
-export default function AgeCalculator() {
+export default function AgeCalculator({ children }: { children?: React.ReactNode }) {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const [day, setDay] = useState("");
@@ -132,6 +134,13 @@ export default function AgeCalculator() {
               <h2 className="text-2xl font-bold text-gray-800">
                 만 나이는 <span className="text-blue-500">{age}</span>세 입니다.
               </h2>
+              {hasBirthYearPage(Number(year)) && (
+                <p className="mt-2">
+                  <Link href={birthYearPath(Number(year))} className="text-blue-600 underline">
+                    {year}년생 띠·입학 연도·국민연금 나이 보기 →
+                  </Link>
+                </p>
+              )}
             </div>
           )}
         </div>
@@ -273,6 +282,8 @@ export default function AgeCalculator() {
             <li>• 공식 문서 작성 시 이 계산기로 확인한 만 나이를 사용하시면 됩니다.</li>
           </ul>
         </div>
+
+        {children}
       </div>
     </div>
   );
