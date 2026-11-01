@@ -1,14 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import {
+  M2_PER_PYEONG,
+  areaPageLabel,
+  areaPagePath,
+  areaPages,
+  commonExclusiveAreas,
+} from "./areas";
 
 type ConversionType = "toSquareMeter" | "toPyeong";
-
-// 1평 = 400/121 m² (약 3.3058 m²)
-const M2_PER_PYEONG = 400 / 121;
-
-// 주요 아파트 전용면적(m²)
-const commonExclusiveAreas = [39, 49, 59, 74, 84, 101, 114, 135];
 
 export default function PyeongCalculator() {
   const [conversionType, setConversionType] = useState<ConversionType>("toPyeong");
@@ -280,7 +282,11 @@ export default function PyeongCalculator() {
                 <tbody>
                   {commonExclusiveAreas.map((area) => (
                     <tr key={area} className="border-b border-gray-200">
-                      <td className="px-2 py-2">{area} m²</td>
+                      <td className="px-2 py-2">
+                        <Link href={areaPagePath(`${area}-m2`)} className="text-blue-600 underline">
+                          {area} m²
+                        </Link>
+                      </td>
                       <td className="px-2 py-2 text-right">
                         {(area / M2_PER_PYEONG).toFixed(1)}평
                       </td>
@@ -293,6 +299,34 @@ export default function PyeongCalculator() {
                 </tbody>
               </table>
             </div>
+          </section>
+
+          {/* 면적별 환산 페이지 */}
+          <section className="mt-10">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">자주 찾는 면적</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              평형별 전용면적, 전용면적별 평형을 표로 정리한 페이지입니다.
+            </p>
+            {(["pyeong", "m2"] as const).map((kind) => (
+              <div key={kind} className="mb-4">
+                <h3 className="font-semibold text-gray-800 mb-2">
+                  {kind === "pyeong" ? "평 → m²" : "m² → 평"}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {areaPages
+                    .filter((page) => page.kind === kind)
+                    .map((page) => (
+                      <Link
+                        key={page.slug}
+                        href={areaPagePath(page)}
+                        className="px-3 py-1 border border-gray-300 rounded-full text-sm hover:border-blue-400 hover:text-blue-600"
+                      >
+                        {areaPageLabel(page)}
+                      </Link>
+                    ))}
+                </div>
+              </div>
+            ))}
           </section>
 
           {/* 면적 용어 */}
