@@ -1,5 +1,8 @@
 import { Lunar } from "lunar-typescript";
 import { FIRST_BIRTH_YEAR } from "./birthYearPath";
+import { ganzhi } from "../../lib/ganzhi";
+
+export { ganzhi };
 
 // 출생 연도별 페이지(/pages/age-calculator/<연도>)에서 쓰는 계산 모음.
 // 서버 컴포넌트에서만 사용합니다(lunar-typescript를 클라이언트 번들에 넣지 않기 위해).
@@ -19,49 +22,6 @@ export function birthYears(currentYear = currentYearKST()) {
 
 export function isValidBirthYear(year: number, currentYear = currentYearKST()) {
   return Number.isInteger(year) && year >= FIRST_BIRTH_YEAR && year <= currentYear;
-}
-
-const mod = (n: number, m: number) => ((n % m) + m) % m;
-
-// 천간: 오행에 따른 색(갑을 청, 병정 적, 무기 황, 경신 백, 임계 흑)
-const stems = [
-  { ko: "갑", hanja: "甲", color: "푸른" },
-  { ko: "을", hanja: "乙", color: "푸른" },
-  { ko: "병", hanja: "丙", color: "붉은" },
-  { ko: "정", hanja: "丁", color: "붉은" },
-  { ko: "무", hanja: "戊", color: "황금" },
-  { ko: "기", hanja: "己", color: "황금" },
-  { ko: "경", hanja: "庚", color: "흰" },
-  { ko: "신", hanja: "辛", color: "흰" },
-  { ko: "임", hanja: "壬", color: "검은" },
-  { ko: "계", hanja: "癸", color: "검은" },
-];
-
-const branches = [
-  { ko: "자", hanja: "子", animal: "쥐" },
-  { ko: "축", hanja: "丑", animal: "소" },
-  { ko: "인", hanja: "寅", animal: "호랑이" },
-  { ko: "묘", hanja: "卯", animal: "토끼" },
-  { ko: "진", hanja: "辰", animal: "용" },
-  { ko: "사", hanja: "巳", animal: "뱀" },
-  { ko: "오", hanja: "午", animal: "말" },
-  { ko: "미", hanja: "未", animal: "양" },
-  { ko: "신", hanja: "申", animal: "원숭이" },
-  { ko: "유", hanja: "酉", animal: "닭" },
-  { ko: "술", hanja: "戌", animal: "개" },
-  { ko: "해", hanja: "亥", animal: "돼지" },
-];
-
-// 60갑자. 1984년이 갑자년입니다.
-export function ganzhi(year: number) {
-  const stem = stems[mod(year - 4, 10)];
-  const branch = branches[mod(year - 4, 12)];
-  return {
-    name: `${stem.ko}${branch.ko}년`,
-    hanja: `${stem.hanja}${branch.hanja}年`,
-    animal: branch.animal,
-    colorAnimal: `${stem.color} ${branch.animal}`,
-  };
 }
 
 // 해당 연도의 설날(음력 1월 1일)과 입춘의 양력 날짜
