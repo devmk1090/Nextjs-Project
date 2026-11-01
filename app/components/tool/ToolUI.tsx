@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getToolBySlug } from "../../tools";
+import type { DateParts } from "../../lib/date";
 
 // 도구 페이지 공통 UI. 기준 화면(만 나이 계산기)의 구성을 따릅니다:
 // 제목 → 입력 카드 → 결과 카드(큰 숫자 + 보조 수치) → 설명 카드들
@@ -74,6 +75,52 @@ export function Field({
       {children}
       {hint && <p className="text-sm text-ink-4">{hint}</p>}
     </div>
+  );
+}
+
+// 연·월·일 세 칸 입력
+const dateFieldClass =
+  "flex items-center h-14 rounded-2xl bg-canvas px-4 gap-1.5 focus-within:ring-2 focus-within:ring-brand";
+const dateInputClass =
+  "flex-1 min-w-0 bg-transparent outline-none text-lg font-bold text-ink placeholder:text-ink-4 placeholder:font-medium";
+
+export function DateFields({
+  legend,
+  value,
+  onChange,
+  placeholder = { year: "2025", month: "1", day: "1" },
+}: {
+  legend: string;
+  value: DateParts;
+  onChange: (value: DateParts) => void;
+  placeholder?: DateParts;
+}) {
+  const parts = [
+    { key: "year", unit: "년", max: 4 },
+    { key: "month", unit: "월", max: 2 },
+    { key: "day", unit: "일", max: 2 },
+  ] as const;
+  return (
+    <fieldset className="flex flex-col">
+      <legend className="text-[15px] font-bold text-ink-2 mb-2">{legend}</legend>
+      <div className="grid grid-cols-3 gap-2.5">
+        {parts.map((part) => (
+          <label key={part.key} className={dateFieldClass}>
+            <input
+              inputMode="numeric"
+              aria-label={`${legend} ${part.unit}`}
+              value={value[part.key]}
+              onChange={(e) =>
+                onChange({ ...value, [part.key]: e.target.value.replace(/[^0-9]/g, "").slice(0, part.max) })
+              }
+              placeholder={placeholder[part.key]}
+              className={dateInputClass}
+            />
+            <span className="text-ink-4">{part.unit}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
   );
 }
 
