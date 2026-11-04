@@ -2,6 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import {
+  Card,
+  ErrorText,
+  PrimaryButton,
+  ResultHero,
+  StatGrid,
+  ToolPage,
+} from "../../components/tool/ToolUI";
 import { birthYearPath, hasBirthYearPage } from "./birthYearPath";
 
 const animals = ["쥐", "소", "호랑이", "토끼", "용", "뱀", "말", "양", "원숭이", "닭", "개", "돼지"];
@@ -59,8 +67,6 @@ function calculate(year: number, month: number, day: number): Result | string {
 const formatDate = (date: Date) =>
   `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
 
-const card = "bg-white rounded-3xl p-6 sm:p-7";
-const cardTitle = "text-xl font-extrabold text-ink mb-4";
 const field =
   "flex items-center h-14 rounded-2xl bg-canvas px-4 gap-1.5 focus-within:ring-2 focus-within:ring-brand";
 
@@ -91,24 +97,11 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
   };
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-10 flex flex-col gap-4 text-ink-2 leading-relaxed">
-      <nav aria-label="현재 위치" className="text-sm text-ink-4 flex gap-2">
-        <Link href="/" className="hover:text-ink">
-          홈
-        </Link>
-        <span aria-hidden="true">›</span>
-        <span className="text-ink-2">만 나이 계산기</span>
-      </nav>
-      <div className="pb-2">
-        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink">
-          만 나이 계산기
-        </h1>
-        <p className="text-ink-3 mt-1">
-          2023년 6월 28일부터 법령과 공문서의 나이는 만 나이로 통일되었습니다.
-        </p>
-      </div>
-
-      <form onSubmit={handleSubmit} className={`${card} flex flex-col gap-5`}>
+    <ToolPage
+      slug="age-calculator"
+      subtitle="2023년 6월 28일부터 법령과 공문서의 나이는 만 나이로 통일되었습니다."
+    >
+      <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 sm:p-7 flex flex-col gap-5">
         <fieldset className="flex flex-col gap-2.5">
           <legend className="text-[15px] font-bold text-ink-2 mb-2.5">생년월일</legend>
           <div className="grid grid-cols-3 gap-2.5">
@@ -147,39 +140,20 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
             </label>
           </div>
         </fieldset>
-        {error && (
-          <p role="alert" className="text-sm font-medium text-red-600">
-            {error}
-          </p>
-        )}
-        <button
-          type="submit"
-          className="h-14 rounded-2xl bg-brand hover:bg-brand-hover text-white text-[17px] font-bold transition"
-        >
-          계산하기
-        </button>
+        {error && <ErrorText>{error}</ErrorText>}
+        <PrimaryButton type="submit">계산하기</PrimaryButton>
       </form>
 
       {result && (
-        <section aria-label="계산 결과" aria-live="polite" className={`${card} flex flex-col gap-5`}>
-          <div>
-            <p className="text-[15px] text-ink-3">{formatDate(result.baseDate)} 기준 만 나이</p>
-            <p className="text-5xl sm:text-[52px] font-extrabold tracking-tight text-brand mt-1">
-              {result.age}세
-            </p>
-          </div>
-          <div className="grid grid-cols-3 gap-2.5">
-            {[
-              ["세는 나이", `${result.countingAge}세`],
-              ["연 나이", `${result.yearAge}세`],
-              ["띠", `${result.animal}띠`],
-            ].map(([label, value]) => (
-              <div key={label} className="bg-canvas rounded-2xl p-4">
-                <p className="text-[13px] text-ink-3">{label}</p>
-                <p className="text-xl font-extrabold text-ink">{value}</p>
-              </div>
-            ))}
-          </div>
+        <Card aria-label="계산 결과" aria-live="polite" className="flex flex-col gap-5">
+          <ResultHero label={`${formatDate(result.baseDate)} 기준 만 나이`} value={`${result.age}세`} />
+          <StatGrid
+            items={[
+              { label: "세는 나이", value: `${result.countingAge}세` },
+              { label: "연 나이", value: `${result.yearAge}세` },
+              { label: "띠", value: `${result.animal}띠` },
+            ]}
+          />
           <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line pt-5">
             <p className="text-[15px] text-ink-2">
               다음 생일까지 <strong>{result.daysToBirthday}일</strong> ({formatDate(result.nextBirthday)})
@@ -190,11 +164,10 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
               </Link>
             )}
           </div>
-        </section>
+        </Card>
       )}
 
-      <section className={card}>
-        <h2 className={cardTitle}>만 나이란?</h2>
+      <Card title="만 나이란?">
         <p className="mb-3">
           만 나이는 국제적으로 통용되는 나이 계산 방식으로, 태어난 날을 0세로 시작하여 생일이 지날
           때마다 1살씩 나이가 증가하는 방식입니다. 2023년 6월부터 한국에서도 공식적으로 만 나이를
@@ -204,10 +177,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
           기존에 한국에서 사용하던 세는 나이(태어나자마자 1세, 1월 1일마다 증가)와 달리, 만 나이는
           실제로 살아온 기간을 정확하게 반영합니다.
         </p>
-      </section>
+      </Card>
 
-      <section className={card}>
-        <h2 className={cardTitle}>한국의 세 가지 나이 계산법</h2>
+      <Card title="한국의 세 가지 나이 계산법">
         <div className="overflow-x-auto mb-5">
           <table className="w-full min-w-[480px] text-[15px] text-left">
             <thead className="text-ink-3">
@@ -261,10 +233,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
             </p>
           </div>
         </div>
-      </section>
+      </Card>
 
-      <section className={card}>
-        <h2 className={cardTitle}>만 나이 통일법 (2023년 시행)</h2>
+      <Card title="만 나이 통일법 (2023년 시행)">
         <p className="mb-3">
           2023년 6월 28일부터 「행정기본법」 개정으로 대한민국에서는 모든 법령과 공식 문서에서 만
           나이를 사용하도록 통일되었습니다. 이는 국제 기준에 맞추고 나이 계산의 혼란을 없애기 위한
@@ -274,10 +245,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
           다만 일부 법률(예: 청소년보호법, 병역법 등)은 특정 연도 출생자를 기준으로 하는 연 나이를
           계속 사용할 수 있으며, 전통적인 관습에서는 세는 나이를 사용할 수 있습니다.
         </p>
-      </section>
+      </Card>
 
-      <section className={card}>
-        <h2 className={cardTitle}>만 나이가 필요한 경우</h2>
+      <Card title="만 나이가 필요한 경우">
         <ul className="space-y-2.5">
           {[
             ["공식 문서 작성", "주민등록, 여권, 운전면허증 등 모든 신분증과 공식 서류"],
@@ -294,10 +264,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
             </li>
           ))}
         </ul>
-      </section>
+      </Card>
 
-      <section className={card}>
-        <h2 className={cardTitle}>자주 묻는 질문</h2>
+      <Card title="자주 묻는 질문">
         <div className="divide-y divide-canvas">
           {[
             [
@@ -323,10 +292,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
             </div>
           ))}
         </div>
-      </section>
+      </Card>
 
-      <section className={card}>
-        <h2 className={cardTitle}>계산기 사용 팁</h2>
+      <Card title="계산기 사용 팁">
         <ul className="space-y-2">
           {[
             "정확한 만 나이를 알고 싶다면 생년월일을 정확히 입력하세요.",
@@ -339,9 +307,9 @@ export default function AgeCalculator({ children }: { children?: React.ReactNode
             </li>
           ))}
         </ul>
-      </section>
+      </Card>
 
       {children}
-    </main>
+    </ToolPage>
   );
 }

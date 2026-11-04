@@ -1,248 +1,207 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import {
+  BulletList,
+  Card,
+  DateFields,
+  ErrorText,
+  FaqList,
+  PrimaryButton,
+  ResultHero,
+  StatGrid,
+  ToolPage,
+} from "../../components/tool/ToolUI";
+import {
+  DateParts,
+  daysBetween,
+  emptyDateParts,
+  formatDate,
+  formatDateWithWeekday,
+  parseDateParts,
+  relativeDays,
+  todayDate,
+} from "../../lib/date";
+
+type Anniversary = { name: string; date: Date; daysFrom: number };
+
+type Result = {
+  start: Date;
+  // 오늘이 시작일로부터 며칠째인지 (시작일 = 1일째). 시작일이 미래면 0 이하
+  todayCount: number;
+  anniversaries: Anniversary[];
+};
+
+function calculate(start: Date): Result {
+  const today = todayDate();
+  const y = start.getFullYear();
+  const m = start.getMonth();
+  const d = start.getDate();
+
+  // 일수 기념일: 한국식으로 시작일을 1일째로 셈 (100일 = 시작일 + 99일)
+  const dayAnniversaries = [100, 200, 300, 500, 1000, 2000, 3000].map((days) => {
+    const date = new Date(y, m, d + days - 1);
+    return { name: `${days}일`, date, daysFrom: daysBetween(today, date) };
+  });
+
+  // 주년: 달력 기준 같은 날짜 (2월 29일 시작이면 평년에는 2월 28일)
+  const yearAnniversaries = [1, 2, 3, 5, 10].map((years) => {
+    const date = new Date(y + years, m, d);
+    if (date.getMonth() !== m) date.setDate(0);
+    return { name: `${years}주년`, date, daysFrom: daysBetween(today, date) };
+  });
+
+  return {
+    start,
+    todayCount: daysBetween(start, today) + 1,
+    anniversaries: [...dayAnniversaries, ...yearAnniversaries].sort(
+      (a, b) => a.date.getTime() - b.date.getTime()
+    ),
+  };
+}
+
+function StatusChip({ daysFrom }: { daysFrom: number }) {
+  if (daysFrom < 0) return <span className="text-sm text-ink-4">{relativeDays(daysFrom)}</span>;
+  const tone =
+    daysFrom === 0
+      ? "bg-brand text-white"
+      : daysFrom <= 30
+        ? "bg-brand-soft text-brand"
+        : "bg-canvas text-ink-2";
+  return (
+    <span className={`text-sm font-bold rounded-lg px-2 py-1 ${tone}`}>
+      {daysFrom === 0 ? "오늘" : `D-${daysFrom}`}
+    </span>
+  );
+}
 
 export default function AnniversaryCalculator() {
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
-  const [day, setDay] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [todayCount, setTodayCount] = useState(0);
-  const [anniversaries, setAnniversaries] = useState<
-    Array<{ name: string; date: Date; daysFrom: number }>
-  >([]);
+  const [startParts, setStartParts] = useState<DateParts>(emptyDateParts);
+  const [result, setResult] = useState<Result | null>(null);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const today = new Date();
-    setYear(today.getFullYear().toString());
-    setMonth((today.getMonth() + 1).toString());
-    setDay(today.getDate().toString());
-  }, []);
-
-  const calculateAnniversaries = () => {
-    if (!year || !month || !day) {
-      alert("년, 월, 일을 모두 입력해주세요.");
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const start = parseDateParts(startParts, "시작일");
+    if (typeof start === "string") {
+      setResult(null);
+      setError(start);
       return;
     }
-
-    const startYear = parseInt(year);
-    const startMonth = parseInt(month);
-    const startDay = parseInt(day);
-
-    if (
-      startYear < 1900 ||
-      startYear > 2100 ||
-      startMonth < 1 ||
-      startMonth > 12 ||
-      startDay < 1 ||
-      startDay > 31
-    ) {
-      alert("올바른 날짜를 입력해주세요.");
-      return;
-    }
-
-    const start = new Date(startYear, startMonth - 1, startDay);
-
-    if (
-      start.getFullYear() !== startYear ||
-      start.getMonth() !== startMonth - 1 ||
-      start.getDate() !== startDay
-    ) {
-      alert("유효하지 않은 날짜입니다.");
-      return;
-    }
-
-    setStartDate(start);
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const msPerDay = 1000 * 60 * 60 * 24;
-    const diffDays = (date: Date) =>
-      Math.round((date.getTime() - today.getTime()) / msPerDay);
-
-    // 일수 기념일: 한국식으로 시작일을 1일째로 셈 (100일 = 시작일 + 99일)
-    const dayAnniversaries = [100, 200, 300, 500, 1000, 2000, 3000].map(
-      (days) => {
-        const date = new Date(startYear, startMonth - 1, startDay + days - 1);
-        return { name: `${days}일`, date, daysFrom: diffDays(date) };
-      }
-    );
-
-    // 주년: 달력 기준 같은 날짜 (2월 29일 시작이면 평년에는 2월 28일)
-    const yearAnniversaries = [1, 2, 3, 5, 10].map((years) => {
-      const date = new Date(startYear + years, startMonth - 1, startDay);
-      if (date.getMonth() !== startMonth - 1) date.setDate(0);
-      return { name: `${years}주년`, date, daysFrom: diffDays(date) };
-    });
-
-    const calculatedAnniversaries = [...dayAnniversaries, ...yearAnniversaries].sort(
-      (a, b) => a.date.getTime() - b.date.getTime()
-    );
-
-    // 오늘이 시작일로부터 며칠째인지 (시작일 = 1일째)
-    setTodayCount(-diffDays(start) + 1);
-
-    setAnniversaries(calculatedAnniversaries);
+    setError("");
+    setResult(calculate(start));
   };
 
-  const getStatusBadge = (daysFrom: number) => {
-    if (daysFrom < 0) {
-      return (
-        <span className="px-2 py-1 bg-gray-200 text-gray-700 text-xs rounded-full">
-          지남
-        </span>
-      );
-    } else if (daysFrom === 0) {
-      return (
-        <span className="px-2 py-1 bg-red-500 text-white text-xs rounded-full">
-          오늘!
-        </span>
-      );
-    } else if (daysFrom <= 7) {
-      return (
-        <span className="px-2 py-1 bg-orange-500 text-white text-xs rounded-full">
-          임박
-        </span>
-      );
-    } else if (daysFrom <= 30) {
-      return (
-        <span className="px-2 py-1 bg-brand text-white text-xs rounded-full">
-          다가옴
-        </span>
-      );
-    } else {
-      return (
-        <span className="px-2 py-1 bg-green-500 text-white text-xs rounded-full">
-          예정
-        </span>
-      );
-    }
-  };
+  const next = result?.anniversaries.find((a) => a.daysFrom >= 0);
 
   return (
-    <div className="px-4 sm:px-6 py-8 sm:py-10">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8">
-        <h1 className="text-[28px] sm:text-[32px] font-extrabold tracking-tight text-ink mb-1">
-          기념일 계산기
-        </h1>
-        <p className="text-ink-3 mb-8">
-          시작일로부터 100일, 200일, 1년 등 기념일을 확인하세요
-        </p>
+    <ToolPage
+      slug="anniversary-calculator"
+      subtitle="시작일로부터 100일, 1000일, 1주년 같은 기념일 날짜와 오늘이 며칠째인지 계산합니다."
+    >
+      <form onSubmit={handleSubmit} className="bg-white rounded-3xl p-6 sm:p-7 flex flex-col gap-5">
+        <DateFields
+          legend="시작일"
+          value={startParts}
+          onChange={setStartParts}
+          placeholder={{ year: "2025", month: "3", day: "14" }}
+        />
+        {error && <ErrorText>{error}</ErrorText>}
+        <PrimaryButton type="submit">기념일 계산하기</PrimaryButton>
+      </form>
 
-        <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              시작 날짜
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="number"
-                value={year}
-                onChange={(e) => setYear(e.target.value)}
-                placeholder="년"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
+      {result && (
+        <>
+          <Card aria-label="계산 결과" aria-live="polite" className="flex flex-col gap-5">
+            <ResultHero
+              label={`${formatDate(result.start)}부터 오늘까지`}
+              value={
+                result.todayCount > 0
+                  ? `${result.todayCount.toLocaleString("ko-KR")}일째`
+                  : `D-${1 - result.todayCount}`
+              }
+              sub={
+                result.todayCount > 0
+                  ? "시작일을 1일째로 세는 한국식 계산입니다."
+                  : "시작일이 아직 오지 않았습니다."
+              }
+            />
+            {next && (
+              <StatGrid
+                items={[
+                  { label: "다음 기념일", value: next.name },
+                  { label: "날짜", value: formatDateWithWeekday(next.date) },
+                  { label: "남은 날", value: next.daysFrom === 0 ? "오늘" : `${next.daysFrom}일` },
+                ]}
               />
-              <input
-                type="number"
-                value={month}
-                onChange={(e) => setMonth(e.target.value)}
-                placeholder="월"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
-              />
-              <input
-                type="number"
-                value={day}
-                onChange={(e) => setDay(e.target.value)}
-                placeholder="일"
-                className="flex-1 min-w-0 px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-brand focus:border-transparent"
-              />
-            </div>
-          </div>
+            )}
+          </Card>
 
-          <button
-            onClick={calculateAnniversaries}
-            className="w-full bg-brand hover:bg-brand-hover text-white font-semibold py-3 px-6 rounded-xl transition duration-200"
-          >
-            기념일 계산하기
-          </button>
-
-          {startDate && anniversaries.length > 0 && (
-            <div className="mt-8">
-              <div className="mb-4 p-4 bg-brand-soft rounded-xl">
-                <p className="text-center text-lg font-semibold text-gray-800">
-                  시작일: {startDate.getFullYear()}년{" "}
-                  {startDate.getMonth() + 1}월 {startDate.getDate()}일
-                </p>
-                {todayCount > 0 && (
-                  <p className="text-center text-gray-700 mt-1">
-                    오늘은 <span className="font-bold text-blue-600">{todayCount.toLocaleString()}일째</span>입니다
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-3">
-                {anniversaries.map((anniversary, index) => (
-                  <div
-                    key={index}
-                    className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-800 text-lg">
-                          {anniversary.name}
-                        </h3>
-                        <p className="text-gray-600 text-sm mt-1">
-                          {anniversary.date.getFullYear()}년{" "}
-                          {anniversary.date.getMonth() + 1}월{" "}
-                          {anniversary.date.getDate()}일
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        {getStatusBadge(anniversary.daysFrom)}
-                        <p className="text-sm text-gray-600 mt-2">
-                          {anniversary.daysFrom < 0
-                            ? `${Math.abs(anniversary.daysFrom)}일 전`
-                            : anniversary.daysFrom === 0
-                            ? "오늘"
-                            : `${anniversary.daysFrom}일 후`}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="mt-8 p-4 bg-blue-50 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">기념일 계산 기준</h3>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>
-                • <strong>100일, 200일 등 일수 기념일</strong>은 시작일을 1일째로 세는 한국식
-                계산법을 따릅니다. 예를 들어 1월 1일에 시작했다면 100일은 4월 10일입니다
-                (윤년이 아닌 해 기준).
-              </li>
-              <li>
-                • <strong>1주년, 2주년 등 주년</strong>은 일수가 아니라 달력상 같은 날짜로
-                계산합니다. 윤년이 끼어도 날짜가 밀리지 않습니다.
-              </li>
-              <li>
-                • 2월 29일에 시작했다면 평년의 주년은 2월 28일로 표시합니다.
-              </li>
+          <Card title="기념일 목록">
+            <ul className="divide-y divide-canvas">
+              {result.anniversaries.map((a) => (
+                <li
+                  key={a.name}
+                  className={`flex items-center justify-between gap-3 py-3.5 ${a.daysFrom < 0 ? "opacity-60" : ""}`}
+                >
+                  <span>
+                    <span className="block font-bold text-ink">{a.name}</span>
+                    <span className="block text-sm text-ink-3">{formatDateWithWeekday(a.date)}</span>
+                  </span>
+                  <StatusChip daysFrom={a.daysFrom} />
+                </li>
+              ))}
             </ul>
-          </div>
+          </Card>
+        </>
+      )}
 
-          <div className="mt-4 p-4 bg-gray-50 rounded-xl">
-            <h3 className="font-semibold text-gray-700 mb-2">사용 예시</h3>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 연애 시작일로부터 100일, 200일 계산</li>
-              <li>• 결혼기념일 1주년, 2주년 확인</li>
-              <li>• 아기 출생일로부터 100일, 200일</li>
-              <li>• 회사 입사일로부터 기념일 확인</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+      <Card title="기념일 계산 기준">
+        <BulletList
+          items={[
+            <>
+              <strong className="text-ink">100일, 200일 등 일수 기념일</strong>은 시작일을 1일째로 세는
+              한국식 계산법을 따릅니다. 예를 들어 1월 1일에 시작했다면 100일은 4월 10일입니다(윤년이
+              아닌 해 기준).
+            </>,
+            <>
+              <strong className="text-ink">1주년, 2주년 등 주년</strong>은 일수가 아니라 달력상 같은
+              날짜로 계산합니다. 윤년이 끼어도 날짜가 밀리지 않습니다.
+            </>,
+            "2월 29일에 시작했다면 평년의 주년은 2월 28일로 표시합니다.",
+          ]}
+        />
+      </Card>
+
+      <Card title="자주 묻는 질문">
+        <FaqList
+          items={[
+            [
+              "아기 백일은 어떻게 계산하나요?",
+              "백일도 태어난 날을 1일째로 셉니다. 1월 1일에 태어났다면 99일을 더한 4월 10일(평년 기준)이 백일입니다. 위 계산기에 출생일을 넣으면 100일 항목에서 바로 확인할 수 있습니다.",
+            ],
+            [
+              "1주년과 365일은 같은 날인가요?",
+              "대부분 하루 차이가 납니다. 시작일을 1일째로 세면 365일은 1주년 하루 전날이고, 그 사이에 2월 29일이 있으면 이틀 전날이 됩니다. 결혼기념일 같은 주년은 달력상 같은 날짜로 챙기는 것이 일반적입니다.",
+            ],
+            [
+              "왜 시작일을 1일째로 세나요?",
+              "한국에서는 연애 기념일이나 백일을 셀 때 시작한 날 자체를 첫째 날로 세는 관습이 있습니다. 그래서 두 날짜 사이의 차이만 세는 디데이 계산보다 하루가 더 많게 나옵니다.",
+            ],
+          ]}
+        />
+      </Card>
+
+      <Card title="이런 때 쓰세요">
+        <BulletList
+          items={[
+            "연애 시작일로부터 100일, 200일, 1000일 계산",
+            "결혼기념일 1주년, 5주년, 10주년 확인",
+            "아기 출생일로부터 백일, 200일",
+            "입사일, 금연·운동 시작일로부터 기념일 확인",
+          ]}
+        />
+      </Card>
+    </ToolPage>
   );
 }
