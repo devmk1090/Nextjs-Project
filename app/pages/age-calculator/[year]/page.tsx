@@ -15,7 +15,9 @@ import {
   milestones,
   pensionAge,
   schoolYears,
+  shortYearLabel,
   yearBoundaries,
+  yearHeadline,
 } from "../birthYear";
 import { birthYearPath } from "../birthYearPath";
 
@@ -38,10 +40,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const year = parseYear((await params).year);
   if (!year) return {};
   const currentYear = currentYearKST();
+  const grade = currentGrade(year, currentYear);
+  const short = shortYearLabel(year);
   const g = ganzhi(year);
   return {
-    title: `${year}년생 나이 (${currentYear}년 기준) - 만 나이, 띠, 입학 연도`,
-    description: `${year}년생은 ${currentYear}년에 ${manAgeText(year, currentYear)}, 세는 나이 ${ages(year, currentYear).counting}세입니다. ${g.name}(${g.hanja}) ${g.colorAnimal}띠이며, 1·2월생의 띠 구분, 초·중·고 입학 연도, 국민연금 수령 나이까지 ${year}년생 나이 정보를 정리했습니다.`,
+    // 템플릿(%s | 계산기 모음)을 붙이지 않아 검색 결과에서 핵심 정보가 잘리지 않게 함
+    title: { absolute: `${year}년생(${short}) 나이 - ${yearHeadline(year, currentYear)}` },
+    description: `${year}년생(${short})은 ${currentYear}년 기준 ${manAgeText(year, currentYear)}, 세는 나이 ${ages(year, currentYear).counting}세${grade ? `이고 3월 새 학년 기준 ${grade}입니다` : "입니다"}. ${g.name} ${g.colorAnimal}띠이며, 1·2월생의 띠 구분, 초·중·고 입학 연도, 국민연금 수령 나이까지 정리했습니다.`,
     alternates: { canonical: birthYearPath(year) },
   };
 }
@@ -76,7 +81,7 @@ export default async function BirthYearPage({ params }: Props) {
 
   const faqs: Faq[] = [
     {
-      question: `${year}년생은 ${currentYear}년에 몇 살인가요?`,
+      question: `${year}년생(${shortYearLabel(year)})은 ${currentYear}년에 몇 살인가요?`,
       answer: isNewborn
         ? `${year}년에 태어났다면 만 나이는 0세이고, 첫 생일이 지나면 만 1세가 됩니다. 세는 나이로는 1세입니다.`
         : `만 나이로 생일 전에는 ${age.beforeBirthday}세, 생일이 지나면 ${age.afterBirthday}세입니다. 세는 나이(한국식 나이)로는 ${age.counting}세, 연 나이로는 ${age.yearAge}세입니다.`,
@@ -86,6 +91,17 @@ export default async function BirthYearPage({ params }: Props) {
       answer: `${g.name}(${g.hanja}) ${g.colorAnimal}띠입니다. 다만 띠를 음력으로 따지면 설날(${seollal.month}월 ${seollal.day}일) 전에 태어난 사람은 ${prev.name} ${prev.animal}띠에 해당합니다.`,
     },
   ];
+  if (grade) {
+    faqs.push({
+      question: `${year}년생은 ${currentYear}년에 몇 학년인가요?`,
+      answer: `${currentYear}년 3월 새 학년 기준 ${grade}입니다. ${school.elementaryEntry}년 3월에 초등학교에 입학했고, ${school.highGraduation}년 2월에 고등학교를 졸업합니다. 조기 입학이나 입학 유예를 했다면 1년씩 달라집니다.`,
+    });
+  } else if (school.elementaryEntry > currentYear) {
+    faqs.push({
+      question: `${year}년생은 언제 초등학교에 입학하나요?`,
+      answer: `${year}년생은 ${school.elementaryEntry}년 3월에 초등학교에 입학합니다. 1월생부터 12월생까지 같은 학년이며, 조기 입학이나 입학 유예를 신청하면 1년씩 달라질 수 있습니다.`,
+    });
+  }
   // 국민연금은 1988년 도입되어 1952년 이전 출생자는 특례가 많으므로 1953년생부터 안내
   if (year >= 1953) {
     faqs.push({
@@ -107,8 +123,8 @@ export default async function BirthYearPage({ params }: Props) {
         { name: "만 나이 계산기", path: toolPath("age-calculator") },
         { name: `${year}년생`, path: birthYearPath(year) },
       ]}
-      title={`${year}년생 나이 (${currentYear}년 기준)`}
-      lead={`${year}년에 태어난 사람의 ${currentYear}년 만 나이, 세는 나이, 띠, 학교 입학 연도와 나이 기준 제도를 정리했습니다. 생년월일로 정확히 계산하려면 만 나이 계산기를 이용하세요.`}
+      title={`${year}년생(${shortYearLabel(year)}) 나이 (${currentYear}년 기준)`}
+      lead={`${year}년에 태어난 사람(${shortYearLabel(year)})의 ${currentYear}년 만 나이, 세는 나이, 띠, 학교 입학 연도와 나이 기준 제도를 정리했습니다. 생년월일로 정확히 계산하려면 만 나이 계산기를 이용하세요.`}
       faqs={faqs}
     >
       <section className={subPageCard}>

@@ -108,3 +108,21 @@ export function milestones(birthYear: number): Milestone[] {
     { year: birthYear + 65, label: "만 65세: 기초연금 신청, 지하철 경로우대" },
   ];
 }
+
+// "14년생"처럼 검색에 자주 쓰는 줄임 표기
+export const shortYearLabel = (birthYear: number) => `${String(birthYear).slice(2)}년생`;
+
+// 검색 결과 제목에 쓰는 요약: "2026년 만 11~12세, 초등학교 6학년"
+// 학생이면 올해 학년, 입학 전이면 입학 연도, 그 외에는 띠를 붙입니다.
+export function yearHeadline(birthYear: number, currentYear: number) {
+  const a = ages(birthYear, currentYear);
+  const agePart = birthYear === currentYear ? "만 0세" : `만 ${a.beforeBirthday}~${a.afterBirthday}세`;
+  const grade = currentGrade(birthYear, currentYear);
+  const entry = schoolYears(birthYear).elementaryEntry;
+  const extra = grade
+    ? grade
+    : entry > currentYear
+      ? `${entry}년 초등학교 입학`
+      : `${ganzhi(birthYear).animal}띠`;
+  return `${currentYear}년 ${agePart}, ${extra}`;
+}
