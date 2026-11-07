@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import InfoPage from "../components/InfoPage";
 import { categories, getToolsByCategory, toolPath } from "../tools";
-import { contactEmail, githubUrl, launchYear, siteName } from "../site";
+import { githubUrl, launchYear, siteName } from "../site";
 
 export const metadata: Metadata = {
   title: "사이트 소개",
@@ -36,8 +36,8 @@ export default function AboutPage() {
             <Link href="/privacy">개인정보처리방침</Link>을 참고하세요.
           </li>
           <li>
-            <strong>기준을 밝히는 계산:</strong> 만 나이 통일법(2023년 시행), WHO
-            아시아-태평양 BMI 기준처럼 계산에 사용한 기준과 공식을 각 도구 페이지에
+            <strong>기준을 밝히는 계산:</strong> 만 나이 통일법(2023년 시행), 대한비만학회
+            BMI 기준(2022)처럼 계산에 사용한 기준과 공식을 각 도구 페이지에
             함께 설명합니다.
           </li>
           <li>
@@ -78,19 +78,6 @@ export default function AboutPage() {
         </p>
       </section>
 
-      <section>
-        <h2>문의</h2>
-        <p>
-          오류 제보, 기능 제안, 기타 문의는{" "}
-          <a href={`mailto:${contactEmail}`}>{contactEmail}</a>로 보내 주세요.
-          오류 제보 시 사용한 도구, 입력한 값, 기대한 결과와 실제 결과를 함께 적어 주시면
-          빠르게 확인할 수 있습니다. 개발자라면{" "}
-          <a href={`${githubUrl}/issues`} target="_blank" rel="noopener noreferrer">
-            GitHub Issues
-          </a>
-          에 직접 남기셔도 됩니다.
-        </p>
-      </section>
     </InfoPage>
   );
 }

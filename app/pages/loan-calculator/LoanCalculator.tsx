@@ -163,7 +163,7 @@ export default function LoanCalculator() {
   return (
     <ToolPage
       slug="loan-calculator"
-      subtitle="대출 금액, 금리, 기간을 넣으면 상환 방식별 월 상환액과 총 이자를 계산합니다."
+      subtitle="주택담보대출(주담대), 전세자금대출, 신용대출의 상환 방식별 월 상환액과 총 이자를 계산합니다."
     >
       <form onSubmit={calculateLoan} className="bg-white rounded-3xl p-6 sm:p-7 flex flex-col gap-5">
         <Field
@@ -365,6 +365,43 @@ export default function LoanCalculator() {
             </div>
           ))}
         </div>
+      </Card>
+
+      <Card title="주택담보대출(주담대) 이자 계산 예시">
+        <p className="mb-4">
+          3억 원을 연 4% 고정금리로 빌렸을 때 상환 방식과 기간에 따라 달라지는 금액입니다(거치기간 없음).
+        </p>
+        <div className="overflow-x-auto mb-4">
+          <table className="w-full min-w-[480px] text-[15px]">
+            <thead className="text-ink-3 text-left">
+              <tr className="border-b border-line">
+                <th className="py-2.5 pr-3 font-medium">조건</th>
+                <th className="py-2.5 px-3 font-medium text-right">월 상환액</th>
+                <th className="py-2.5 pl-3 font-medium text-right">총 이자</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-canvas">
+              {[
+                ["30년 원리금균등", "1,432,246원", "215,608,519원"],
+                ["30년 원금균등", "1,833,333원 → 836,111원", "180,500,000원"],
+                ["40년 원리금균등", "1,253,815원", "301,831,396원"],
+              ].map(([label, monthly, interest]) => (
+                <tr key={label}>
+                  <td className="py-3 pr-3 font-bold text-ink">{label}</td>
+                  <td className="py-3 px-3 text-right">{monthly}</td>
+                  <td className="py-3 pl-3 text-right">{interest}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <BulletList
+          items={[
+            "같은 30년이라도 원금균등은 첫 달 부담이 약 40만 원 더 크지만 총 이자가 약 3,500만 원 적습니다.",
+            "기간을 40년으로 늘리면 월 상환액은 약 18만 원 줄지만 총 이자는 약 8,600만 원 늘어납니다.",
+            "자동차담보대출, 전세자금대출, 신용대출도 금리와 기간을 넣으면 같은 방식으로 계산할 수 있습니다. 전세자금대출과 신용대출은 만기일시상환이 흔합니다.",
+          ]}
+        />
       </Card>
 
       <Card title="계산 방법">
