@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
 import "./globals.css";
-import GoogleAdsense from "./components/GoogleAdsense";
 import SiteFooter from "./components/SiteFooter";
 import SiteHeader from "./components/SiteHeader";
 import ToolStructuredData from "./components/ToolStructuredData";
-import { siteUrl } from "./site";
+import { adsenseClient, siteUrl } from "./site";
 
 export const metadata: Metadata = {
   title: {
@@ -32,6 +31,10 @@ export const metadata: Metadata = {
   verification: {
     google: "pkAgU1RzZUArhIjwp16I3fscJHnWmedOOicnmIpTUFk",
   },
+  // AdSense 사이트 소유권 확인용 메타 태그
+  other: {
+    "google-adsense-account": adsenseClient,
+  },
   robots: {
     index: true,
     follow: true,
@@ -52,8 +55,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
+      <head>
+        {/* AdSense 스크립트는 서버 HTML의 head에 바로 넣어 심사 크롤러가 볼 수 있게 함 */}
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
-        <GoogleAdsense />
         <SiteHeader />
         {children}
         <SiteFooter />
