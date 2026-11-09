@@ -4,6 +4,7 @@ import { siteUrl } from './site'
 import { birthYears } from './pages/age-calculator/birthYear'
 import { areaPages } from './pages/pyeong-calculator/areas'
 import { loanAmounts } from './pages/loan-calculator/amounts'
+import { ddayEvents } from './pages/dday-calculator/events'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteUrl
@@ -38,6 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}${toolPath('loan-calculator')}/${man}`,
       lastModified,
       changeFrequency: 'yearly' as const,
+      priority: 0.6,
+    })),
+    ...ddayEvents.map((e) => ({
+      url: `${baseUrl}${toolPath('dday-calculator')}/${e.slug}`,
+      lastModified,
+      changeFrequency: 'daily' as const,
       priority: 0.6,
     })),
     ...['/about', '/privacy'].map((path) => ({

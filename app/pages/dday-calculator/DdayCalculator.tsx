@@ -25,6 +25,7 @@ import {
   weekdayNames,
 } from "../../lib/date";
 import { toolPath } from "../../tools";
+import { ddayEventPath, ddayEvents } from "./events";
 
 // 목표일 전 중간 점검일 (D-365, D-100 …)
 const checkpoints = [365, 300, 200, 100, 50, 30, 7, 1];
@@ -123,6 +124,20 @@ export default function DdayCalculator() {
           )}
         </>
       )}
+
+      <Card title="명절·기념일까지 남은 날">
+        <div className="flex flex-wrap gap-2">
+          {ddayEvents.map((e) => (
+            <Link
+              key={e.slug}
+              href={ddayEventPath(e.slug)}
+              className="px-3.5 py-1.5 bg-canvas rounded-full text-sm text-ink-2 hover:bg-brand-soft hover:text-brand"
+            >
+              {e.name} D-day
+            </Link>
+          ))}
+        </div>
+      </Card>
 
       <Card title="디데이 표기 방법">
         <BulletList

@@ -1,3 +1,5 @@
+import { hasBatchim } from "./josa";
+
 // 날짜 입력과 계산 도우미. 모두 로컬 시간 자정 기준으로 다룹니다.
 
 export type DateParts = { year: string; month: string; day: string };
@@ -14,10 +16,7 @@ export function todayDate() {
 }
 
 // 받침 유무에 따라 "을/를" (예: 날짜를, 시작일을)
-const objectParticle = (word: string) => {
-  const code = word.charCodeAt(word.length - 1) - 0xac00;
-  return code >= 0 && code <= 11171 && code % 28 !== 0 ? "을" : "를";
-};
+const objectParticle = (word: string) => (hasBatchim(word) ? "을" : "를");
 
 // 연·월·일 입력을 날짜로 바꿈. 잘못된 입력이면 오류 문구를 돌려줌
 export function parseDateParts(parts: DateParts, label = "날짜"): Date | string {
