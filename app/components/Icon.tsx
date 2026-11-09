@@ -10,6 +10,7 @@ const paths = {
   briefcase: "M4 8h16v11H4zM9 8V5h6v3M4 13h16",
   activity: "M3 12h4l3-8 4 16 3-8h4",
   percent: "M19 5L5 19M6.5 9a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM17.5 20a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z",
+  wallet: "M4 7a2 2 0 0 1 2-2h12v4M4 7v11a2 2 0 0 0 2 2h14V9H6a2 2 0 0 1-2-2zM16 14.5h.01",
   banknote: "M3 7h18v10H3zM12 14.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zM6 10v4M18 10v4",
   home: "M3 11l9-7 9 7M5 10v10h14V10",
   ruler: "M3 17L17 3l4 4L7 21zM7 13l2 2M10 10l2 2M13 7l2 2",

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-"올인원 유틸리티 도구" — a Korean-language collection of 35 free client-side tools (calculators, developer tools, text tools, color tools, random generators) built with Next.js 15 App Router, React 19, TypeScript and Tailwind CSS 3. Deployed on Vercel (`https://all-in-one-k-calculator.vercel.app`) and monetized with Google AdSense. All UI text, metadata and code comments are in Korean.
+"올인원 유틸리티 도구" — a Korean-language collection of 36 free client-side tools (calculators, developer tools, text tools, color tools, random generators) built with Next.js 15 App Router, React 19, TypeScript and Tailwind CSS 3. Deployed on Vercel (`https://all-in-one-k-calculator.vercel.app`) and monetized with Google AdSense. All UI text, metadata and code comments are in Korean.
 
 ## Commands
 
@@ -26,6 +26,8 @@ There is no test suite. Verify changes with `npm run build` (or `npx tsc --noEmi
 - **Programmatic sub-pages** (server components, statically generated, aimed at long-tail searches like "1990년생 나이" / "34평 몇 m²"):
   - `app/pages/age-calculator/[year]/` — one page per birth year from 1930 to the current year (KST). Data in `birthYear.ts` (60갑자, 설날·입춘 via `lunar-typescript`, school years, 국민연금 age); `revalidate = 86400` so ages roll over with the year. `birthYearPath.ts` holds the path/range helpers that client components may import (it must not import `lunar-typescript`). `BirthYearIndex.tsx` is the year link list passed as `children` into the age and zodiac calculators.
   - `app/pages/pyeong-calculator/[area]/` — fixed list of 평/m² pages in `areas.ts` (`dynamicParams = false`).
+  - `app/pages/salary-calculator/[amount]/` (연봉별 실수령액, `amounts.ts`), `app/pages/loan-calculator/[amount]/` (대출 금액별 이자, `amounts.ts`), `app/pages/dday-calculator/[event]/` (명절·기념일 D-day, `events.ts`; dates in `eventDates.ts`, `revalidate = 3600`).
+- **연봉 실수령액 rules are yearly**: `app/lib/salary.ts` holds the 4대보험 rates and 국민연금 기준소득월액 limits (change every January/July), and `app/lib/salaryTaxTable.ts` is the 근로소득 간이세액표 (소득세법 시행령 별표2, 2026. 2. 27. 개정) copied verbatim from the law PDF for 공제대상가족 1~4명 — regenerate it from the official PDF when the table is revised; never hand-edit.
   - Both use `app/components/SubPage.tsx` (visible breadcrumb + BreadcrumbList/FAQPage JSON-LD) and are added to `app/sitemap.ts`. Every page must carry data that differs per page — don't mass-generate near-duplicate pages.
 - **Structured data**: `app/components/ToolStructuredData.tsx` (mounted in the root layout) outputs WebSite JSON-LD on the home page and BreadcrumbList + WebApplication on every `/pages/<slug>` from `tools.ts`. Helpers are in `app/lib/structuredData.ts`; render JSON-LD only through `app/components/JsonLd.tsx`.
 - **`app/tools.ts` is the single source of truth** for categories (`calculator`, `developer`, `text`, `color`, `random`) and the tool list (slug, category, icon, name, description). The home cards and search, footer, related-tools links, about page and `app/sitemap.ts` are all generated from it. Site constants (name, contact email, GitHub URL, `siteUrl`/`absoluteUrl`) are in `app/site.ts`.
@@ -39,7 +41,7 @@ There is no test suite. Verify changes with `npm run build` (or `npx tsc --noEmi
 
 1. Create `app/pages/<slug>/page.tsx` + `<Name>.tsx` following the pattern above.
 2. Add an entry to `tools` in `app/tools.ts` — this updates the home cards, footer, related tools and sitemap (pick an `icon` from `app/components/Icon.tsx`).
-3. Update the hard-coded tool count ("35개") and keywords/description in the `app/page.tsx` metadata.
+3. Update the hard-coded tool count ("36개") and keywords/description in the `app/page.tsx` metadata.
 
 ## Dependencies worth knowing
 
