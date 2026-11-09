@@ -3,6 +3,7 @@ import { toolPath, tools } from './tools'
 import { siteUrl } from './site'
 import { birthYears } from './pages/age-calculator/birthYear'
 import { areaPages } from './pages/pyeong-calculator/areas'
+import { loanAmounts } from './pages/loan-calculator/amounts'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = siteUrl
@@ -29,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
     ...areaPages.map((area) => ({
       url: `${baseUrl}${toolPath('pyeong-calculator')}/${area.slug}`,
+      lastModified,
+      changeFrequency: 'yearly' as const,
+      priority: 0.6,
+    })),
+    ...loanAmounts.map((man) => ({
+      url: `${baseUrl}${toolPath('loan-calculator')}/${man}`,
       lastModified,
       changeFrequency: 'yearly' as const,
       priority: 0.6,

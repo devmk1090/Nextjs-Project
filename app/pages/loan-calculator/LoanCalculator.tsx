@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   BulletList,
@@ -13,18 +14,11 @@ import {
   ToolPage,
   inputClass,
 } from "../../components/tool/ToolUI";
-import { digitsOnly, koreanWon, monthsText, won } from "../../lib/format";
+import { digitsOnly, koreanWon, manLabel, monthsText, won } from "../../lib/format";
+import { loanAmountPath, loanAmounts } from "./amounts";
+import { MonthlyPayment, RepaymentType, buildSchedule, summarize } from "../../lib/loan";
 
-type RepaymentType = "equal-installment" | "equal-principal" | "bullet";
 type PeriodUnit = "year" | "month";
-
-type MonthlyPayment = {
-  month: number;
-  principal: number;
-  interest: number;
-  payment: number;
-  remaining: number;
-};
 
 const repaymentTypes: { id: RepaymentType; name: string }[] = [
   { id: "equal-installment", name: "원리금균등" },
@@ -36,50 +30,6 @@ const periodUnits: { id: PeriodUnit; name: string }[] = [
   { id: "year", name: "년" },
   { id: "month", name: "개월" },
 ];
-
-// 상환 방식별 월별 상환 일정
-function buildSchedule(
-  type: RepaymentType,
-  principal: number,
-  monthlyRate: number,
-  months: number
-): MonthlyPayment[] {
-  const payments: MonthlyPayment[] = [];
-  let remaining = principal;
-  // 원리금균등: 매월 상환액 = 원금 × r × (1+r)^n / ((1+r)^n - 1)
-  const installment =
-    (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-    (Math.pow(1 + monthlyRate, months) - 1);
-
-  for (let i = 1; i <= months; i++) {
-    const interest = remaining * monthlyRate;
-    let principalPart: number;
-    if (type === "equal-installment") {
-      principalPart = installment - interest;
-    } else if (type === "equal-principal") {
-      principalPart = principal / months;
-    } else {
-      // 만기일시: 매월 이자만 내고 마지막 달에 원금 전액 상환
-      principalPart = i === months ? principal : 0;
-    }
-    remaining -= principalPart;
-    payments.push({
-      month: i,
-      principal: principalPart,
-      interest,
-      payment: principalPart + interest,
-      remaining: Math.max(0, remaining),
-    });
-  }
-  return payments;
-}
-
-const summarize = (payments: MonthlyPayment[]) => ({
-  totalPayment: payments.reduce((sum, p) => sum + p.payment, 0),
-  totalInterest: payments.reduce((sum, p) => sum + p.interest, 0),
-  firstPayment: payments[0].payment,
-  lastPayment: payments[payments.length - 1].payment,
-});
 
 type Result = {
   type: RepaymentType;
@@ -342,6 +292,23 @@ export default function LoanCalculator() {
           </Card>
         </>
       )}
+
+      <Card title="금액별 대출 이자표">
+        <p className="text-sm text-ink-3 -mt-2 mb-3">
+          금액을 누르면 금리별 한 달 이자와 기간별 월 상환액을 표로 볼 수 있습니다.
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {loanAmounts.map((man) => (
+            <Link
+              key={man}
+              href={loanAmountPath(man)}
+              className="px-3.5 py-1.5 bg-canvas rounded-full text-sm text-ink-2 hover:bg-brand-soft hover:text-brand"
+            >
+              {manLabel(man).replace(/원$/, "")} 대출
+            </Link>
+          ))}
+        </div>
+      </Card>
 
       <Card title="대출 상환 방식 3가지">
         <div className="flex flex-col gap-3">
