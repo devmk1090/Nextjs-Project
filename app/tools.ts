@@ -126,6 +126,14 @@ export const tools: Tool[] = [
       "평과 m²를 변환하고, 아파트 전용면적으로 공급면적 기준 평형을 계산합니다. 전용 84m²가 34평형인 이유도 알려드립니다.",
   },
   {
+    slug: "salary-calculator",
+    category: "calculator",
+    icon: "wallet",
+    name: "연봉 실수령액 계산기",
+    description:
+      "2026년 4대보험 요율과 근로소득 간이세액표로 연봉별 월 실수령액과 국민연금·건강보험·소득세 공제액을 계산합니다.",
+  },
+  {
     slug: "loan-calculator",
     category: "calculator",
     icon: "banknote",

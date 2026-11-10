@@ -44,9 +44,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const short = shortYearLabel(year);
   const g = ganzhi(year);
   return {
-    // 템플릿(%s | 계산기 모음)을 붙이지 않아 검색 결과에서 핵심 정보가 잘리지 않게 함
+    // 템플릿(%s | 올인원 유틸리티)을 붙이지 않아 검색 결과에서 핵심 정보가 잘리지 않게 함
     title: { absolute: `${year}년생(${short}) 나이 - ${yearHeadline(year, currentYear)}` },
-    description: `${year}년생(${short})은 ${currentYear}년 기준 ${manAgeText(year, currentYear)}, 세는 나이 ${ages(year, currentYear).counting}세${grade ? `이고 3월 새 학년 기준 ${grade}입니다` : "입니다"}. ${g.name} ${g.colorAnimal}띠이며, 1·2월생의 띠 구분, 초·중·고 입학 연도, 국민연금 수령 나이까지 정리했습니다.`,
+    description: `${year}년생(${short})은 ${currentYear}년에 몇 살일까요? ${currentYear}년 기준 ${manAgeText(year, currentYear)}, 세는 나이 ${ages(year, currentYear).counting}세${grade ? `이고 3월 새 학년 기준 ${grade}입니다` : "입니다"}. ${g.name} ${g.colorAnimal}띠이며, 1·2월생의 띠 구분, 초·중·고 입학 연도, 국민연금 수령 나이까지 정리했습니다.`,
     alternates: { canonical: birthYearPath(year) },
   };
 }

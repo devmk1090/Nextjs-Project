@@ -29,3 +29,11 @@ export function monthsText(months: number) {
   if (years === 0) return `${rest}개월`;
   return rest === 0 ? `${years}년` : `${years}년 ${rest}개월`;
 }
+
+// 만원 단위 금액 표기: 4000 → "4,000만원", 10000 → "1억원", 15000 → "1억 5,000만원"
+export function manLabel(man: number) {
+  const eok = Math.floor(man / 10000);
+  const rest = man % 10000;
+  if (!eok) return `${man.toLocaleString("ko-KR")}만원`;
+  return rest ? `${eok}억 ${rest.toLocaleString("ko-KR")}만원` : `${eok}억원`;
+}

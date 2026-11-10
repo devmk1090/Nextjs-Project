@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { getToolBySlug, toolPath } from "../tools";
-import { siteName, siteUrl } from "../site";
+import { siteAlternateNames, siteName, siteUrl } from "../site";
 import { breadcrumbJsonLd, webApplicationJsonLd } from "../lib/structuredData";
 import JsonLd from "./JsonLd";
 
@@ -18,6 +18,7 @@ export default function ToolStructuredData() {
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: siteName,
+          alternateName: siteAlternateNames,
           url: siteUrl,
           inLanguage: "ko-KR",
         }}
