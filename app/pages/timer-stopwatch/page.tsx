@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import TimerStopwatch from "./TimerStopwatch";
+import { ogDefaults } from "../../site";
 
 export const metadata: Metadata = {
   title: "타이머 & 스톱워치 - 포모도로 기법, 시간 측정, 랩타임 기록",
@@ -25,6 +26,7 @@ export const metadata: Metadata = {
     "무료 타이머",
   ],
   openGraph: {
+    ...ogDefaults,
     title: "타이머 & 스톱워치 - 포모도로, 시간 측정",
     description:
       "무료 온라인 타이머, 스톱워치, 포모도로 타이머. 요리, 운동, 공부, 업무 시간 관리의 필수 도구",
